@@ -846,91 +846,10 @@
                 display: none !important;
             }
         }
-
-        /* ===== PULL TO REFRESH (Mobile Only) ===== */
-        .pull-to-refresh {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            pointer-events: none;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        @media screen and (max-width: 768px) {
-            .pull-to-refresh {
-                display: flex;
-            }
-        }
-
-        .pull-to-refresh.pulling {
-            transform: translateY(0);
-        }
-
-        .pull-to-refresh.refreshing {
-            transform: translateY(0);
-        }
-
-        .pull-indicator {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #FA4144, #F8951F);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 20px rgba(250, 65, 68, 0.4);
-            transform: scale(0);
-            transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .pull-to-refresh.pulling .pull-indicator {
-            transform: scale(var(--pull-progress, 0));
-        }
-
-        .pull-to-refresh.refreshing .pull-indicator {
-            transform: scale(1);
-            animation: pulse-refresh 1s ease-in-out infinite;
-        }
-
-        .pull-indicator i {
-            color: #1B1422;
-            font-size: 1.3rem;
-            transition: transform 0.3s ease;
-        }
-
-        .pull-to-refresh.pulling .pull-indicator i {
-            transform: rotate(calc(var(--pull-progress, 0) * 180deg));
-        }
-
-        .pull-to-refresh.refreshing .pull-indicator i {
-            animation: spin-refresh 1s linear infinite;
-        }
-
-        @keyframes pulse-refresh {
-            0%, 100% { box-shadow: 0 5px 20px rgba(250, 65, 68, 0.4); }
-            50% { box-shadow: 0 5px 30px rgba(250, 65, 68, 0.7); }
-        }
-
-        @keyframes spin-refresh {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
-    <!-- Pull to Refresh Indicator (Mobile Only) -->
-    <div class="pull-to-refresh" id="pullToRefresh">
-        <div class="pull-indicator">
-            <i class="fas fa-sync-alt"></i>
-        </div>
-    </div>
+
 
     <!-- Header & Navigation -->
     <header id="header">
@@ -1109,66 +1028,6 @@
         });
 
         // Pull to Refresh (Mobile Only)
-        const setupPullToRefresh = () => {
-            if (window.innerWidth > 768) return;
-            
-            const pullToRefresh = document.getElementById('pullToRefresh');
-            if (!pullToRefresh) return;
-            
-            let startY = 0;
-            let currentY = 0;
-            let isPulling = false;
-            const threshold = 80;
-            
-            document.addEventListener('touchstart', (e) => {
-                if (window.scrollY === 0) {
-                    startY = e.touches[0].pageY;
-                    isPulling = true;
-                }
-            }, { passive: true });
-            
-            document.addEventListener('touchmove', (e) => {
-                if (!isPulling || window.scrollY > 0) {
-                    isPulling = false;
-                    pullToRefresh.classList.remove('pulling');
-                    return;
-                }
-                
-                currentY = e.touches[0].pageY;
-                const pullDistance = currentY - startY;
-                
-                if (pullDistance > 0 && pullDistance < threshold * 1.5) {
-                    const progress = Math.min(pullDistance / threshold, 1);
-                    pullToRefresh.style.setProperty('--pull-progress', progress);
-                    pullToRefresh.classList.add('pulling');
-                }
-            }, { passive: true });
-            
-            document.addEventListener('touchend', () => {
-                if (!isPulling) return;
-                
-                const pullDistance = currentY - startY;
-                
-                if (pullDistance >= threshold) {
-                    pullToRefresh.classList.remove('pulling');
-                    pullToRefresh.classList.add('refreshing');
-                    
-                    // Refresh the page after animation
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                } else {
-                    pullToRefresh.classList.remove('pulling');
-                }
-                
-                isPulling = false;
-                startY = 0;
-                currentY = 0;
-            }, { passive: true });
-        };
-        
-        setupPullToRefresh();
-
         // Back to Top Button
         const backToTopBtn = document.getElementById('backToTopBtn');
         
