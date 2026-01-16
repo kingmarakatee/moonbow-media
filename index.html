@@ -680,12 +680,12 @@
         .testimonials {
             max-width: 1100px;
             margin: 100px auto 0;
-            padding: 60px 0 40px;
+            padding: 60px 0 20px;
             border-top: 1px solid rgba(250, 65, 68, 0.2);
         }
         
         .testimonials .section-title {
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
         
         .testimonial-carousel {
@@ -1207,9 +1207,10 @@
         /* ===== FEATURES BAR ===== */
         .features-bar {
             background: var(--bg-light);
-            padding: 60px 0;
+            padding: 40px 0;
             border-top: 1px solid rgba(250, 65, 68, 0.1);
             border-bottom: 1px solid rgba(250, 65, 68, 0.1);
+            margin-top: 20px;
         }
 
         .features-bar-content {
@@ -1519,7 +1520,7 @@
             .testimonial-container {
                 gap: 10px;
                 min-height: auto;
-                justify-content: center;
+                overflow: hidden;
             }
             
             .testimonial-item {
@@ -1527,16 +1528,18 @@
                 max-width: 100%;
                 opacity: 1 !important;
                 transform: scale(1) !important;
+                pointer-events: auto !important;
             }
             
             .testimonial-item.prev,
             .testimonial-item.next {
-                display: none;
+                position: absolute;
+                visibility: hidden;
+                opacity: 0;
             }
             
             .testimonial-slide {
                 padding: 25px 18px;
-                min-height: auto;
             }
             
             .testimonial-text {
@@ -1553,7 +1556,6 @@
                 width: 45px;
                 height: 45px;
                 font-size: 0.9rem;
-                flex-shrink: 0;
             }
             
             .author-info h5 {
@@ -1566,7 +1568,7 @@
             }
             
             .testimonial-nav {
-                display: none;
+                display: none !important;
             }
             
             .testimonial-dots {
@@ -1575,12 +1577,12 @@
             }
             
             .dot {
-                width: 12px;
-                height: 12px;
+                width: 10px;
+                height: 10px;
             }
             
             .dot.active {
-                width: 32px;
+                width: 30px;
             }
             
             .about-stats {
@@ -1868,16 +1870,21 @@
             .testimonial-container {
                 gap: 10px;
                 min-height: auto;
+                overflow: hidden;
             }
             
             .testimonial-item {
+                flex: 0 0 100%;
+                max-width: 100%;
                 opacity: 1 !important;
                 transform: scale(1) !important;
             }
             
             .testimonial-item.prev,
             .testimonial-item.next {
-                display: none;
+                position: absolute;
+                visibility: hidden;
+                opacity: 0;
             }
             
             .testimonial-slide {
@@ -1891,28 +1898,27 @@
             }
             
             .testimonial-nav {
-                display: none;
+                display: none !important;
             }
             
             .testimonial-dots {
-                margin-top: 15px;
-                gap: 8px;
+                margin-top: 12px;
+                gap: 5px;
             }
             
             .dot {
-                width: 10px;
-                height: 10px;
+                width: 8px;
+                height: 8px;
             }
             
             .dot.active {
-                width: 28px;
+                width: 24px;
             }
             
             .author-avatar {
-                width: 48px;
-                height: 48px;
-                font-size: 0.95rem;
-                flex-shrink: 0;
+                width: 45px;
+                height: 45px;
+                font-size: 0.9rem;
             }
             
             .author-info h5 {
