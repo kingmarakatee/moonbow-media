@@ -1431,6 +1431,29 @@
                     }
                 });
             });
+            
+            // Auto-open card if URL has hash
+            const hash = window.location.hash.slice(1);
+            if (hash) {
+                const targetCard = document.getElementById(hash);
+                if (targetCard) {
+                    // Wait a moment for page to fully load
+                    setTimeout(() => {
+                        // Close all cards first
+                        serviceCards.forEach(card => {
+                            card.classList.remove('expanded');
+                            card.classList.add('collapsed');
+                        });
+                        
+                        // Open the target card
+                        targetCard.classList.remove('collapsed');
+                        targetCard.classList.add('expanded');
+                        
+                        // Scroll to the card
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
         }
 
         // Pull to Refresh (Mobile Only)
