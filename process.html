@@ -440,6 +440,12 @@
             line-height: 1.6;
         }
 
+        /* ===== CONTACT SELECTABLE ===== */
+        .contact-info {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
         /* ===== FOOTER ===== */
         footer {
             background: linear-gradient(135deg, rgba(27, 20, 34, 0.9) 0%, rgba(42, 31, 54, 0.5) 100%);
@@ -947,7 +953,7 @@
                 <div class="footer-col">
                     <h4>Moonbow Media</h4>
                     <p>Where moonlight paints in colors. Capturamos a magia dos seus momentos com técnica e sensibilidade artística.</p>
-                    <p style="margin-top: 15px; font-size: 0.9rem;"><strong>Telefone:</strong> +351 912 345 678<br><strong>Email:</strong> hello@moonbowmedia.pt</p>
+                    <p class="contact-info" style="margin-top: 15px; font-size: 0.9rem;"><strong>Telefone:</strong> <span>+351 912 345 678</span><br><strong>Email:</strong> <span>hello@moonbowmedia.pt</span></p>
                     <div class="social-links">
                         <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="#" title="Vimeo"><i class="fab fa-vimeo-v"></i></a>
