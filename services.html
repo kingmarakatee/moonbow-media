@@ -1449,8 +1449,15 @@
                         targetCard.classList.remove('collapsed');
                         targetCard.classList.add('expanded');
                         
-                        // Scroll to the card
-                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Scroll to center the card with nice spacing
+                        const headerHeight = document.querySelector('header')?.offsetHeight || 70;
+                        const elementPosition = targetCard.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerHeight - 20; // Add extra spacing
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
                     }, 100);
                 }
             }
