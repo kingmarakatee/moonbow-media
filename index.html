@@ -2508,21 +2508,6 @@
                             </div>
                         </div>
                         
-                        <!-- Testimonial 3 -->
-                        <div class="testimonial-item">
-                            <div class="testimonial-slide">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"Como startup, precisávamos de uma identidade visual forte. A Moonbow não só criou um design incrível como nos ajudou a contar a nossa história!"</p>
-                                </div>
-                                <div class="testimonial-author">
-                                    <div class="author-avatar">RD</div>
-                                    <div class="author-info">
-                                        <h5>Rita Duarte</h5>
-                                        <p>CEO, Startup</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     
                     <div class="testimonial-nav">
@@ -2913,6 +2898,8 @@
         let currentTestimonial = 0;
         const totalTestimonials = testimonialItems.length;
         let testimonialAutoInterval;
+        let testimonialStartX = 0;
+        let testimonialIsDragging = false;
         
         // Create dots
         testimonialItems.forEach((_, index) => {
@@ -2971,6 +2958,57 @@
         
         nextBtn.addEventListener('click', () => {
             nextTestimonial();
+            resetTestimonialAutoPlay();
+        });
+        
+        // Mouse drag support
+        testimonialContainer.addEventListener('mousedown', (e) => {
+            testimonialIsDragging = true;
+            testimonialStartX = e.clientX;
+            clearInterval(testimonialAutoInterval);
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!testimonialIsDragging) return;
+            
+            const deltaX = e.clientX - testimonialStartX;
+            
+            // Swipe threshold
+            if (Math.abs(deltaX) > 80) {
+                if (deltaX > 0) {
+                    prevTestimonial();
+                } else {
+                    nextTestimonial();
+                }
+                testimonialIsDragging = false;
+                testimonialStartX = e.clientX;
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (testimonialIsDragging) {
+                testimonialIsDragging = false;
+                resetTestimonialAutoPlay();
+            }
+        });
+        
+        // Touch support
+        testimonialContainer.addEventListener('touchstart', (e) => {
+            testimonialStartX = e.touches[0].clientX;
+            clearInterval(testimonialAutoInterval);
+        });
+        
+        testimonialContainer.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const deltaX = endX - testimonialStartX;
+            
+            if (Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    prevTestimonial();
+                } else {
+                    nextTestimonial();
+                }
+            }
             resetTestimonialAutoPlay();
         });
         
