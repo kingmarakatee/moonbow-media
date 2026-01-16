@@ -2818,9 +2818,9 @@
             
             if (Math.abs(deltaX) > 50) {
                 if (deltaX > 0) {
-                    testimonialIndex = (testimonialIndex - 1 + testimonialCount) % testimonialCount;
-                } else {
                     testimonialIndex = (testimonialIndex + 1) % testimonialCount;
+                } else {
+                    testimonialIndex = (testimonialIndex - 1 + testimonialCount) % testimonialCount;
                 }
                 updateTestimonialSlider();
                 testimonialIsDragging = false;
@@ -2849,9 +2849,9 @@
             
             if (Math.abs(deltaX) > 50) {
                 if (deltaX > 0) {
-                    testimonialIndex = (testimonialIndex - 1 + testimonialCount) % testimonialCount;
-                } else {
                     testimonialIndex = (testimonialIndex + 1) % testimonialCount;
+                } else {
+                    testimonialIndex = (testimonialIndex - 1 + testimonialCount) % testimonialCount;
                 }
                 updateTestimonialSlider();
             }
