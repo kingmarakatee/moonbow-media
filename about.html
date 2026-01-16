@@ -482,14 +482,13 @@
             will-change: transform;
             cursor: grab;
             touch-action: none;
-            filter: blur(var(--moon-blur));
         }
 
         .moon-3d.is-dragging {
             cursor: grabbing;
         }
 
-        /* Motion blur overlay */
+        /* Motion blur overlay - directional effect */
         .moon-3d .motion-blur-overlay {
             position: absolute;
             inset: 0;
@@ -497,12 +496,16 @@
             pointer-events: none;
             z-index: 3;
             opacity: 0;
-            mix-blend-mode: multiply;
-            will-change: filter, opacity;
+            mix-blend-mode: screen;
+            will-change: filter, opacity, transform;
+            background: #d7d4c7;
+            transform: rotate(var(--moon-blur-angle, 0deg)) scaleX(var(--moon-blur-scale, 1));
+            filter: blur(var(--moon-blur));
+            transition: none;
         }
 
         .moon-3d .motion-blur-overlay.active {
-            opacity: calc(var(--moon-blur-amount, 0) * 0.4);
+            opacity: var(--moon-blur-amount, 0);
         }
 
         /* Rotating texture layer */
@@ -1544,7 +1547,8 @@
 
             const setBlur = (amount, angle) => {
                 // amount: 0..1, angle: 0..360
-                const blurPx = Math.min(12, amount * 15); // max 12px blur
+                // Directional blur: more intense in the direction of movement
+                const blurPx = Math.min(8, amount * 12); // max 8px blur
                 moon.style.setProperty('--moon-blur', `${blurPx.toFixed(2)}px`);
                 moon.style.setProperty('--moon-blur-angle', `${angle.toFixed(1)}deg`);
                 moon.style.setProperty('--moon-blur-amount', amount.toFixed(3));
