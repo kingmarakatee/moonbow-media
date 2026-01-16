@@ -441,8 +441,10 @@
         
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .service-card {
@@ -1742,7 +1744,7 @@
                 gap: 20px;
                 padding: 20px 0;
                 margin: 0 -10px;
-                padding-left: calc(50% - 150px);
+                padding-left: 20px;
                 padding-right: 20px;
                 cursor: grab;
                 scroll-snap-type: x mandatory;
@@ -1764,7 +1766,7 @@
                 padding: 25px 18px;
                 flex-shrink: 0;
                 width: 280px;
-                scroll-snap-align: center;
+                scroll-snap-align: start;
             }
             
             .service-icon {
@@ -1782,10 +1784,6 @@
             .service-card p {
                 font-size: 0.95rem;
                 margin-bottom: 15px;
-            }
-            
-            .service-features {
-                display: block;
             }
             
             .service-features li {
