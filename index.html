@@ -766,11 +766,7 @@
         }
         
         .testimonial-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 0;
-            padding-bottom: 0;
+            display: none;
         }
         
         .testimonial-nav button {
@@ -2416,10 +2412,6 @@
                         </div>
                     </div>
                     
-                    <div class="testimonial-nav">
-                        <button id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
-                        <button id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -2794,8 +2786,6 @@
         
         // Testimonial Slider
         const testimonialTrack = document.getElementById('testimonialTrack');
-        const prevBtn = document.getElementById('prevTestimonial');
-        const nextBtn = document.getElementById('nextTestimonial');
         const slides = document.querySelectorAll('.testimonial-slide');
         let currentIndex = 0;
         const slideCount = slides.length;
@@ -2804,16 +2794,7 @@
             testimonialTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
         
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % slideCount;
-            updateSlider();
-        });
-        
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
-            updateSlider();
-        });
-        
+        // Auto-rotate testimonials every 5 seconds
         setInterval(() => {
             currentIndex = (currentIndex + 1) % slideCount;
             updateSlider();
