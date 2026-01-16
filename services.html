@@ -550,16 +550,7 @@
             border-radius: 16px;
             border: 1px solid rgba(248, 149, 31, 0.15);
             border-left: 4px solid #F8951F;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
             backdrop-filter: blur(5px);
-        }
-        
-        .detail-item:hover {
-            background: linear-gradient(135deg, rgba(248, 149, 31, 0.1) 0%, rgba(42, 31, 54, 0.2) 100%);
-            border-color: rgba(248, 149, 31, 0.4);
-            border-left-color: #FA4144;
-            transform: translateY(-5px) translateX(5px);
-            box-shadow: 0 10px 30px rgba(248, 149, 31, 0.1);
         }
         
         .detail-item h5 {
@@ -569,20 +560,18 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
         }
 
         .detail-item:hover h5 {
-            color: #FA4144;
+            color: #F8951F;
         }
         
         .detail-item h5 i {
             font-size: 1.3rem;
-            transition: transform 0.3s ease;
         }
 
         .detail-item:hover h5 i {
-            transform: scale(1.2);
+            transform: scale(1);
         }
         
         .detail-item p {
