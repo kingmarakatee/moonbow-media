@@ -1437,7 +1437,7 @@
             if (hash) {
                 const targetCard = document.getElementById(hash);
                 if (targetCard) {
-                    // Wait a moment for page to fully load
+                    // Wait for rendering to complete
                     setTimeout(() => {
                         // Close all cards first
                         serviceCards.forEach(card => {
@@ -1449,19 +1449,14 @@
                         targetCard.classList.remove('collapsed');
                         targetCard.classList.add('expanded');
                         
-                        // Scroll with more generous offset
-                        const header = document.querySelector('header');
-                        const headerHeight = header ? header.offsetHeight + 20 : 90;
-                        const sectionTitle = targetCard.querySelector('h3');
-                        const scrollTarget = sectionTitle ? sectionTitle : targetCard;
-                        
-                        const elementPosition = scrollTarget.getBoundingClientRect().top + window.pageYOffset;
-                        const offsetPosition = Math.max(0, elementPosition - headerHeight - 40);
-                        
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
+                        // Scroll with generous offset - scroll to top of entire card with big margin
+                        setTimeout(() => {
+                            const topOffset = targetCard.offsetTop - 150; // Large offset to account for header and spacing
+                            window.scrollTo({
+                                top: Math.max(0, topOffset),
+                                behavior: 'smooth'
+                            });
+                        }, 50);
                     }, 100);
                 }
             }
