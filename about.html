@@ -25,6 +25,8 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --moon-blur: 0px;
+            --moon-blur-angle: 0deg;
         }
         
         * {
@@ -480,10 +482,27 @@
             will-change: transform;
             cursor: grab;
             touch-action: none;
+            filter: blur(var(--moon-blur));
         }
 
         .moon-3d.is-dragging {
             cursor: grabbing;
+        }
+
+        /* Motion blur overlay */
+        .moon-3d .motion-blur-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            mix-blend-mode: multiply;
+            will-change: filter, opacity;
+        }
+
+        .moon-3d .motion-blur-overlay.active {
+            opacity: calc(var(--moon-blur-amount, 0) * 0.4);
         }
 
         /* Rotating texture layer */
@@ -575,8 +594,13 @@
             100% { background-position: 220% 50%; }
         }
 
+        @keyframes blurDecay {
+            0% { filter: blur(var(--moon-blur)); }
+            100% { filter: blur(0px); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-            .moon-3d { animation: none; }
+            .moon-3d { animation: none; filter: none !important; }
             .moon-3d::before { animation: none; }
             .moon-3d::after { animation: none; }
             .moon-hyper-overlay { animation: none; }
@@ -1289,6 +1313,7 @@
                     <div class="moon-container">
                         <div class="moon-3d">
                             <div class="moon-hyper-overlay" aria-hidden="true"></div>
+                            <div class="motion-blur-overlay" aria-hidden="true"></div>
                         </div>
                     </div>
                 </div>
@@ -1490,6 +1515,9 @@
             let energy = 0; // accumulates "how much" user spun
             let rafId = 0;
             let lastFrameT = 0;
+            let blurAmount = 0; // motion blur amount (0..1)
+            let blurAngle = 0; // direction of blur in degrees
+            const blurDecayRate = 0.92; // per frame
 
             const clamp01 = (v) => Math.max(0, Math.min(1, v));
             const mod = (n, m) => ((n % m) + m) % m;
@@ -1514,6 +1542,23 @@
                 moon.classList.toggle('is-overdrive', o > 0.35);
             };
 
+            const setBlur = (amount, angle) => {
+                // amount: 0..1, angle: 0..360
+                const blurPx = Math.min(12, amount * 15); // max 12px blur
+                moon.style.setProperty('--moon-blur', `${blurPx.toFixed(2)}px`);
+                moon.style.setProperty('--moon-blur-angle', `${angle.toFixed(1)}deg`);
+                moon.style.setProperty('--moon-blur-amount', amount.toFixed(3));
+                
+                const blurOverlay = moon.querySelector('.motion-blur-overlay');
+                if (blurOverlay) {
+                    if (amount > 0.05) {
+                        blurOverlay.classList.add('active');
+                    } else {
+                        blurOverlay.classList.remove('active');
+                    }
+                }
+            };
+
             const tick = (t) => {
                 if (!lastFrameT) lastFrameT = t;
                 const dt = Math.min(48, t - lastFrameT);
@@ -1526,6 +1571,10 @@
                     velocityY *= decay;
                     velocityX += (baseVelocityX - velocityX) * (1 - Math.pow(0.86, dt / 16));
                     velocityY += (baseVelocityY - velocityY) * (1 - Math.pow(0.86, dt / 16));
+                    
+                    // Decay blur
+                    blurAmount *= Math.pow(blurDecayRate, dt / 16);
+                    if (blurAmount < 0.01) blurAmount = 0;
                 }
 
                 offsetX = mod(offsetX + velocityX * dt, 220);
@@ -1536,6 +1585,17 @@
                 const speed = Math.abs(velocityX) + Math.abs(velocityY) * 0.5;
                 const overdrive = clamp01(speed / 0.08);
                 setOverdrive(overdrive);
+                
+                // Update blur based on velocity
+                const blurSpeed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+                blurAmount = Math.max(blurAmount, Math.min(1, blurSpeed / 0.15)); // max blur at 0.15%/ms
+                
+                // Calculate blur angle from velocity
+                if (blurSpeed > 0.01) {
+                    blurAngle = Math.atan2(velocityY, velocityX) * (180 / Math.PI);
+                }
+                
+                setBlur(blurAmount, blurAngle);
 
                 rafId = requestAnimationFrame(tick);
             };
