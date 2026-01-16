@@ -1735,21 +1735,36 @@
             }
             
             .services-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
-                overflow: visible;
-                overflow-x: visible;
-                padding: 0;
-                margin: 0;
-                cursor: default;
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-behavior: smooth;
+                gap: 20px;
+                padding: 20px 0;
+                margin: 0 -10px;
+                padding-left: calc(50% - 150px);
+                padding-right: 20px;
+                cursor: grab;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                /* Hide scrollbar */
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
+            }
+            
+            .services-grid::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+            
+            .services-grid:active {
+                cursor: grabbing;
             }
             
             .service-card {
-                padding: 20px 12px;
-                flex-shrink: 1;
-                width: auto;
-                scroll-snap-align: none;
+                padding: 25px 18px;
+                flex-shrink: 0;
+                width: 280px;
+                scroll-snap-align: center;
             }
             
             .service-icon {
@@ -1760,14 +1775,13 @@
             }
             
             .service-card h3 {
-                font-size: 1rem;
-                margin-bottom: 10px;
+                font-size: 1.2rem;
+                margin-bottom: 12px;
             }
             
             .service-card p {
-                font-size: 0.85rem;
-                margin-bottom: 12px;
-                line-height: 1.4;
+                font-size: 0.95rem;
+                margin-bottom: 15px;
             }
             
             .service-features {
