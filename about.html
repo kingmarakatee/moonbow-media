@@ -1704,9 +1704,9 @@
                 const dy = e.clientY - lastY;
                 const dt = Math.max(8, now - lastT);
 
-                // Drag direction follows the pointer (drag right => texture moves right)
-                const deltaX = dx * pxToPercentX;
-                const deltaY = dy * pxToPercentY;
+                // Invert drag direction for natural rotation
+                const deltaX = -dx * pxToPercentX;
+                const deltaY = -dy * pxToPercentY;
                 offsetX = mod(offsetX + deltaX, 220);
                 offsetY = clamp(offsetY + deltaY, 0, 100);
 
