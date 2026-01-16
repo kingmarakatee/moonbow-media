@@ -692,7 +692,11 @@
         
         .testimonial-track {
             display: flex;
-            transition: transform 0.7s cubic-bezier(0.23, 1, 0.320, 1);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .testimonial-track.dragging {
+            transition: none;
         }
         
         .testimonial-slide {
@@ -2792,6 +2796,7 @@
         let testimonialStartX = 0;
         let testimonialIsDragging = false;
         let testimonialAutoRotateInterval;
+        let testimonialLastDragTime = 0;
         
         function updateTestimonialSlider() {
             testimonialTrack.style.transform = `translateX(-${testimonialIndex * 100}%)`;
@@ -2809,6 +2814,8 @@
         testimonialTrack.addEventListener('mousedown', (e) => {
             testimonialIsDragging = true;
             testimonialStartX = e.clientX;
+            testimonialLastDragTime = Date.now();
+            testimonialTrack.classList.add('dragging');
             clearInterval(testimonialAutoRotateInterval);
         });
         
@@ -2816,30 +2823,36 @@
             if (!testimonialIsDragging) return;
             const deltaX = e.clientX - testimonialStartX;
             
-            if (Math.abs(deltaX) > 50) {
+            // Apenas muda slide com movimento significativo (> 100px)
+            if (Math.abs(deltaX) > 100 && Date.now() - testimonialLastDragTime > 300) {
                 if (deltaX > 0) {
                     testimonialIndex = (testimonialIndex + 1) % testimonialCount;
                 } else {
                     testimonialIndex = (testimonialIndex - 1 + testimonialCount) % testimonialCount;
                 }
                 updateTestimonialSlider();
-                testimonialIsDragging = false;
+                testimonialStartX = e.clientX;
+                testimonialLastDragTime = Date.now();
             }
         });
         
         testimonialTrack.addEventListener('mouseup', () => {
             testimonialIsDragging = false;
+            testimonialTrack.classList.remove('dragging');
             resetTestimonialAutoRotate();
         });
         
         testimonialTrack.addEventListener('mouseleave', () => {
             testimonialIsDragging = false;
+            testimonialTrack.classList.remove('dragging');
             resetTestimonialAutoRotate();
         });
         
         // Touch support
         testimonialTrack.addEventListener('touchstart', (e) => {
             testimonialStartX = e.touches[0].clientX;
+            testimonialLastDragTime = Date.now();
+            testimonialTrack.classList.add('dragging');
             clearInterval(testimonialAutoRotateInterval);
         });
         
@@ -2855,6 +2868,7 @@
                 }
                 updateTestimonialSlider();
             }
+            testimonialTrack.classList.remove('dragging');
             resetTestimonialAutoRotate();
         });
         
