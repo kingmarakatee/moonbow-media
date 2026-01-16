@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre | Moonbow Media | Where moonlight paints in colors</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & VARIÁVEIS ===== */
+        :root {
+            --primary-dark: #0a0e27;
+            --primary-light: #1B1422;
+            --accent-gold: #F8951F;
+            --accent-purple: #FA4144;
+            --accent-blue: #F2712D;
+            --text-primary: #FFFCBF;
+            --text-secondary: #FFFCBF;
+            --bg-light: #1B1422;
+            --bg-card: #2a1f36;
+            --border-light: #FA4144;
+            --transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-light);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(250, 65, 68, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(248, 149, 31, 0.05) 0%, transparent 50%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-padding {
+            padding: 120px 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #FA4144, #F2712D);
+            color: #1B1422;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(250, 65, 68, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(250, 65, 68, 0.5);
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(27, 20, 34, 0.98) 0%, rgba(27, 20, 34, 0.7) 70%, rgba(27, 20, 34, 0) 100%);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(250, 65, 68, 0.1);
+            padding: 16px 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background: linear-gradient(180deg, rgba(27, 20, 34, 0.98) 0%, rgba(27, 20, 34, 0.8) 100%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(250, 65, 68, 0.2);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #FFFCBF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(248, 149, 31, 0.3));
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: #FFFCBF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+        
+        .nav-links a:hover {
+            color: #F8951F;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FA4144, #F8951F);
+            bottom: -8px;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        /* Animated Hamburger Icon */
+        .hamburger {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #FA4144, #F8951F);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: center;
+        }
+
+        .hamburger span:nth-child(1) {
+            width: 100%;
+        }
+
+        .hamburger span:nth-child(2) {
+            width: 70%;
+        }
+
+        .hamburger span:nth-child(3) {
+            width: 85%;
+        }
+
+        .mobile-menu-btn:hover .hamburger span {
+            width: 100%;
+        }
+
+        .mobile-menu-btn.active .hamburger span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+            width: 100%;
+        }
+
+        .mobile-menu-btn.active .hamburger span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .mobile-menu-btn.active .hamburger span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+            width: 100%;
+        }
+
+        /* ===== HERO SECTION (ABOUT HERO) ===== */
+        .about-hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1B1422 0%, #2a1f36 50%, #1B1422 100%);
+            margin-top: 70px;
+        }
+        
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(250, 65, 68, 0.15), transparent);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .about-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(248, 149, 31, 0.1), transparent);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(40px) rotate(10deg); }
+        }
+        
+        .about-hero-content {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #FFFCBF, #F8951F, #FA4144, #F8951F, #FFFCBF);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: gradientFlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+        
+        .about-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #FFFCBF;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* ===== ABOUT CONTENT ===== */
+        .about-section {
+            background: var(--bg-light);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Stars across the entire section */
+        .about-section::before,
+        .about-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(1px 1px at 5% 8%, rgba(255, 255, 255, 0.7) 50%, transparent 50%),
+                radial-gradient(1px 1px at 12% 45%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(2px 2px at 18% 72%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+                radial-gradient(1px 1px at 25% 22%, rgba(255, 255, 255, 0.55) 50%, transparent 50%),
+                radial-gradient(1px 1px at 32% 88%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(2px 2px at 38% 35%, rgba(255, 255, 255, 0.65) 50%, transparent 50%),
+                radial-gradient(1px 1px at 45% 62%, rgba(255, 255, 255, 0.45) 50%, transparent 50%),
+                radial-gradient(1px 1px at 52% 15%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+                radial-gradient(2px 2px at 58% 78%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(1px 1px at 65% 42%, rgba(255, 255, 255, 0.55) 50%, transparent 50%),
+                radial-gradient(1px 1px at 72% 95%, rgba(255, 255, 255, 0.45) 50%, transparent 50%),
+                radial-gradient(2px 2px at 78% 28%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+                radial-gradient(1px 1px at 85% 55%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(1px 1px at 92% 82%, rgba(255, 255, 255, 0.55) 50%, transparent 50%),
+                radial-gradient(2px 2px at 97% 12%, rgba(255, 255, 255, 0.65) 50%, transparent 50%);
+            animation: twinkleStars 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .about-section::after {
+            animation-delay: 4s;
+            background-image: 
+                radial-gradient(1px 1px at 3% 32%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(2px 2px at 8% 68%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+                radial-gradient(1px 1px at 15% 18%, rgba(255, 255, 255, 0.55) 50%, transparent 50%),
+                radial-gradient(1px 1px at 22% 52%, rgba(255, 255, 255, 0.45) 50%, transparent 50%),
+                radial-gradient(2px 2px at 28% 85%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(1px 1px at 35% 5%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+                radial-gradient(1px 1px at 42% 38%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(2px 2px at 48% 92%, rgba(255, 255, 255, 0.55) 50%, transparent 50%),
+                radial-gradient(1px 1px at 55% 25%, rgba(255, 255, 255, 0.45) 50%, transparent 50%),
+                radial-gradient(1px 1px at 62% 58%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+                radial-gradient(2px 2px at 68% 75%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(1px 1px at 75% 10%, rgba(255, 255, 255, 0.55) 50%, transparent 50%),
+                radial-gradient(1px 1px at 82% 48%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+                radial-gradient(2px 2px at 88% 65%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+                radial-gradient(1px 1px at 95% 35%, rgba(255, 255, 255, 0.55) 50%, transparent 50%);
+        }
+
+        @keyframes twinkleStars {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #FFFCBF;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+            color: #FFFCBF;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            opacity: 0.95;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            margin-top: 50px;
+            gap: 30px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(42, 31, 54, 0.6), rgba(42, 31, 54, 0.2));
+            border-radius: 15px;
+            border: 1px solid rgba(250, 65, 68, 0.2);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(250, 65, 68, 0.25);
+            border-color: rgba(250, 65, 68, 0.4);
+            background: linear-gradient(135deg, rgba(42, 31, 54, 0.8), rgba(42, 31, 54, 0.4));
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #F8951F, #FA4144);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-label {
+            color: #FFFCBF;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 3D Moon (rebuilt) */
+        .moon-3d {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            background: #d7d4c7;
+            box-shadow:
+                inset 0 0 0 1px rgba(0, 0, 0, 0.18),
+                inset 48px 0 90px rgba(0, 0, 0, 0.55),
+                0 18px 55px rgba(0, 0, 0, 0.45),
+                0 0 70px rgba(255, 250, 220, 0.12);
+            animation: moonFloat 8s ease-in-out infinite;
+            transform: translateZ(0);
+            will-change: transform;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .moon-3d.is-dragging {
+            cursor: grabbing;
+        }
+
+        /* Rotating texture layer */
+        .moon-3d::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background-image: url('moon-texture.jpg');
+            background-repeat: repeat;
+            background-size: 220% 120%;
+            background-position: var(--moon-offset-x, 0%) var(--moon-offset-y, 50%);
+            filter: contrast(1.18) brightness(1.05) saturate(0.9);
+            will-change: background-position;
+            transform: scale(1.02);
+            z-index: 0;
+        }
+
+        /* Fixed lighting: highlight + terminator + limb darkening */
+        .moon-3d::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background:
+                /* Sunlit highlight */
+                radial-gradient(circle at calc(28% + var(--moon-light-x, 0%)) calc(28% + var(--moon-light-y, 0%)), rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.09) 26%, transparent 60%),
+                /* Soft terminator (avoid hard line) */
+                linear-gradient(var(--moon-terminator-angle, 105deg),
+                    transparent 0%,
+                    transparent 46%,
+                    rgba(0, 0, 0, 0.06) 52%,
+                    rgba(0, 0, 0, 0.16) 58%,
+                    rgba(0, 0, 0, 0.32) 64%,
+                    rgba(0, 0, 0, 0.52) 72%,
+                    rgba(0, 0, 0, 0.72) 82%,
+                    rgba(0, 0, 0, 0.88) 92%,
+                    rgba(0, 0, 0, 0.94) 100%),
+                /* Limb darkening */
+                radial-gradient(circle at 50% 50%, transparent 58%, rgba(0, 0, 0, 0.18) 74%, rgba(0, 0, 0, 0.60) 100%),
+                /* Extra darkening on the right edge (hides seam/light line) */
+                linear-gradient(90deg, transparent 0%, transparent 82%, rgba(0, 0, 0, 0.18) 92%, rgba(0, 0, 0, 0.45) 100%);
+            opacity: 0.985;
+            transform: scale(1.02);
+            z-index: 1;
+        }
+
+        /* Overdrive: title-gradient colors + extra glow */
+        .moon-hyper-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #FFFCBF, #F8951F, #FA4144, #F8951F, #FFFCBF);
+            background-size: 200% auto;
+            animation: gradientFlow 2.2s ease-in-out infinite;
+            opacity: var(--moon-overdrive, 0);
+            mix-blend-mode: screen;
+            filter: blur(0.6px) saturate(1.15);
+            transform: scale(1.03);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .moon-3d.is-overdrive {
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.10),
+                inset 48px 0 90px rgba(0, 0, 0, 0.50),
+                0 22px 70px rgba(0, 0, 0, 0.50),
+                0 0 120px rgba(248, 149, 31, 0.30),
+                0 0 190px rgba(250, 65, 68, 0.20);
+            filter: brightness(1.15) contrast(1.06) saturate(1.10);
+        }
+
+        /* Moon container */
+        .moon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes moonSpin {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 220% 50%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .moon-3d { animation: none; }
+            .moon-3d::before { animation: none; }
+            .moon-3d::after { animation: none; }
+            .moon-hyper-overlay { animation: none; }
+            .about-section::before,
+            .about-section::after { animation: none; }
+        }
+
+        /* ===== VALUES SECTION ===== */
+        .values-section {
+            background: var(--bg-light);
+            padding: 100px 0;
+            border-top: 1px solid rgba(250, 65, 68, 0.1);
+        }
+
+        .values-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .values-title h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: linear-gradient(90deg, #FFFCBF, #F8951F, #FA4144, #F8951F, #FFFCBF);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: gradientFlow 4s ease-in-out infinite;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, rgba(42, 31, 54, 0.8), rgba(42, 31, 54, 0.4));
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(250, 65, 68, 0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .value-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(250, 65, 68, 0.25);
+            border-color: rgba(250, 65, 68, 0.5);
+            background: linear-gradient(135deg, rgba(42, 31, 54, 1), rgba(42, 31, 54, 0.6));
+        }
+
+        .value-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #FA4144, #F2712D);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 35px;
+            font-size: 3rem;
+            color: #1B1422;
+            box-shadow: 0 15px 40px rgba(250, 65, 68, 0.3);
+            transition: var(--transition);
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .value-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: #FFFCBF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .value-card p {
+            color: #FFFCBF;
+            margin-bottom: 0;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, rgba(27, 20, 34, 0.9) 0%, rgba(42, 31, 54, 0.5) 100%);
+            border-top: 1px solid rgba(248, 149, 31, 0.1);
+            padding: 60px 0 20px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .footer-col p {
+            color: rgba(255, 252, 191, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        .footer-col a {
+            color: rgba(255, 252, 191, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .footer-col a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(248, 149, 31, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            margin-bottom: 0;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-purple) 100%);
+            border-color: transparent;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(248, 149, 31, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: rgba(255, 252, 191, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media screen and (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 10px;
+            }
+            
+            header {
+                padding: 15px 0;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(180deg, rgba(27, 20, 34, 0.98), rgba(27, 20, 34, 0.95));
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                transform: translateY(-20px);
+                opacity: 0;
+                visibility: hidden;
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1),
+                            opacity 0.3s ease,
+                            visibility 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                gap: 8px;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links li {
+                opacity: 0;
+                transform: translateX(-20px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .nav-links.active li {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .nav-links.active li:nth-child(1) { transition-delay: 0.05s; }
+            .nav-links.active li:nth-child(2) { transition-delay: 0.1s; }
+            .nav-links.active li:nth-child(3) { transition-delay: 0.15s; }
+            .nav-links.active li:nth-child(4) { transition-delay: 0.2s; }
+            .nav-links.active li:nth-child(5) { transition-delay: 0.25s; }
+            .nav-links.active li:nth-child(6) { transition-delay: 0.3s; }
+
+            .nav-links a {
+                display: block;
+                padding: 14px 30px;
+                font-size: 0.95rem;
+                letter-spacing: 1.5px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+            .nav-links a::before {
+                content: '';
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%) scaleX(0);
+                width: 4px;
+                height: 60%;
+                background: linear-gradient(180deg, #FA4144, #F8951F);
+                border-radius: 2px;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links a:hover::before,
+            .nav-links a:active::before {
+                transform: translateY(-50%) scaleX(1);
+            }
+
+            .nav-links a:hover,
+            .nav-links a:active {
+                background: rgba(250, 65, 68, 0.1);
+                padding-left: 40px;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            .about-hero {
+                margin-top: 70px;
+                height: auto;
+                padding: 60px 0;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.2rem;
+                margin-bottom: 25px;
+                line-height: 1.2;
+            }
+            
+            .about-hero p {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            .about-section {
+                padding: 80px 0;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .about-text h2 {
+                font-size: 2rem;
+                margin-bottom: 25px;
+                line-height: 1.2;
+            }
+            
+            .about-text p {
+                font-size: 1rem;
+                margin-bottom: 18px;
+                line-height: 1.8;
+            }
+
+            .moon-3d {
+                width: 260px;
+                height: 260px;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+                margin-top: 50px;
+            }
+
+            .stat {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+
+            .stat-label {
+                font-size: 0.95rem;
+            }
+
+            .values-section {
+                padding: 80px 0;
+            }
+
+            .values-title {
+                margin-bottom: 60px;
+            }
+
+            .values-title h2 {
+                font-size: 2.2rem;
+                margin-bottom: 20px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .value-card {
+                padding: 40px 30px;
+                border-radius: 15px;
+            }
+
+            .value-card i {
+                font-size: 3rem;
+            }
+
+            .value-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+            }
+
+            .value-card p {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .btn {
+                padding: 14px 32px;
+                font-size: 0.85rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 30px;
+            }
+
+            .footer-col h4 {
+                font-size: 1.1rem;
+                margin-bottom: 18px;
+            }
+
+            .footer-col p,
+            .footer-col a {
+                font-size: 0.95rem;
+                line-height: 1.8;
+                margin-bottom: 8px;
+            }
+
+            .social-links {
+                gap: 12px;
+                margin-top: 15px;
+            }
+
+            .social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .about-hero::before {
+                width: 500px;
+                height: 500px;
+                right: -30%;
+            }
+
+            .about-hero::after {
+                width: 400px;
+                height: 400px;
+                left: -20%;
+            }
+        }
+        @media screen and (max-width: 576px) {
+            .container {
+                width: 100%;
+                padding: 0 15px;
+            }
+            
+            header {
+                padding: 12px 0;
+            }
+
+            .nav-links a {
+                font-size: 0.95rem;
+            }
+
+            .mobile-menu-btn {
+                padding: 10px;
+                font-size: 1.2rem;
+            }
+            
+            .logo img {
+                height: 35px;
+            }
+            
+            .about-hero {
+                margin-top: 60px;
+                padding: 40px 0;
+            }
+            
+            .about-hero h1 {
+                font-size: 1.6rem;
+                margin-bottom: 18px;
+                line-height: 1.15;
+            }
+            
+            .about-hero p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            .about-section {
+                padding: 60px 0;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            
+            .about-text h2 {
+                font-size: 1.5rem;
+                margin-bottom: 18px;
+                line-height: 1.2;
+            }
+            
+            .about-text p {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+                line-height: 1.7;
+            }
+
+            .moon-3d {
+                width: 220px;
+                height: 220px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 30px;
+            }
+            
+            .stat {
+                padding: 22px 18px;
+                border-radius: 12px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
+
+            .values-section {
+                padding: 60px 0;
+            }
+
+            .values-title {
+                margin-bottom: 45px;
+            }
+
+            .values-title h2 {
+                font-size: 1.6rem;
+                margin-bottom: 18px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .value-card {
+                padding: 28px 22px;
+                border-radius: 12px;
+            }
+
+            .value-card i {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+            
+            .value-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
+            
+            .value-card p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .btn {
+                padding: 12px 28px;
+                font-size: 0.8rem;
+                letter-spacing: 0.5px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 25px;
+            }
+            
+            .footer-col h4 {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .footer-col p,
+            .footer-col a {
+                font-size: 0.88rem;
+                line-height: 1.7;
+            }
+            
+            .footer-bottom {
+                font-size: 0.8rem;
+                padding-top: 15px;
+            }
+            
+            .social-links {
+                gap: 10px;
+                margin-top: 12px;
+            }
+            
+            .social-links a {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .about-hero::before {
+                width: 300px;
+                height: 300px;
+                right: -35%;
+                top: -35%;
+            }
+
+            .about-hero::after {
+                width: 200px;
+                height: 200px;
+                left: -25%;
+                bottom: -25%;
+            }
+        }
+
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Back to Top Button */
+        #backToTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FA4144, #F8951F);
+            color: #1B1422;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(250, 65, 68, 0.4);
+            z-index: 999;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #backToTopBtn.show {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #backToTopBtn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(250, 65, 68, 0.5);
+        }
+
+        #backToTopBtn:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile only */
+        @media screen and (min-width: 769px) {
+            #backToTopBtn {
+                display: none !important;
+            }
+        }
+
+        /* ===== PULL TO REFRESH (Mobile Only) ===== */
+        .pull-to-refresh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        @media screen and (max-width: 768px) {
+            .pull-to-refresh {
+                display: flex;
+            }
+        }
+
+        .pull-to-refresh.pulling {
+            transform: translateY(0);
+        }
+
+        .pull-to-refresh.refreshing {
+            transform: translateY(0);
+        }
+
+        .pull-indicator {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FA4144, #F8951F);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(250, 65, 68, 0.4);
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .pull-to-refresh.pulling .pull-indicator {
+            transform: scale(var(--pull-progress, 0));
+        }
+
+        .pull-to-refresh.refreshing .pull-indicator {
+            transform: scale(1);
+            animation: pulse-refresh 1s ease-in-out infinite;
+        }
+
+        .pull-indicator i {
+            color: #1B1422;
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .pull-to-refresh.pulling .pull-indicator i {
+            transform: rotate(calc(var(--pull-progress, 0) * 180deg));
+        }
+
+        .pull-to-refresh.refreshing .pull-indicator i {
+            animation: spin-refresh 1s linear infinite;
+        }
+
+        @keyframes pulse-refresh {
+            0%, 100% { box-shadow: 0 5px 20px rgba(250, 65, 68, 0.4); }
+            50% { box-shadow: 0 5px 30px rgba(250, 65, 68, 0.7); }
+        }
+
+        @keyframes spin-refresh {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pull to Refresh Indicator (Mobile Only) -->
+    <div class="pull-to-refresh" id="pullToRefresh">
+        <div class="pull-indicator">
+            <i class="fas fa-sync-alt"></i>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="logoAsset2.png" alt="Moonbow Media Logo">
+                </a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="services.html">Serviços</a></li>
+                    <li><a href="process.html">Processo</a></li>
+                    <li><a href="index.html#clients">Clientes</a></li>
+                    <li><a href="about.html">Sobre</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="about-hero-content">
+                <h1>Sobre a Moonbow</h1>
+                <p>Inspirados pela beleza rara da noite. Onde a luz encontra a escuridão para criar magia visual extraordinária.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Content Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Inspirados pela beleza rara da noite</h2>
+                    <p>A Moonbow Media nasceu em Vila do Conde, no coração do Norte de Portugal, onde o Atlântico encontra o céu estrelado. O nosso nome inspira-se no fenómeno raro do moonbow - o arco-íris lunar - que simboliza a magia que acontece quando a luz encontra a escuridão.</p>
+                    <p>Especializamo-nos em capturar momentos com a mesma beleza efémera e impactante, combinando técnica avançada com sensibilidade artística. Cada projeto é uma oportunidade para criar algo verdadeiramente memorável.</p>
+                    <p>Desde a nossa fundação, temos trabalhado com empresas, criadores de conteúdo e personalidades que compartilham a nossa paixão por excelência visual. O nosso compromisso é simples: transformar visões em realidade com qualidade cinematográfica.</p>
+                </div>
+                
+                <div class="about-image">
+                    <div class="moon-container">
+                        <div class="moon-3d">
+                            <div class="moon-hyper-overlay" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="values-title">
+                <h2>Os Nossos Valores</h2>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Excelência</h3>
+                    <p>Cada projeto recebe o nosso melhor - desde o conceito inicial até à entrega final. Qualidade é não-negociável.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Inovação</h3>
+                    <p>Estamos sempre à frente das tendências, explorando novas técnicas e tecnologias para oferecer resultados únicos.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Paixão</h3>
+                    <p>Amamos o que fazemos. Essa paixão transpira em cada frame, cada cor, cada movimento dos nossos trabalhos.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Parcerias</h3>
+                    <p>Vemos cada cliente como um parceiro. O vosso sucesso é o nosso sucesso. Crescemos juntos.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Rapidez</h3>
+                    <p>Sem comprometer qualidade. Entregamos com agilidade, cumprindo prazos com precisão profissional.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Confiança</h3>
+                    <p>Confidencialidade e transparência são pilares. Confiamos nos nossos clientes e eles confiam em nós.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Moonbow Media</h4>
+                    <p>Where moonlight paints in colors. Capturamos a magia dos seus momentos com técnica e sensibilidade artística.</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem;"><strong>Telefone:</strong> +351 912 345 678<br><strong>Email:</strong> hello@moonbowmedia.pt</p>
+                    <div class="social-links">
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Links Rápidos</h4>
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Serviços</a>
+                    <a href="process.html">Processo</a>
+                    <a href="index.html#clients">Clientes</a>
+                    <a href="about.html">Sobre</a>
+                    <a href="contact.html">Contacto</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Serviços</h4>
+                    <a href="services.html">Vídeo & Cinema</a>
+                    <a href="services.html">Broadcast & Transmissão</a>
+                    <a href="services.html">Design & Motion</a>
+                    <a href="contact.html">Pós-produção</a>
+                    <a href="contact.html">Branding Completo</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p>Fique atualizado com as últimas tendências em conteúdo visual e criatividade digital.</p>
+                    <form style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                        <input type="email" placeholder="Seu email" style="padding: 10px; border: 1px solid rgba(248, 149, 31, 0.3); background: rgba(42, 31, 54, 0.5); color: var(--text-primary); border-radius: 6px;">
+                        <button type="submit" style="padding: 10px; background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-purple) 100%); border: none; border-radius: 6px; color: var(--primary-light); font-weight: 600; cursor: pointer; transition: var(--transition);">Subscrever</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Moonbow Media. Todos os direitos reservados. | Where moonlight paints in colors</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile Menu Toggle with animated hamburger
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Pull to Refresh (Mobile Only)
+        const setupPullToRefresh = () => {
+            if (window.innerWidth > 768) return;
+            
+            const pullToRefresh = document.getElementById('pullToRefresh');
+            if (!pullToRefresh) return;
+            
+            let startY = 0;
+            let currentY = 0;
+            let isPulling = false;
+            const threshold = 80;
+            
+            document.addEventListener('touchstart', (e) => {
+                if (window.scrollY === 0) {
+                    startY = e.touches[0].pageY;
+                    isPulling = true;
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', (e) => {
+                if (!isPulling || window.scrollY > 0) {
+                    isPulling = false;
+                    pullToRefresh.classList.remove('pulling');
+                    return;
+                }
+                
+                currentY = e.touches[0].pageY;
+                const pullDistance = currentY - startY;
+                
+                if (pullDistance > 0 && pullDistance < threshold * 1.5) {
+                    const progress = Math.min(pullDistance / threshold, 1);
+                    pullToRefresh.style.setProperty('--pull-progress', progress);
+                    pullToRefresh.classList.add('pulling');
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchend', () => {
+                if (!isPulling) return;
+                
+                const pullDistance = currentY - startY;
+                
+                if (pullDistance >= threshold) {
+                    pullToRefresh.classList.remove('pulling');
+                    pullToRefresh.classList.add('refreshing');
+                    
+                    // Refresh the page after animation
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    pullToRefresh.classList.remove('pulling');
+                }
+                
+                isPulling = false;
+                startY = 0;
+                currentY = 0;
+            }, { passive: true });
+        };
+        
+        setupPullToRefresh();
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Interactive Moon Spin (drag to rotate + overdrive)
+        (() => {
+            const moon = document.querySelector('.moon-3d');
+            if (!moon) return;
+
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            let offsetX = 0; // % along texture repeat (0..220)
+            let offsetY = 50; // % vertical position (0..100)
+            let velocityX = 0; // % per ms
+            let velocityY = 0; // % per ms
+            const baseVelocityX = prefersReducedMotion ? 0 : (220 / 120000); // % per ms (slow idle spin)
+            const baseVelocityY = 0;
+            const friction = 0.92; // per 16ms
+            const pxToPercentX = 0.18; // drag sensitivity
+            const pxToPercentY = 0.12;
+
+            let isDragging = false;
+            let lastX = 0;
+            let lastY = 0;
+            let lastT = 0;
+            let energy = 0; // accumulates "how much" user spun
+            let rafId = 0;
+            let lastFrameT = 0;
+
+            const clamp01 = (v) => Math.max(0, Math.min(1, v));
+            const mod = (n, m) => ((n % m) + m) % m;
+
+            const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+            const setOffsets = () => {
+                moon.style.setProperty('--moon-offset-x', `${offsetX.toFixed(3)}%`);
+                moon.style.setProperty('--moon-offset-y', `${offsetY.toFixed(3)}%`);
+
+                // Subtle lighting response to vertical rotation
+                const lightY = (offsetY - 50) * 0.18;
+                const terminatorAngle = 105 + (offsetY - 50) * 0.45;
+                moon.style.setProperty('--moon-light-x', '0%');
+                moon.style.setProperty('--moon-light-y', `${lightY.toFixed(3)}%`);
+                moon.style.setProperty('--moon-terminator-angle', `${terminatorAngle.toFixed(2)}deg`);
+            };
+
+            const setOverdrive = (v) => {
+                const o = clamp01(v);
+                moon.style.setProperty('--moon-overdrive', o.toFixed(3));
+                moon.classList.toggle('is-overdrive', o > 0.35);
+            };
+
+            const tick = (t) => {
+                if (!lastFrameT) lastFrameT = t;
+                const dt = Math.min(48, t - lastFrameT);
+                lastFrameT = t;
+
+                if (!isDragging && !prefersReducedMotion) {
+                    // Inertia + settle back to base velocity
+                    const decay = Math.pow(friction, dt / 16);
+                    velocityX *= decay;
+                    velocityY *= decay;
+                    velocityX += (baseVelocityX - velocityX) * (1 - Math.pow(0.86, dt / 16));
+                    velocityY += (baseVelocityY - velocityY) * (1 - Math.pow(0.86, dt / 16));
+                }
+
+                offsetX = mod(offsetX + velocityX * dt, 220);
+                offsetY = clamp(offsetY + velocityY * dt, 0, 100);
+                setOffsets();
+
+                // Overdrive: instant response to speed (no threshold)
+                const speed = Math.abs(velocityX) + Math.abs(velocityY) * 0.5;
+                const overdrive = clamp01(speed / 0.08);
+                setOverdrive(overdrive);
+
+                rafId = requestAnimationFrame(tick);
+            };
+
+            const start = () => {
+                if (rafId) return;
+                rafId = requestAnimationFrame(tick);
+            };
+
+            const onPointerDown = (e) => {
+                if (prefersReducedMotion) return;
+                isDragging = true;
+                moon.classList.add('is-dragging');
+                lastX = e.clientX;
+                lastY = e.clientY;
+                lastT = performance.now();
+                try { moon.setPointerCapture(e.pointerId); } catch {}
+                start();
+            };
+
+            const onPointerMove = (e) => {
+                if (!isDragging) return;
+                const now = performance.now();
+                const dx = e.clientX - lastX;
+                const dy = e.clientY - lastY;
+                const dt = Math.max(8, now - lastT);
+
+                // Drag direction follows the pointer (drag right => texture moves right)
+                const deltaX = dx * pxToPercentX;
+                const deltaY = dy * pxToPercentY;
+                offsetX = mod(offsetX + deltaX, 220);
+                offsetY = clamp(offsetY + deltaY, 0, 100);
+
+                // velocities in %/ms
+                velocityX = (deltaX / dt) * 1.15;
+                velocityY = (deltaY / dt) * 1.15;
+
+                lastX = e.clientX;
+                lastY = e.clientY;
+                lastT = now;
+                setOffsets();
+            };
+
+            const onPointerUp = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                moon.classList.remove('is-dragging');
+            };
+
+            // init
+            velocityX = baseVelocityX;
+            velocityY = baseVelocityY;
+            setOffsets();
+            setOverdrive(0);
+            start();
+
+            moon.addEventListener('pointerdown', onPointerDown);
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', onPointerUp);
+            window.addEventListener('pointercancel', onPointerUp);
+        })();
+    </script>
+</body>
+</html>
