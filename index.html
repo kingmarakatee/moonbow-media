@@ -2787,79 +2787,79 @@
         // Testimonial Slider
         const testimonialTrack = document.getElementById('testimonialTrack');
         const slides = document.querySelectorAll('.testimonial-slide');
-        let currentIndex = 0;
-        const slideCount = slides.length;
-        let startX = 0;
-        let isDragging = false;
-        let autoRotateInterval;
+        let testimonialIndex = 0;
+        const testimonialCount = slides.length;
+        let testimonialStartX = 0;
+        let testimonialIsDragging = false;
+        let testimonialAutoRotateInterval;
         
-        function updateSlider() {
-            testimonialTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        function updateTestimonialSlider() {
+            testimonialTrack.style.transform = `translateX(-${testimonialIndex * 100}%)`;
         }
         
-        function resetAutoRotate() {
-            clearInterval(autoRotateInterval);
-            autoRotateInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % slideCount;
-                updateSlider();
+        function resetTestimonialAutoRotate() {
+            clearInterval(testimonialAutoRotateInterval);
+            testimonialAutoRotateInterval = setInterval(() => {
+                testimonialIndex = (testimonialIndex + 1) % testimonialCount;
+                updateTestimonialSlider();
             }, 5000);
         }
         
         // Mouse drag
         testimonialTrack.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-            clearInterval(autoRotateInterval);
+            testimonialIsDragging = true;
+            testimonialStartX = e.clientX;
+            clearInterval(testimonialAutoRotateInterval);
         });
         
         testimonialTrack.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaX = e.clientX - startX;
+            if (!testimonialIsDragging) return;
+            const deltaX = e.clientX - testimonialStartX;
             
             if (Math.abs(deltaX) > 50) {
                 if (deltaX > 0) {
-                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    testimonialIndex = (testimonialIndex - 1 + testimonialCount) % testimonialCount;
                 } else {
-                    currentIndex = (currentIndex + 1) % slideCount;
+                    testimonialIndex = (testimonialIndex + 1) % testimonialCount;
                 }
-                updateSlider();
-                isDragging = false;
+                updateTestimonialSlider();
+                testimonialIsDragging = false;
             }
         });
         
         testimonialTrack.addEventListener('mouseup', () => {
-            isDragging = false;
-            resetAutoRotate();
+            testimonialIsDragging = false;
+            resetTestimonialAutoRotate();
         });
         
         testimonialTrack.addEventListener('mouseleave', () => {
-            isDragging = false;
-            resetAutoRotate();
+            testimonialIsDragging = false;
+            resetTestimonialAutoRotate();
         });
         
         // Touch support
         testimonialTrack.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            clearInterval(autoRotateInterval);
+            testimonialStartX = e.touches[0].clientX;
+            clearInterval(testimonialAutoRotateInterval);
         });
         
         testimonialTrack.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
-            const deltaX = endX - startX;
+            const deltaX = endX - testimonialStartX;
             
             if (Math.abs(deltaX) > 50) {
                 if (deltaX > 0) {
-                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    testimonialIndex = (testimonialIndex - 1 + testimonialCount) % testimonialCount;
                 } else {
-                    currentIndex = (currentIndex + 1) % slideCount;
+                    testimonialIndex = (testimonialIndex + 1) % testimonialCount;
                 }
-                updateSlider();
+                updateTestimonialSlider();
             }
-            resetAutoRotate();
+            resetTestimonialAutoRotate();
         });
         
         // Auto-rotate testimonials every 5 seconds
-        resetAutoRotate();
+        resetTestimonialAutoRotate();
         
         // Clients Carousel
         const carousel = document.getElementById('clientsCarousel');
