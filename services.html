@@ -1449,10 +1449,14 @@
                         targetCard.classList.remove('collapsed');
                         targetCard.classList.add('expanded');
                         
-                        // Scroll to center the card with nice spacing
-                        const headerHeight = document.querySelector('header')?.offsetHeight || 70;
-                        const elementPosition = targetCard.getBoundingClientRect().top + window.pageYOffset;
-                        const offsetPosition = elementPosition - headerHeight - 20; // Add extra spacing
+                        // Scroll with more generous offset
+                        const header = document.querySelector('header');
+                        const headerHeight = header ? header.offsetHeight + 20 : 90;
+                        const sectionTitle = targetCard.querySelector('h3');
+                        const scrollTarget = sectionTitle ? sectionTitle : targetCard;
+                        
+                        const elementPosition = scrollTarget.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = Math.max(0, elementPosition - headerHeight - 40);
                         
                         window.scrollTo({
                             top: offsetPosition,
