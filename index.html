@@ -1519,70 +1519,73 @@
             
             .testimonial-container {
                 gap: 10px;
-                min-height: auto;
-                overflow: hidden;
+                min-height: 200px;
             }
             
             .testimonial-item {
-                flex: 0 0 100%;
-                max-width: 100%;
+                flex: 0 0 calc(100% - 20px);
+                opacity: 0 !important;
+                transform: scale(0.8) !important;
+                pointer-events: none !important;
+            }
+            
+            .testimonial-item.active {
                 opacity: 1 !important;
                 transform: scale(1) !important;
                 pointer-events: auto !important;
+                flex: 1;
             }
             
             .testimonial-item.prev,
             .testimonial-item.next {
-                position: absolute;
-                visibility: hidden;
-                opacity: 0;
+                display: none;
             }
             
             .testimonial-slide {
-                padding: 25px 18px;
+                padding: 20px 15px;
             }
             
             .testimonial-text {
-                font-size: 0.9rem;
-                line-height: 1.5;
-                margin-bottom: 12px;
+                font-size: 0.85rem;
+                line-height: 1.4;
+                margin-bottom: 10px;
             }
             
             .testimonial-author {
-                gap: 10px;
-            }
-            
-            .author-avatar {
-                width: 45px;
-                height: 45px;
-                font-size: 0.9rem;
-            }
-            
-            .author-info h5 {
-                font-size: 0.9rem;
-                margin-bottom: 2px;
-            }
-            
-            .author-info p {
-                font-size: 0.75rem;
-            }
-            
-            .testimonial-nav {
-                display: none !important;
-            }
-            
-            .testimonial-dots {
-                margin-top: 20px;
                 gap: 8px;
             }
             
+            .author-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
+            }
+            
+            .author-info h5 {
+                font-size: 0.85rem;
+                margin-bottom: 1px;
+            }
+            
+            .author-info p {
+                font-size: 0.7rem;
+            }
+            
+            .testimonial-nav {
+                display: none;
+            }
+            
+            .testimonial-dots {
+                margin-top: 15px;
+                gap: 6px;
+            }
+            
             .dot {
-                width: 10px;
-                height: 10px;
+                width: 8px;
+                height: 8px;
             }
             
             .dot.active {
-                width: 30px;
+                width: 24px;
             }
             
             .about-stats {
@@ -1868,33 +1871,35 @@
             }
             
             .testimonial-container {
-                gap: 10px;
-                min-height: auto;
-                overflow: hidden;
+                gap: 8px;
+                min-height: 180px;
             }
             
             .testimonial-item {
-                flex: 0 0 100%;
-                max-width: 100%;
+                flex: 0 0 calc(100% - 16px);
+                opacity: 0 !important;
+                transform: scale(0.8) !important;
+            }
+            
+            .testimonial-item.active {
                 opacity: 1 !important;
                 transform: scale(1) !important;
+                flex: 1;
             }
             
             .testimonial-item.prev,
             .testimonial-item.next {
-                position: absolute;
-                visibility: hidden;
-                opacity: 0;
+                display: none !important;
             }
             
             .testimonial-slide {
-                padding: 25px 18px;
+                padding: 18px 12px;
             }
             
             .testimonial-text {
-                font-size: 0.9rem;
-                line-height: 1.6;
-                margin-bottom: 15px;
+                font-size: 0.8rem;
+                line-height: 1.3;
+                margin-bottom: 8px;
             }
             
             .testimonial-nav {
@@ -1907,27 +1912,27 @@
             }
             
             .dot {
-                width: 8px;
-                height: 8px;
+                width: 7px;
+                height: 7px;
             }
             
             .dot.active {
-                width: 24px;
+                width: 20px;
             }
             
             .author-avatar {
-                width: 45px;
-                height: 45px;
-                font-size: 0.9rem;
+                width: 38px;
+                height: 38px;
+                font-size: 0.75rem;
             }
             
             .author-info h5 {
-                font-size: 0.9rem;
-                margin-bottom: 2px;
+                font-size: 0.8rem;
+                margin-bottom: 1px;
             }
             
             .author-info p {
-                font-size: 0.75rem;
+                font-size: 0.65rem;
             }
             
             .about-stats {
