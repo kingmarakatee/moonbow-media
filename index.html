@@ -119,6 +119,10 @@
             box-shadow: 0 10px 30px rgba(250, 65, 68, 0.3);
             position: relative;
             overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-user-drag: none;
         }
         
         .btn::before {
@@ -2239,10 +2243,10 @@
                 <h1>Where moonlight paints in colors</h1>
                 <p>Capturamos a beleza rara dos seus momentos com a mesma magia com que a lua pinta o céu noturno. Vídeo, broadcast e design que transcendem o comum.</p>
                 <div class="hero-buttons">
-                    <a href="contact.html" class="btn">
+                    <a href="contact.html" class="btn" draggable="false">
                         <i class="fas fa-rocket"></i> Ilumine o seu projeto
                     </a>
-                    <a href="services.html" class="btn btn-secondary">Explorar Serviços</a>
+                    <a href="services.html" class="btn btn-secondary" draggable="false">Explorar Serviços</a>
                 </div>
             </div>
         </div>
