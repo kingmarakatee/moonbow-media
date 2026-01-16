@@ -2900,6 +2900,7 @@
         let testimonialAutoInterval;
         let testimonialStartX = 0;
         let testimonialIsDragging = false;
+        let testimonialDragDistance = 0;
         
         // Create dots
         testimonialItems.forEach((_, index) => {
@@ -2961,10 +2962,20 @@
             resetTestimonialAutoPlay();
         });
         
+        // Click to advance testimonial (desktop)
+        testimonialContainer.addEventListener('click', (e) => {
+            // Only advance if not dragging and not clicking on dots
+            if (!testimonialIsDragging && testimonialDragDistance < 50 && !e.target.closest('.testimonial-dots')) {
+                nextTestimonial();
+                resetTestimonialAutoPlay();
+            }
+        });
+        
         // Mouse drag support
         testimonialContainer.addEventListener('mousedown', (e) => {
             testimonialIsDragging = true;
             testimonialStartX = e.clientX;
+            testimonialDragDistance = 0;
             clearInterval(testimonialAutoInterval);
         });
         
@@ -2972,6 +2983,7 @@
             if (!testimonialIsDragging) return;
             
             const deltaX = e.clientX - testimonialStartX;
+            testimonialDragDistance = Math.abs(deltaX);
             
             // Swipe threshold
             if (Math.abs(deltaX) > 80) {
@@ -2982,6 +2994,7 @@
                 }
                 testimonialIsDragging = false;
                 testimonialStartX = e.clientX;
+                testimonialDragDistance = 0;
             }
         });
         
@@ -2995,6 +3008,7 @@
         // Touch support
         testimonialContainer.addEventListener('touchstart', (e) => {
             testimonialStartX = e.touches[0].clientX;
+            testimonialDragDistance = 0;
             clearInterval(testimonialAutoInterval);
         });
         
@@ -3008,6 +3022,9 @@
                 } else {
                     nextTestimonial();
                 }
+            } else if (Math.abs(deltaX) < 10) {
+                // If minimal movement, treat as click
+                nextTestimonial();
             }
             resetTestimonialAutoPlay();
         });
