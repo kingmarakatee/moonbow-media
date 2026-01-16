@@ -407,14 +407,18 @@
             font-size: 1rem;
         }
 
-        /* ===== CONTACT SELECTABLE ===== */
-        .contact-info {
-            user-select: text;
-            -webkit-user-select: text;
+        .contact-copy {
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
-
-        /* ===== FOOTER ===== */
-        footer {
+        
+        .contact-copy:hover {
+            color: #F8951F;
+        }
+        
+        .contact-copy.copied {
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
             background: linear-gradient(135deg, rgba(27, 20, 34, 0.9) 0%, rgba(42, 31, 54, 0.5) 100%);
             border-top: 1px solid rgba(248, 149, 31, 0.1);
             padding: 60px 0 20px;
@@ -895,13 +899,13 @@
                     <div class="info-item">
                         <i class="fas fa-phone"></i>
                         <h4>Telefone</h4>
-                        <p class="contact-info">+351 912 345 678</p>
+                        <p id="phone-copy" class="contact-copy" style="cursor: pointer;" title="Clica para copiar">+351 912 345 678</p>
                     </div>
                     
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
                         <h4>Email</h4>
-                        <p class="contact-info">hello@moonbowmedia.pt</p>
+                        <p id="email-copy" class="contact-copy" style="cursor: pointer;" title="Clica para copiar">hello@moonbowmedia.pt</p>
                     </div>
                 </div>
             </div>
@@ -915,7 +919,7 @@
                 <div class="footer-col">
                     <h4>Moonbow Media</h4>
                     <p>Where moonlight paints in colors. Capturamos a magia dos seus momentos com técnica e sensibilidade artística.</p>
-                    <p class="contact-info" style="margin-top: 15px; font-size: 0.9rem;"><strong>Telefone:</strong> +351 912 345 678<br><strong>Email:</strong> hello@moonbowmedia.pt</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem;"><strong>Telefone:</strong> +351 912 345 678<br><strong>Email:</strong> hello@moonbowmedia.pt</p>
                     <div class="social-links">
                         <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="#" title="Vimeo"><i class="fab fa-vimeo-v"></i></a>
@@ -1037,6 +1041,38 @@
                 behavior: 'smooth'
             });
         });
-    </script>
-</body>
-</html>
+        // Copy to clipboard functionality
+        const phoneCopy = document.getElementById('phone-copy');
+        const emailCopy = document.getElementById('email-copy');
+        
+        function copyToClipboard(element, text) {
+            // Copy to clipboard
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = element.textContent;
+                const originalColor = element.style.color;
+                
+                // Show feedback
+                element.textContent = '✓ Copiado!';
+                element.classList.add('copied');
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    element.textContent = originalText;
+                    element.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                alert('Erro ao copiar para a área de transferência');
+            });
+        }
+        
+        if (phoneCopy) {
+            phoneCopy.addEventListener('click', () => {
+                copyToClipboard(phoneCopy, '+351 912 345 678');
+            });
+        }
+        
+        if (emailCopy) {
+            emailCopy.addEventListener('click', () => {
+                copyToClipboard(emailCopy, 'hello@moonbowmedia.pt');
+            });
+        }
