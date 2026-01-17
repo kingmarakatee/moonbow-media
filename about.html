@@ -475,13 +475,24 @@
             }
         }
 
+        #star-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 100px;
             align-items: center;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .about-content::before {
@@ -1399,6 +1410,7 @@
 
     <!-- About Content Section -->
     <section class="about-section">
+        <canvas id="star-canvas"></canvas>
         <div class="shooting-stars"></div>
         <div class="container">
             <div class="about-content">
@@ -1797,6 +1809,159 @@
             
             // Start the cycle
             scheduleNextStar();
+        })();
+
+        // Realistic Star Map System
+        (function() {
+            const canvas = document.getElementById('star-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+
+            // Vila do Conde Coordinates
+            const LAT = 41.35; 
+            const LON = -8.74;
+
+            // Simplified Bright Star Catalog (RA in degrees, Dec in degrees, Mag)
+            // Converted RA (Hours * 15)
+            const brightStars = [
+                { name: "Sirius", ra: 101.28, dec: -16.71, mag: -1.46 },
+                { name: "Canopus", ra: 95.98, dec: -52.69, mag: -0.72 },
+                { name: "Arcturus", ra: 213.91, dec: 19.18, mag: -0.04 },
+                { name: "Vega", ra: 279.23, dec: 38.78, mag: 0.03 },
+                { name: "Capella", ra: 79.17, dec: 45.99, mag: 0.08 },
+                { name: "Rigel", ra: 78.63, dec: -8.20, mag: 0.12 },
+                { name: "Procyon", ra: 114.82, dec: 5.22, mag: 0.38 },
+                { name: "Betelgeuse", ra: 88.79, dec: 7.40, mag: 0.50 },
+                { name: "Altair", ra: 297.69, dec: 8.86, mag: 0.77 },
+                { name: "Aldebaran", ra: 68.98, dec: 16.50, mag: 0.85 },
+                { name: "Antares", ra: 247.35, dec: -26.43, mag: 0.96 },
+                { name: "Spica", ra: 201.29, dec: -11.16, mag: 0.98 },
+                { name: "Pollux", ra: 116.32, dec: 28.02, mag: 1.14 },
+                { name: "Fomalhaut", ra: 344.41, dec: -29.62, mag: 1.16 },
+                { name: "Deneb", ra: 310.35, dec: 45.28, mag: 1.25 },
+                { name: "Regulus", ra: 152.09, dec: 11.96, mag: 1.35 },
+                { name: "Adhara", ra: 104.65, dec: -28.97, mag: 1.50 },
+                { name: "Shaula", ra: 263.40, dec: -37.10, mag: 1.62 },
+                { name: "Castor", ra: 113.64, dec: 31.88, mag: 1.98 },
+                { name: "Bellatrix", ra: 81.28, dec: 6.34, mag: 1.64 },
+                { name: "Elnath", ra: 81.57, dec: 28.60, mag: 1.68 },
+                { name: "Alhilam", ra: 84.05, dec: -1.20, mag: 1.70 },
+                { name: "Polaris", ra: 37.95, dec: 89.26, mag: 1.97 },
+                { name: "Mirfak", ra: 51.08, dec: 49.86, mag: 1.79 },
+                { name: "Dubhe", ra: 165.93, dec: 61.75, mag: 1.79 },
+                { name: "Wezen", ra: 106.07, dec: -26.39, mag: 1.83 },
+                { name: "Sargas", ra: 264.32, dec: -42.99, mag: 1.86 },
+                { name: "Menkalinan", ra: 89.93, dec: 44.95, mag: 1.90 },
+                { name: "Alhena", ra: 99.42, dec: 16.39, mag: 1.93 },
+                { name: "Kochab", ra: 222.67, dec: 74.15, mag: 2.08 },
+                { name: "Alpheratz", ra: 2.09, dec: 29.09, mag: 2.06 },
+                { name: "Hamal", ra: 31.79, dec: 23.46, mag: 2.01 },
+                { name: "Diphda", ra: 12.26, dec: -17.98, mag: 2.04 },
+                { name: "Alphard", ra: 141.89, dec: -8.65, mag: 1.98 }
+            ];
+
+            // Helper: Convert degrees to radians
+            const rad = deg => deg * Math.PI / 180;
+
+            function calculateStarPositions() {
+                const now = new Date();
+                
+                // Calculate Julian Date
+                const julianDate = (now.getTime() / 86400000) + 2440587.5;
+                const D = julianDate - 2451545.0;
+                
+                // Greenwich Mean Sidereal Time (GMST) in Degrees
+                let GMST = 280.46061837 + 360.98564736629 * D;
+                GMST = GMST % 360;
+                if (GMST < 0) GMST += 360;
+                
+                // Local Sidereal Time (LST)
+                let LST = GMST + LON;
+                
+                const visibleStars = [];
+                
+                brightStars.forEach(star => {
+                    // Hour Angle
+                    let HA = LST - star.ra;
+                    if (HA < 0) HA += 360;
+                    
+                    const latRad = rad(LAT);
+                    const decRad = rad(star.dec);
+                    const haRad = rad(HA);
+                    
+                    // Altitude (Elevation)
+                    const sinAlt = Math.sin(decRad) * Math.sin(latRad) + 
+                                  Math.cos(decRad) * Math.cos(latRad) * Math.cos(haRad);
+                    const altRad = Math.asin(sinAlt);
+                    const alt = altRad * 180 / Math.PI;
+                    
+                    // Only visible stars (above horizon)
+                    if (alt > 0) {
+                        // Azimuth
+                        const cosAz = (Math.sin(decRad) - Math.sin(altRad) * Math.sin(latRad)) / 
+                                     (Math.cos(altRad) * Math.cos(latRad));
+                        let azRad = Math.acos(Math.min(1, Math.max(-1, cosAz)));
+                        if (Math.sin(haRad) > 0) azRad = 2 * Math.PI - azRad;
+                        const az = azRad * 180 / Math.PI;
+                        
+                        visibleStars.push({
+                            x: az, // Azimuth (0-360) maps to horizontal view
+                            y: alt, // Altitude (0-90) maps to vertical view
+                            mag: star.mag,
+                            name: star.name
+                        });
+                    }
+                });
+                
+                return visibleStars;
+            }
+
+            function resize() {
+                width = canvas.width = canvas.offsetParent.offsetWidth;
+                height = canvas.height = canvas.offsetParent.offsetHeight;
+                draw();
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+                const stars = calculateStarPositions();
+                
+                // Mapping: Azimuth 0-360 to width, Altitude 0-90 to height
+                // Note: This is a simple cylindrical projection, somewhat distorted but works for atmosphere
+                
+                stars.forEach(star => {
+                    // Normalize Azimuth to center "South" or proper view
+                    // Let's assume looking South (180) is center
+                    let normAz = (star.x + 180) % 360;
+                    
+                    const x = (normAz / 360) * width;
+                    const y = height - ((star.y / 90) * height); // 90 deg is top
+                    
+                    // Size based on magnitude
+                    // Mag -1.5 (huge) to 2 (small)
+                    const size = Math.max(0.5, (3 - star.mag) * 0.8);
+                    const opacity = Math.min(1, Math.max(0.3, (3 - star.mag) / 3));
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 252, 191, ${opacity})`;
+                    ctx.fill();
+                    
+                    // Twinkle effect (random small opacity change)
+                    if (Math.random() > 0.95) {
+                        ctx.beginPath();
+                        ctx.arc(x, y, size * 1.5, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 252, 191, ${opacity * 0.5})`;
+                        ctx.fill();
+                    }
+                });
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            
+            // Update every minute to rotate sky
+            setInterval(draw, 60000);
         })();
     </script>
 </body>
