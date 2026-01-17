@@ -1945,7 +1945,8 @@
                     const y = height - ((star.y / 90) * height);
                     
                     // Base properties
-                    const baseSize = Math.max(0.5, (3 - star.mag) * 0.8);
+                    // Reduced size multiplier to fix "fat" stars
+                    const baseSize = Math.max(0.6, (2.5 - star.mag) * 0.4);
                     const baseOpacity = Math.min(1, Math.max(0.3, (3 - star.mag) / 3));
                     
                     // Realistic Twinkle
