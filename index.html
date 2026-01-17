@@ -3334,7 +3334,8 @@
         
         if (window.innerWidth > 991) {
             // 1. MAGNETIC BUTTONS
-            const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
+            // Adicionado .scroll-down e .logo
+            const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a, .scroll-down, .logo');
             
             magneticButtons.forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
@@ -3343,15 +3344,38 @@
                     const y = e.clientY - rect.top - rect.height / 2;
                     
                     // Strength of the magnetic effect
-                    const strength = 0.3; 
+                    const strength = 0.5; // Aumentado um pouco para ser mais visível
                     
-                    btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                    // Logica especial para elementos com estilos conflitantes
+                    if (btn.classList.contains('scroll-down')) {
+                        // Desativa animação bounce e mantém a centralização horizontal
+                        btn.style.animation = 'none';
+                        btn.style.transform = `translate(calc(-50% + ${x * strength}px), ${y * strength}px)`;
+                    } else if (btn.classList.contains('logo')) {
+                        // Mantém o scale do hover
+                        btn.style.transform = `translate(${x * strength}px, ${y * strength}px) scale(1.1)`;
+                    } else {
+                        // Padrão
+                        btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                    }
+                    
                     btn.style.transition = 'transform 0.1s ease-out';
                 });
                 
                 btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = 'translate(0, 0)';
                     btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+                    
+                    if (btn.classList.contains('scroll-down')) {
+                        // Volta ao normal (centrado) e retoma animação
+                        btn.style.transform = 'translateX(-50%)'; 
+                        // Pequeno delay para retomar a animação suavemente se necessário, ou imediato
+                        setTimeout(() => { btn.style.animation = ''; }, 50);
+                    } else if (btn.classList.contains('logo')) {
+                        // Limpa transform inline para o CSS :hover ou normal assumir
+                        btn.style.transform = ''; 
+                    } else {
+                        btn.style.transform = 'translate(0, 0)';
+                    }
                 });
             });
 
