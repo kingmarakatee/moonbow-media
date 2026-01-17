@@ -2013,14 +2013,28 @@
             function resize() {
                 width = canvas.width = canvas.offsetParent.offsetWidth;
                 height = canvas.height = canvas.offsetParent.offsetHeight;
-                // Don't need to redraw here, loop handles it
+                if (window.innerWidth <= 768) {
+                    animate(); // Draw one static frame for mobile on resize
+                }
             }
 
             function updateStars() {
                 stars = calculateStarPositions();
+                if (window.innerWidth <= 768) {
+                    animate(); // Draw updated positions for mobile
+                }
             }
 
             function animate() {
+                const isMobile = window.innerWidth <= 768;
+                if (isMobile && this.hasRun) {
+                    // Prevent animation loop on mobile, but allow explicit calls
+                    // from resize() or updateStars() to draw a frame
+                    if (!this.explicitCall) return;
+                }
+                
+                // On mobile, we only clear if explicitly called to redraw
+                // On desktop, we clear every frame
                 ctx.clearRect(0, 0, width, height);
                 const now = Date.now();
                 
@@ -2036,24 +2050,26 @@
                     const baseSize = Math.max(0.6, (2.5 - star.mag) * sizeMult);
                     const baseOpacity = Math.min(1, Math.max(0.3, (3 - star.mag) / 3));
                     
-                    // Realistic Twinkle
-                    // Planets twinkle LESS than stars (atmospheric physics)
-                    const twinkleIntensity = star.isPlanet ? 0.05 : 0.2;
-                    
-                    // Subtle oscillation for opacity only, size remains mostly stable
-                    const val = Math.sin(now * star.twinkleSpeed + star.twinklePhase);
-                    
-                    const twinkleFactor = 1 + (val * twinkleIntensity); 
-                    
-                    const currentSize = baseSize;
-                    let currentOpacity = baseOpacity * twinkleFactor;
+                    let currentOpacity = baseOpacity;
+
+                    if (!isMobile) {
+                        // Realistic Twinkle ONLY ON DESKTOP
+                        // Planets twinkle LESS than stars (atmospheric physics)
+                        const twinkleIntensity = star.isPlanet ? 0.05 : 0.2;
+                        
+                        // Subtle oscillation for opacity only, size remains mostly stable
+                        const val = Math.sin(now * star.twinkleSpeed + star.twinklePhase);
+                        
+                        const twinkleFactor = 1 + (val * twinkleIntensity); 
+                        currentOpacity = baseOpacity * twinkleFactor;
+                    }
                     
                     // Clamp opacity
                     if (currentOpacity > 1) currentOpacity = 1;
                     if (currentOpacity < 0.1) currentOpacity = 0.1;
 
                     ctx.beginPath();
-                    ctx.arc(x, y, currentSize, 0, Math.PI * 2);
+                    ctx.arc(x, y, baseSize, 0, Math.PI * 2);
                     
                     // Planets have subtle color tint
                     if (star.isPlanet) {
@@ -2066,13 +2082,27 @@
                     ctx.fill();
                 });
                 
-                requestAnimationFrame(animate);
+                this.hasRun = true;
+                this.explicitCall = false;
+
+                if (!isMobile) {
+                    requestAnimationFrame(() => animate.call(this));
+                }
             }
 
+            // Flag for explicit calls
+            animate.explicitCall = true;
+
             window.addEventListener('resize', resize);
-            resize();
+            resize(); // This calls animate() for mobile too due to logic change
             updateStars();
-            animate();
+            
+            // Initial Start
+            if (window.innerWidth > 768) {
+                animate();
+            } else {
+                animate.call({ explicitCall: true });
+            }
             
             // Update positions every minute
             setInterval(updateStars, 60000);
