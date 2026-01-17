@@ -1589,7 +1589,59 @@
                 });
             });
 
-            // 2. 3D TILT EFFECT FOR CARDS (Optimized for Service Detail Cards)
+            // 2. CUSTOM CURSOR LOGIC
+            const cursorDot = document.querySelector('[data-cursor-dot]');
+            const cursorOutline = document.querySelector('[data-cursor-outline]');
+            
+            if (cursorDot && cursorOutline) {
+                window.addEventListener('mousemove', function(e) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    
+                    // Dot follows instantly
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    
+                    cursorOutline.style.left = `${posX}px`;
+                    cursorOutline.style.top = `${posY}px`;
+                });
+
+                // Hover effects
+                const interactiveElements = document.querySelectorAll('a, button, .btn, input, textarea, select, .service-detail-card');
+                
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                        cursorOutline.style.backgroundColor = 'rgba(250, 65, 68, 0.1)';
+                        cursorDot.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                    });
+                    
+                    el.addEventListener('mouseleave', () => {
+                        cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                        cursorOutline.style.backgroundColor = 'transparent';
+                        cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                    });
+                });
+                
+                // Hide cursor when leaving window
+                document.addEventListener('mouseleave', () => {
+                    cursorDot.style.display = 'none';
+                    cursorOutline.style.display = 'none';
+                });
+                
+                document.addEventListener('mouseenter', () => {
+                    cursorDot.style.display = 'block';
+                    cursorOutline.style.display = 'block';
+                });
+                
+                // Add initial active state
+                document.body.addEventListener('mousemove', () => {
+                   cursorDot.style.opacity = '1';
+                   cursorOutline.style.opacity = '1';
+                }, { once: true });
+            }
+
+            // 3. 3D TILT EFFECT FOR CARDS (Optimized for Service Detail Cards)
             const tiltCards = document.querySelectorAll('.service-detail-card');
             
             tiltCards.forEach(card => {
