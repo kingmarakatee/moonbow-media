@@ -433,19 +433,18 @@
         .shooting-star {
             position: absolute;
             height: 2px;
-            /* Gradient from tail (transparent) to head (solid) */
             background: linear-gradient(to right, rgba(255, 252, 191, 0) 0%, rgba(255, 252, 191, 1) 100%);
             opacity: 0;
-            transform: rotate(220deg); /* Angled downwards-left */
             z-index: 2;
-            animation: shootingStar ease-out forwards;
+            /* Start hidden and rotated */
+            transform-origin: left center;
         }
 
         .shooting-star::after {
             content: '';
             position: absolute;
             top: 50%;
-            right: 0; /* Head at the leading edge */
+            right: 0;
             transform: translate(50%, -50%);
             width: 4px;
             height: 4px;
@@ -457,21 +456,20 @@
 
         @keyframes shootingStar {
             0% {
-                transform: translate(0, 0) rotate(220deg) scale(0.5);
+                transform: rotate(200deg) translateX(0);
                 opacity: 0;
                 width: 0;
             }
             10% {
                 opacity: 1;
             }
-            30% {
-                width: 200px;
+            70% {
+                opacity: 1;
             }
             100% {
-                /* Move downwards and left */
-                transform: translate(-300px, 350px) rotate(220deg) scale(1);
+                transform: rotate(200deg) translateX(100vh);
                 opacity: 0;
-                width: 0;
+                width: 200px;
             }
         }
 
