@@ -1655,52 +1655,6 @@
             touchMultiplier: 2,
         });
 
-        // ==========================================
-        // NEXT-GEN CINEMATIC REVEAL (BLUR FX)
-        // ==========================================
-        // Styles for the reveal effect
-        const revealStyle = document.createElement('style');
-        revealStyle.textContent = `
-            .cinematic-reveal {
-                opacity: 0;
-                filter: blur(10px);
-                transform: translateY(30px) scale(0.98);
-                transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform, opacity, filter;
-            }
-            .cinematic-reveal.visible {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0) scale(1);
-            }
-        `;
-        document.head.appendChild(revealStyle);
-
-        // Apply to headings and key elements
-        const revealElements = document.querySelectorAll('h1, h2, .section-title, .hero p, .service-card, .process-step, .project-card');
-
-        const cinematicObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Stagger effect based on index or random
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, 100); 
-                    cinematicObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(el => {
-            el.classList.add('cinematic-reveal');
-            cinematicObserver.observe(el);
-        });
-
-
-
         function raf(time) {
             lenis.raf(time);
             requestAnimationFrame(raf);
@@ -1716,26 +1670,32 @@
         // NEXT-GEN MICRO-INTERACTIONS
         // ==========================================
         
-        // 1. MAGNETIC BUTTONS
-        const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
+        // ==========================================
+        // NEXT-GEN MICRO-INTERACTIONS
+        // ==========================================
         
-        magneticButtons.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const strength = 0.3; 
-                
-                btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-                btn.style.transition = 'transform 0.1s ease-out';
-            });
+        if (window.innerWidth > 991) {
+            // 1. MAGNETIC BUTTONS (Web Only)
+            const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
             
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0, 0)';
-                btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    const strength = 0.3; 
+                    
+                    btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                    btn.style.transition = 'transform 0.1s ease-out';
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                    btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+                });
             });
-        });
+        }
 
         // Interactive Moon Spin (drag to rotate + overdrive)
         (() => {

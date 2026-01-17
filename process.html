@@ -1083,50 +1083,6 @@
                 backToTopBtn.classList.remove('show');
             }
         });
-
-         // ==========================================
-        // NEXT-GEN CINEMATIC REVEAL (BLUR FX)
-        // ==========================================
-        // Styles for the reveal effect
-        const revealStyle = document.createElement('style');
-        revealStyle.textContent = `
-            .cinematic-reveal {
-                opacity: 0;
-                filter: blur(10px);
-                transform: translateY(30px) scale(0.98);
-                transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform, opacity, filter;
-            }
-            .cinematic-reveal.visible {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0) scale(1);
-            }
-        `;
-        document.head.appendChild(revealStyle);
-
-        // Apply to headings and key elements
-        const revealElements = document.querySelectorAll('h1, h2, .section-title, .hero p, .process-step');
-
-        const cinematicObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                         entry.target.classList.add('visible');
-                    }, 100); 
-                    cinematicObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(el => {
-            if (getComputedStyle(el).animationName !== 'none') return;
-            el.classList.add('cinematic-reveal');
-            cinematicObserver.observe(el);
-        });
         
         backToTopBtn.addEventListener('click', () => {
             lenis.scrollTo(0, { duration: 1.5 });
@@ -1136,52 +1092,55 @@
         // NEXT-GEN MICRO-INTERACTIONS
         // ==========================================
         
-        // 1. MAGNETIC BUTTONS (Nav & Socials)
-        const magneticButtons = document.querySelectorAll('.nav-links a, .social-links a');
-        
-        magneticButtons.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const strength = 0.3; 
-                
-                btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-                btn.style.transition = 'transform 0.1s ease-out';
-            });
+        if (window.innerWidth > 991) {
+            // 1. MAGNETIC BUTTONS (Nav & Socials)
+            const magneticButtons = document.querySelectorAll('.nav-links a, .social-links a');
             
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0, 0)';
-                btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    const strength = 0.3; 
+                    
+                    btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                    btn.style.transition = 'transform 0.1s ease-out';
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                    btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+                });
             });
-        });
 
-        // 2. 3D TILT EFFECT FOR TIMELINE STEPS
-        const processSteps = document.querySelectorAll('.timeline-content'); // process has timeline-content inside process-step
-        
-        // Let's target wrapping divs if possible, likely .process-step or .timeline-item
-        // Checking file... assumed structure based on prev reads. 
-        // Let's use a safe selector based on index.html's usage of .process-step
-        
-        const tiltSteps = document.querySelectorAll('.process-step');
+            // 2. 3D TILT EFFECT FOR TIMELINE STEPS
+            const tiltSteps = document.querySelectorAll('.process-step');
 
-        tiltSteps.forEach(step => {
-             step.addEventListener('mousemove', (e) => {
-                const rect = step.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+            tiltSteps.forEach(step => {
+                step.addEventListener('mousemove', (e) => {
+                    const rect = step.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -4;
+                    const rotateY = ((x - centerX) / centerX) * 4;
+                    
+                    step.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    step.style.transition = 'transform 0.1s ease-out';
+                    step.style.zIndex = '10';
+                });
                 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -4;
-                const rotateY = ((x - centerX) / centerX) * 4;
-                
-                step.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                step.style.transition = 'transform 0.1s ease-out';
-                step.style.zIndex = '10';
+                step.addEventListener('mouseleave', () => {
+                    step.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                    step.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+                    step.style.zIndex = '1';
+                });
             });
+        }
             
             step.addEventListener('mouseleave', () => {
                 step.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';

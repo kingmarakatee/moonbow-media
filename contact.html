@@ -1147,77 +1147,39 @@
             lenis.scrollTo(0, { duration: 1.5 });
         });
 
-         // ==========================================
-        // NEXT-GEN CINEMATIC REVEAL (BLUR FX)
-        // ==========================================
-        // Styles for the reveal effect
-        const revealStyle = document.createElement('style');
-        revealStyle.textContent = `
-            .cinematic-reveal {
-                opacity: 0;
-                filter: blur(10px);
-                transform: translateY(30px) scale(0.98);
-                transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform, opacity, filter;
-            }
-            .cinematic-reveal.visible {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0) scale(1);
-            }
-        `;
-        document.head.appendChild(revealStyle);
-
-        // Apply to headings and key elements
-        const revealElements = document.querySelectorAll('h1, h2, .section-title, .hero p, .contact-card, .map-container');
-
-        const cinematicObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, 100); 
-                    cinematicObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(el => {
-            if (getComputedStyle(el).animationName !== 'none') return;
-            el.classList.add('cinematic-reveal');
-            cinematicObserver.observe(el);
-        });
-
         // ==========================================
         // NEXT-GEN MICRO-INTERACTIONS
         // ==========================================
         
-        // 1. MAGNETIC BUTTONS
-        const magneticElements = document.querySelectorAll('.btn, .nav-links a, .social-links a, .info-item');
+        // ==========================================
+        // NEXT-GEN MICRO-INTERACTIONS
+        // ==========================================
         
-        magneticElements.forEach(el => {
-            el.addEventListener('mousemove', (e) => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                // Info items are larger, so less strength
-                const strength = el.classList.contains('info-item') ? 0.1 : 0.3;
-                
-                el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-                el.style.transition = 'transform 0.1s ease-out';
-            });
+        if (window.innerWidth > 991) {
+            // 1. MAGNETIC BUTTONS (Web Only)
+            const magneticElements = document.querySelectorAll('.btn, .nav-links a, .social-links a, .info-item');
             
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = 'translate(0, 0)';
-                el.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+            magneticElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    // Info items are larger, so less strength
+                    const strength = el.classList.contains('info-item') ? 0.1 : 0.3;
+                    
+                    el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                    el.style.transition = 'transform 0.1s ease-out';
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translate(0, 0)';
+                    el.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+                });
             });
-        });
+        }
 
-        // 2. INPUT FOCUS ANIMATION
+        // 2. INPUT FOCUS ANIMATION (Kept for Mobile as good UX)
         const formInputs = document.querySelectorAll('input, select, textarea');
         
         formInputs.forEach(input => {

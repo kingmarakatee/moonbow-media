@@ -1517,101 +1517,57 @@
         // NEXT-GEN MICRO-INTERACTIONS
         // ==========================================
         
-        // Initialize Lenis Smooth Scroll (Already initialized above, but we insert the text reveal logic here)
-        
-         // ==========================================
-        // NEXT-GEN CINEMATIC REVEAL (BLUR FX)
-        // ==========================================
-        // Styles for the reveal effect
-        const revealStyle = document.createElement('style');
-        revealStyle.textContent = `
-            .cinematic-reveal {
-                opacity: 0;
-                filter: blur(10px);
-                transform: translateY(30px) scale(0.98);
-                transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform, opacity, filter;
-            }
-            .cinematic-reveal.visible {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0) scale(1);
-            }
-        `;
-        document.head.appendChild(revealStyle);
-
-        // Apply to headings and key elements
-        const revealElements = document.querySelectorAll('h1, h2, .section-title, .hero p, .service-detail-card');
-
-        const cinematicObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, 100); 
-                    cinematicObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(el => {
-            if (getComputedStyle(el).animationName !== 'none') return;
-            el.classList.add('cinematic-reveal');
-            cinematicObserver.observe(el);
-        });
-
-        // 1. MAGNETIC BUTTONS
-        const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
-        
-        magneticButtons.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                const strength = 0.3; 
-                
-                btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-                btn.style.transition = 'transform 0.1s ease-out';
-            });
+        if (window.innerWidth > 991) {
+            // 1. MAGNETIC BUTTONS (Web Only)
+            const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
             
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0, 0)';
-                btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    const strength = 0.3; 
+                    
+                    btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                    btn.style.transition = 'transform 0.1s ease-out';
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                    btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+                });
             });
-        });
 
-        // 2. 3D TILT EFFECT FOR CARDS (Optimized for Service Detail Cards)
-        const tiltCards = document.querySelectorAll('.service-detail-card');
-        
-        tiltCards.forEach(card => {
-            if (window.innerWidth <= 768) return; // Disable on mobile for accordion functionality
+            // 2. 3D TILT EFFECT FOR CARDS (Optimized for Service Detail Cards)
+            const tiltCards = document.querySelectorAll('.service-detail-card');
             
-            card.addEventListener('mousemove', (e) => {
-                if (card.classList.contains('expanded')) return; // Don't tilt if expanded (complex content)
+            tiltCards.forEach(card => {
+                // Already had check <= 768, now covered by wrapper
+                
+                card.addEventListener('mousemove', (e) => {
+                    if (card.classList.contains('expanded')) return; // Don't tilt if expanded (complex content)
 
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -3; // Subtle rotation
+                    const rotateY = ((x - centerX) / centerX) * 3;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01) translateY(-5px)`;
+                    card.style.transition = 'transform 0.1s ease-out';
+                });
                 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -3; // Subtle rotation
-                const rotateY = ((x - centerX) / centerX) * 3;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01) translateY(-5px)`;
-                card.style.transition = 'transform 0.1s ease-out';
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1) translateY(0)';
+                    card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+                });
             });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1) translateY(0)';
-                card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
-            });
-        });
+        }
     </script>
 </body>
 </html>
