@@ -59,6 +59,52 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            display: none; /* Hidden by default, shown on desktop via JS/media */
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-gold);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1.5px solid rgba(250, 65, 68, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+        }
+
+        @media (min-width: 992px) {
+            body {
+                cursor: none;
+            }
+            
+            a, button, .btn, input, textarea, select {
+                cursor: none;
+            }
+            
+            .cursor-dot,
+            .cursor-outline {
+                display: block;
+            }
+            
+            body:hover .cursor-dot,
+            body:hover .cursor-outline {
+                opacity: 1;
+            }
+        }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -1015,6 +1061,10 @@
     <button id="backToTopBtn" title="Voltar ao topo">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
 
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script> 
     <script>
