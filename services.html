@@ -68,24 +68,6 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
-
-        /* Page Transition */
-        .page-transition-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0a0e27; /* Force primary dark */
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 1;
-            transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-        
-        body.loaded .page-transition-overlay {
-            opacity: 0;
-        }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -1159,13 +1141,7 @@
         }
     </style>
 </head>
-<body class="loading">
-    <div class="page-transition-overlay"></div>
-    <script>
-        // Force removal of overlay after load or timeout
-        window.addEventListener('load', () => document.body.classList.add('loaded'));
-        setTimeout(() => document.body.classList.add('loaded'), 2000); // 2s failsafe
-    </script>
+<body>
 
 
     <!-- Header & Navigation -->
@@ -1537,24 +1513,57 @@
             lenis.scrollTo(0, { duration: 1.5 });
         });
 
-        // Page Transitions
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
+        // ==========================================
+        // NEXT-GEN MICRO-INTERACTIONS
+        // ==========================================
+        
+        // 1. MAGNETIC BUTTONS
+        const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
+        
+        magneticButtons.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const strength = 0.3; 
+                
+                btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                btn.style.transition = 'transform 0.1s ease-out';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+                btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+            });
         });
 
-        document.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
+        // 2. 3D TILT EFFECT FOR CARDS (Optimized for Service Detail Cards)
+        const tiltCards = document.querySelectorAll('.service-detail-card');
+        
+        tiltCards.forEach(card => {
+            if (window.innerWidth <= 768) return; // Disable on mobile for accordion functionality
+            
+            card.addEventListener('mousemove', (e) => {
+                if (card.classList.contains('expanded')) return; // Don't tilt if expanded (complex content)
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 
-                // Ignore internal links, target blank, or empty refs
-                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
                 
-                e.preventDefault();
-                document.body.classList.remove('loaded');
+                const rotateX = ((y - centerY) / centerY) * -3; // Subtle rotation
+                const rotateY = ((x - centerX) / centerX) * 3;
                 
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 800);
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01) translateY(-5px)`;
+                card.style.transition = 'transform 0.1s ease-out';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1) translateY(0)';
+                card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
             });
         });
     </script>

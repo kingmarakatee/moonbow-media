@@ -55,24 +55,6 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
-
-        /* Page Transition */
-        .page-transition-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0a0e27; /* Force primary dark */
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 1;
-            transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-        
-        body.loaded .page-transition-overlay {
-            opacity: 0;
-        }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -847,13 +829,7 @@
         }
     </style>
 </head>
-<body class="loading">
-    <div class="page-transition-overlay"></div>
-    <script>
-        // Force removal of overlay after load or timeout
-        window.addEventListener('load', () => document.body.classList.add('loaded'));
-        setTimeout(() => document.body.classList.add('loaded'), 2000); // 2s failsafe
-    </script>
+<body>
 
 
     <!-- Header & Navigation -->
@@ -1171,24 +1147,45 @@
             lenis.scrollTo(0, { duration: 1.5 });
         });
 
-        // Page Transitions
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
+        // ==========================================
+        // NEXT-GEN MICRO-INTERACTIONS
+        // ==========================================
+        
+        // 1. MAGNETIC BUTTONS
+        const magneticElements = document.querySelectorAll('.btn, .nav-links a, .social-links a, .info-item');
+        
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                // Info items are larger, so less strength
+                const strength = el.classList.contains('info-item') ? 0.1 : 0.3;
+                
+                el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                el.style.transition = 'transform 0.1s ease-out';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+                el.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+            });
         });
 
-        document.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                
-                // Ignore internal links, target blank, or empty refs
-                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
-                
-                e.preventDefault();
-                document.body.classList.remove('loaded');
-                
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 800);
+        // 2. INPUT FOCUS ANIMATION
+        const formInputs = document.querySelectorAll('input, select, textarea');
+        
+        formInputs.forEach(input => {
+            input.parentElement.style.transition = 'transform 0.3s ease';
+            
+            input.addEventListener('focus', () => {
+                input.style.transform = 'scale(1.02)';
+                input.style.transition = 'transform 0.3s cubic-bezier(0.23, 1, 0.320, 1)';
+            });
+            
+            input.addEventListener('blur', () => {
+                input.style.transform = 'scale(1)';
             });
         });
     </script>

@@ -62,25 +62,7 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
-
-        /* Page Transition */
-        .page-transition-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0a0e27; /* Force primary dark */
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 1;
-            transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-        }
         
-        body.loaded .page-transition-overlay {
-            opacity: 0;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--primary-light);
@@ -1431,13 +1413,7 @@
         }
     </style>
 </head>
-<body class="loading">
-    <div class="page-transition-overlay"></div>
-    <script>
-        // Force removal of overlay after load or timeout
-        window.addEventListener('load', () => document.body.classList.add('loaded'));
-        setTimeout(() => document.body.classList.add('loaded'), 2000); // 2s failsafe
-    </script>
+<body>
 
 
     <!-- Header & Navigation -->
@@ -1688,6 +1664,31 @@
 
         backToTopBtn.addEventListener('click', () => {
             lenis.scrollTo(0, { duration: 1.5 });
+        });
+
+        // ==========================================
+        // NEXT-GEN MICRO-INTERACTIONS
+        // ==========================================
+        
+        // 1. MAGNETIC BUTTONS
+        const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
+        
+        magneticButtons.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const strength = 0.3; 
+                
+                btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+                btn.style.transition = 'transform 0.1s ease-out';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+                btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
+            });
         });
 
         // Interactive Moon Spin (drag to rotate + overdrive)
@@ -2167,27 +2168,6 @@
             // Update positions every minute
             setInterval(updateStars, 60000);
         })();
-
-        // Page Transitions
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-        });
-
-        document.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                
-                // Ignore internal links, target blank, or empty refs
-                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
-                
-                e.preventDefault();
-                document.body.classList.remove('loaded');
-                
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 800);
-            });
-        });
     </script>
 </body>
 </html>
