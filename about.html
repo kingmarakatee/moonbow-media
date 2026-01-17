@@ -1862,6 +1862,88 @@
 
             // Helper: Convert degrees to radians
             const rad = deg => deg * Math.PI / 180;
+            const deg = rad => rad * 180 / Math.PI;
+
+            // --- PLANETARY CALCULATIONS (Paul Schlyter's method) ---
+            function getPlanetPositions(date) {
+                // 1. Julian Date
+                const year = date.getUTCFullYear();
+                const month = date.getUTCMonth() + 1;
+                const day = date.getUTCDate();
+                const UT = date.getUTCHours() + date.getUTCMinutes() / 60;
+                
+                let Y = year, M = month, D = day;
+                if (M <= 2) { Y--; M += 12; }
+                const A = Math.floor(Y / 100);
+                const B = 2 - A + Math.floor(A / 4);
+                const JD = Math.floor(365.25 * (Y + 4716)) + Math.floor(30.6001 * (M + 1)) + D + B - 1524.5 + UT / 24.0;
+                const d = JD - 2451545.0;
+
+                // 2. Orbital Elements
+                const ecl = 23.4393 - 3.563e-7 * d;
+                
+                const bodies = {
+                    Sun: { w: 282.9404 + 4.70935e-5 * d, a: 1.000000, e: 0.016709 - 1.151e-9 * d, M: 356.0470 + 0.9856002585 * d },
+                    Venus: { N: 76.6799 + 2.46590e-5 * d, i: 3.3946 + 2.75e-8 * d, w: 54.8910 + 1.38374e-5 * d, a: 0.723330, e: 0.006773 - 1.302e-9 * d, M: 48.0052 + 1.6021302244 * d, mag: -4.4 },
+                    Mars: { N: 49.5574 + 2.11081e-5 * d, i: 1.8497 - 1.78e-8 * d, w: 286.5016 + 2.92961e-5 * d, a: 1.523688, e: 0.093405 + 2.516e-9 * d, M: 18.6021 + 0.5240207766 * d, mag: -1.0 },
+                    Jupiter: { N: 100.4542 + 2.76854e-5 * d, i: 1.3030 - 1.557e-7 * d, w: 273.8777 + 1.64505e-5 * d, a: 5.20256, e: 0.048498 + 4.469e-9 * d, M: 19.8950 + 0.0830853001 * d, mag: -2.5 },
+                    Saturn: { N: 113.6634 + 2.38980e-5 * d, i: 2.4886 - 1.081e-7 * d, w: 339.3939 + 2.97661e-5 * d, a: 9.55475, e: 0.055546 - 9.499e-9 * d, M: 316.9670 + 0.0334442282 * d, mag: 0.5 }
+                };
+
+                // Helpers for degrees
+                const sind = x => Math.sin(x * Math.PI / 180);
+                const cosd = x => Math.cos(x * Math.PI / 180);
+                const atan2d = (y, x) => Math.atan2(y, x) * 180 / Math.PI;
+                const rev = angle => angle - Math.floor(angle / 360) * 360;
+
+                // Sun calc
+                const s = bodies.Sun;
+                const M_sun = rev(s.M);
+                const E_sun = M_sun + s.e * (180/Math.PI) * sind(M_sun) * (1.0 + s.e * cosd(M_sun));
+                const xv_sun = cosd(E_sun) - s.e;
+                const yv_sun = Math.sqrt(1.0 - s.e*s.e) * sind(E_sun);
+                const v_sun = atan2d(yv_sun, xv_sun);
+                const r_sun = Math.sqrt(xv_sun*xv_sun + yv_sun*yv_sun);
+                const lonsun = rev(v_sun + s.w);
+                const xs = r_sun * cosd(lonsun);
+                const ys = r_sun * sind(lonsun);
+
+                const results = [];
+
+                ['Venus', 'Mars', 'Jupiter', 'Saturn'].forEach(name => {
+                    const p = bodies[name];
+                    const M = rev(p.M);
+                    let E = M + p.e * (180/Math.PI) * sind(M) * (1.0 + p.e * cosd(M));
+                    // Iterate
+                    for(let k=0; k<5; k++) {
+                        E = E - (E - (180/Math.PI) * p.e * sind(E) - M) / (1 - p.e * cosd(E));
+                    }
+                    
+                    const xv = p.a * (cosd(E) - p.e);
+                    const yv = p.a * (Math.sqrt(1.0 - p.e*p.e) * sind(E));
+                    const v = atan2d(yv, xv);
+                    const r = Math.sqrt(xv*xv + yv*yv);
+
+                    const xh = r * (cosd(p.N) * cosd(v+p.w) - sind(p.N) * sind(v+p.w) * cosd(p.i));
+                    const yh = r * (sind(p.N) * cosd(v+p.w) + cosd(p.N) * sind(v+p.w) * cosd(p.i));
+                    const zh = r * (sind(v+p.w) * sind(p.i));
+
+                    const xg = xh + xs;
+                    const yg = yh + ys;
+                    const zg = zh; // Sun zs is 0
+
+                    const xe = xg;
+                    const ye = yg * cosd(ecl) - zg * sind(ecl);
+                    const ze = yg * sind(ecl) + zg * cosd(ecl);
+
+                    const ra = rev(atan2d(ye, xe)) / 15; // Hours
+                    const dec = atan2d(ze, Math.sqrt(xe*xe + ye*ye)); // Degrees
+
+                    results.push({ name: name, ra: ra * 15, dec: dec, mag: p.mag, isPlanet: true });
+                });
+
+                return results;
+            }
 
             function calculateStarPositions() {
                 const now = new Date();
@@ -1880,7 +1962,10 @@
                 
                 const visibleStars = [];
                 
-                brightStars.forEach((star, index) => {
+                // Combine stars and planets
+                const allBodies = [...brightStars, ...getPlanetPositions(now)];
+                
+                allBodies.forEach((star, index) => {
                     // Hour Angle
                     let HA = LST - star.ra;
                     if (HA < 0) HA += 360;
@@ -1913,6 +1998,7 @@
                             y: alt, 
                             mag: star.mag,
                             name: star.name,
+                            isPlanet: star.isPlanet,
                             twinklePhase: seed % (Math.PI * 2),
                             twinkleSpeed: 0.003 + ((seed % 100) / 10000) // 0.003 to 0.013
                         });
@@ -1946,16 +2032,18 @@
                     
                     // Base properties
                     // Reduced size multiplier to fix "fat" stars
-                    const baseSize = Math.max(0.6, (2.5 - star.mag) * 0.4);
+                    let sizeMult = star.isPlanet ? 0.6 : 0.4;
+                    const baseSize = Math.max(0.6, (2.5 - star.mag) * sizeMult);
                     const baseOpacity = Math.min(1, Math.max(0.3, (3 - star.mag) / 3));
                     
                     // Realistic Twinkle
+                    // Planets twinkle LESS than stars (atmospheric physics)
+                    const twinkleIntensity = star.isPlanet ? 0.05 : 0.2;
+                    
                     // Subtle oscillation for opacity only, size remains mostly stable
                     const val = Math.sin(now * star.twinkleSpeed + star.twinklePhase);
                     
-                    // Variation of +/- 20% opacity max
-                    const intensity = 0.2; 
-                    const twinkleFactor = 1 + (val * intensity); 
+                    const twinkleFactor = 1 + (val * twinkleIntensity); 
                     
                     const currentSize = baseSize;
                     let currentOpacity = baseOpacity * twinkleFactor;
@@ -1963,10 +2051,18 @@
                     // Clamp opacity
                     if (currentOpacity > 1) currentOpacity = 1;
                     if (currentOpacity < 0.1) currentOpacity = 0.1;
-                    
+
                     ctx.beginPath();
                     ctx.arc(x, y, currentSize, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 252, 191, ${currentOpacity})`;
+                    
+                    // Planets have subtle color tint
+                    if (star.isPlanet) {
+                         if (star.name === 'Mars') ctx.fillStyle = `rgba(255, 200, 191, ${currentOpacity})`; // Reddish
+                         else if (star.name === 'Venus') ctx.fillStyle = `rgba(255, 255, 220, ${currentOpacity})`; // Bright white-yellow
+                         else ctx.fillStyle = `rgba(255, 252, 210, ${currentOpacity})`; // Creamy
+                    } else {
+                        ctx.fillStyle = `rgba(255, 252, 191, ${currentOpacity})`;
+                    }
                     ctx.fill();
                 });
                 
