@@ -68,6 +68,24 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
+
+        /* Page Transition */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0e27; /* Force primary dark */
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        
+        body.loaded .page-transition-overlay {
+            opacity: 0;
+        }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -1141,7 +1159,8 @@
         }
     </style>
 </head>
-<body>
+<body class="loading">
+    <div class="page-transition-overlay"></div>
 
 
     <!-- Header & Navigation -->
@@ -1175,8 +1194,6 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Nossos Serviços</h1>
-            <p>Soluções profissionais e inovadoras para todas as suas necessidades audiovisuais e de design</p>
         </div>
     </section>
 
@@ -1513,6 +1530,27 @@
         
         backToTopBtn.addEventListener('click', () => {
             lenis.scrollTo(0, { duration: 1.5 });
+        });
+
+        // Page Transitions
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                
+                // Ignore internal links, target blank, or empty refs
+                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+                
+                e.preventDefault();
+                document.body.classList.remove('loaded');
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 800);
+            });
         });
     </script>
 </body>
