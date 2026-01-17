@@ -1365,6 +1365,42 @@
                 display: none !important;
             }
         }
+
+        /* MOBILE PERFORMANCE OPTIMIZATION */
+        @media screen and (max-width: 768px) {
+            /* 1. Stop Heavy Noise Animation */
+            .about-section::before {
+                animation: none !important;
+                opacity: 0.3; /* Fix opacity since it's not animating */
+                background-attachment: scroll; /* Fix android scrolling lag */
+            }
+
+            /* 2. Remove Expensive Glow Effects on Shooting Stars */
+            .shooting-star::after {
+                box-shadow: none !important;
+                filter: none !important;
+                width: 3px;
+                height: 3px;
+            }
+            
+            /* Simplify trail */
+            .shooting-star {
+                height: 1px;
+                box-shadow: none !important;
+                background: rgba(255, 252, 191, 0.8) !important; /* Simple solid color */
+            }
+
+            /* 3. Simplify Moon Shadows/Blur */
+            .moon-hyper-overlay, 
+            .motion-blur-overlay {
+                display: none !important; /* Hide complex glowing layers */
+            }
+            
+            .moon-3d {
+                box-shadow: 0 0 30px rgba(248, 149, 31, 0.3) !important; /* Simple shadow */
+                filter: none !important;
+            }
+        }
     </style>
 </head>
 <body>
