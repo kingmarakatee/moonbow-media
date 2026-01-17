@@ -3325,6 +3325,62 @@
         });
 
         // ==========================================
+        // NEXT-GEN SCROLL REVEAL (SPLIT TEXT)
+        // ==========================================
+        const splitTextElements = document.querySelectorAll('h1, h2, .section-title h2, .hero p');
+
+        splitTextElements.forEach(el => {
+            // Check if already processed to avoid duplication
+            if(el.classList.contains('split-text-processed')) return;
+            
+            // Skip if it contains other elements (simple text only for safety)
+            if(el.children.length > 0 && el.tagName !== 'H1') return; 
+
+            const text = el.textContent.trim();
+            const words = text.split(/\s+/);
+            
+            el.innerHTML = '';
+            el.classList.add('split-text-processed');
+            el.style.opacity = '1'; // Ensure container is visible
+
+            words.forEach((word, index) => {
+                const span = document.createElement('span');
+                span.textContent = word + ' ';
+                span.style.cssText = `
+                    display: inline-block;
+                    opacity: 0;
+                    transform: translateY(30px) rotate(2deg);
+                    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.320, 1), transform 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+                    transition-delay: ${index * 40}ms;
+                    will-change: transform, opacity;
+                `;
+                el.appendChild(span);
+            });
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const spans = entry.target.querySelectorAll('span');
+                    spans.forEach(span => {
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateY(0) rotate(0deg)';
+                    });
+                    
+                    // Optional: Blur effect removal if added
+                    // entry.target.style.filter = 'blur(0px)';
+                    
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        splitTextElements.forEach(el => revealObserver.observe(el));
+        
+        // ==========================================
         // NEXT-GEN MICRO-INTERACTIONS
         // ==========================================
         
