@@ -1880,7 +1880,7 @@
                 
                 const visibleStars = [];
                 
-                brightStars.forEach(star => {
+                brightStars.forEach((star, index) => {
                     // Hour Angle
                     let HA = LST - star.ra;
                     if (HA < 0) HA += 360;
@@ -1904,11 +1904,17 @@
                         if (Math.sin(haRad) > 0) azRad = 2 * Math.PI - azRad;
                         const az = azRad * 180 / Math.PI;
                         
+                        // Use index to create a pseudo-random but consistent seed for this star
+                        // so it keeps its twinkle rhythm even when position updates
+                        const seed = index * 123.45;
+
                         visibleStars.push({
-                            x: az, // Azimuth (0-360) maps to horizontal view
-                            y: alt, // Altitude (0-90) maps to vertical view
+                            x: az, 
+                            y: alt, 
                             mag: star.mag,
-                            name: star.name
+                            name: star.name,
+                            twinklePhase: seed % (Math.PI * 2),
+                            twinkleSpeed: 0.003 + ((seed % 100) / 10000) // 0.003 to 0.013
                         });
                     }
                 });
@@ -1916,52 +1922,72 @@
                 return visibleStars;
             }
 
+            let stars = [];
+
             function resize() {
                 width = canvas.width = canvas.offsetParent.offsetWidth;
                 height = canvas.height = canvas.offsetParent.offsetHeight;
-                draw();
+                // Don't need to redraw here, loop handles it
             }
 
-            function draw() {
+            function updateStars() {
+                stars = calculateStarPositions();
+            }
+
+            function animate() {
                 ctx.clearRect(0, 0, width, height);
-                const stars = calculateStarPositions();
-                
-                // Mapping: Azimuth 0-360 to width, Altitude 0-90 to height
-                // Note: This is a simple cylindrical projection, somewhat distorted but works for atmosphere
+                const now = Date.now();
                 
                 stars.forEach(star => {
-                    // Normalize Azimuth to center "South" or proper view
-                    // Let's assume looking South (180) is center
                     let normAz = (star.x + 180) % 360;
                     
                     const x = (normAz / 360) * width;
-                    const y = height - ((star.y / 90) * height); // 90 deg is top
+                    const y = height - ((star.y / 90) * height);
                     
-                    // Size based on magnitude
-                    // Mag -1.5 (huge) to 2 (small)
-                    const size = Math.max(0.5, (3 - star.mag) * 0.8);
-                    const opacity = Math.min(1, Math.max(0.3, (3 - star.mag) / 3));
+                    // Base properties
+                    const baseSize = Math.max(0.5, (3 - star.mag) * 0.8);
+                    const baseOpacity = Math.min(1, Math.max(0.3, (3 - star.mag) / 3));
+                    
+                    // ENHANCED Twinkle Calculation
+                    // Oscillate opacity/size significantly
+                    const val = Math.sin(now * star.twinkleSpeed + star.twinklePhase);
+                    // Map -1..1 to 0.5..1.5 multiplier
+                    const twinkleFactor = 1 + (val * 0.5); 
+                    
+                    const currentSize = baseSize * twinkleFactor;
+                    let currentOpacity = baseOpacity * twinkleFactor;
+                    
+                    // Clamp opacity
+                    if (currentOpacity > 1) currentOpacity = 1;
                     
                     ctx.beginPath();
-                    ctx.arc(x, y, size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 252, 191, ${opacity})`;
+                    ctx.arc(x, y, currentSize, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 252, 191, ${currentOpacity})`;
                     ctx.fill();
                     
-                    // Twinkle effect (random small opacity change)
-                    if (Math.random() > 0.95) {
+                    // Strong Glow on peaks
+                    if (val > 0.5) {
                         ctx.beginPath();
-                        ctx.arc(x, y, size * 1.5, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(255, 252, 191, ${opacity * 0.5})`;
+                        ctx.arc(x, y, currentSize * 2, 0, Math.PI * 2);
+                        // Gradient glow for realism
+                        const gradient = ctx.createRadialGradient(x, y, 0, x, y, currentSize * 2.5);
+                        gradient.addColorStop(0, `rgba(255, 252, 191, ${currentOpacity * 0.6})`);
+                        gradient.addColorStop(1, 'rgba(255, 252, 191, 0)');
+                        ctx.fillStyle = gradient;
                         ctx.fill();
                     }
                 });
+                
+                requestAnimationFrame(animate);
             }
 
             window.addEventListener('resize', resize);
             resize();
+            updateStars();
+            animate();
             
-            // Update every minute to rotate sky
-            setInterval(draw, 60000);
+            // Update positions every minute
+            setInterval(updateStars, 60000);
         })();
     </script>
 </body>
