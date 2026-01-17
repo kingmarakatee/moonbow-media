@@ -59,52 +59,6 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
-
-        /* ===== CUSTOM CURSOR ===== */
-        .cursor-dot,
-        .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-            display: none; /* Hidden by default, shown on desktop via JS/media */
-        }
-
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-gold);
-        }
-
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1.5px solid rgba(250, 65, 68, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
-        }
-
-        @media (min-width: 992px) {
-            body {
-                cursor: none;
-            }
-            
-            a, button, .btn, input, textarea, select {
-                cursor: none;
-            }
-            
-            .cursor-dot,
-            .cursor-outline {
-                display: block;
-            }
-            
-            body:hover .cursor-dot,
-            body:hover .cursor-outline {
-                opacity: 1;
-            }
-        }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -1062,10 +1016,6 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Custom Cursor Elements -->
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script> 
     <script>
         // Initialize Lenis Smooth Scroll
@@ -1164,59 +1114,7 @@
                 });
             });
 
-            // 2. CUSTOM CURSOR LOGIC
-            const cursorDot = document.querySelector('[data-cursor-dot]');
-            const cursorOutline = document.querySelector('[data-cursor-outline]');
-            
-            if (cursorDot && cursorOutline) {
-                window.addEventListener('mousemove', function(e) {
-                    const posX = e.clientX;
-                    const posY = e.clientY;
-                    
-                    // Dot follows instantly
-                    cursorDot.style.left = `${posX}px`;
-                    cursorDot.style.top = `${posY}px`;
-                    
-                    cursorOutline.style.left = `${posX}px`;
-                    cursorOutline.style.top = `${posY}px`;
-                });
-
-                // Hover effects
-                const interactiveElements = document.querySelectorAll('a, button, .btn, input, textarea, select, .process-step');
-                
-                interactiveElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                        cursorOutline.style.backgroundColor = 'rgba(250, 65, 68, 0.1)';
-                        cursorDot.style.transform = 'translate(-50%, -50%) scale(0.5)';
-                    });
-                    
-                    el.addEventListener('mouseleave', () => {
-                        cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
-                        cursorOutline.style.backgroundColor = 'transparent';
-                        cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
-                    });
-                });
-                
-                // Hide cursor when leaving window
-                document.addEventListener('mouseleave', () => {
-                    cursorDot.style.display = 'none';
-                    cursorOutline.style.display = 'none';
-                });
-                
-                document.addEventListener('mouseenter', () => {
-                    cursorDot.style.display = 'block';
-                    cursorOutline.style.display = 'block';
-                });
-                
-                // Add initial active state
-                document.body.addEventListener('mousemove', () => {
-                    cursorDot.style.opacity = '1';
-                    cursorOutline.style.opacity = '1';
-                }, { once: true });
-            }
-
-            // 3. 3D TILT EFFECT FOR TIMELINE STEPS
+            // 2. 3D TILT EFFECT FOR TIMELINE STEPS
             const tiltSteps = document.querySelectorAll('.process-step');
 
             tiltSteps.forEach(step => {
@@ -1243,13 +1141,6 @@
                 });
             });
         }
-            
-            step.addEventListener('mouseleave', () => {
-                step.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                step.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
-                step.style.zIndex = '1';
-            });
-        });
     </script>
 </body>
 </html>
