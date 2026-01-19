@@ -363,32 +363,31 @@
                 overflow: hidden;
                 max-height: 500px;
                 margin-bottom: 12px;
+                background: rgba(42, 31, 54, 0.4); /* Flat background */
             }
 
             .service-detail-card.collapsed {
                 max-height: 200px;
                 padding: 25px 20px;
-                background: linear-gradient(135deg, rgba(42, 31, 54, 0.4), rgba(27, 20, 34, 0.25));
+                background: rgba(42, 31, 54, 0.4); /* Flat background */
                 border: 1px solid rgba(248, 149, 31, 0.15);
             }
 
             .service-detail-card.collapsed:hover {
-                background: linear-gradient(135deg, rgba(42, 31, 54, 0.6), rgba(27, 20, 34, 0.35));
-                border-color: rgba(248, 149, 31, 0.3);
-                transform: translateY(-2px);
+                background: rgba(42, 31, 54, 0.5);
+                transform: none; /* No movement on hover mobile */
             }
 
             .service-detail-card.expanded {
                 max-height: 2000px;
                 padding: 30px 20px;
-                background: linear-gradient(135deg, rgba(42, 31, 54, 0.5), rgba(27, 20, 34, 0.3));
+                background: rgba(42, 31, 54, 0.8); /* Solid color for readabilty */
                 border-color: rgba(248, 149, 31, 0.3);
-                box-shadow: 0 15px 40px rgba(248, 149, 31, 0.1);
+                box-shadow: none; /* Remove expensive shadow */
             }
 
             .service-detail-card.expanded:hover {
-                background: linear-gradient(135deg, rgba(42, 31, 54, 0.6), rgba(27, 20, 34, 0.35));
-                border-color: rgba(248, 149, 31, 0.4);
+                background: rgba(42, 31, 54, 0.85);
             }
 
             .service-detail-card::after {
@@ -398,16 +397,15 @@
                 right: 15px;
                 width: 36px;
                 height: 36px;
-                background: linear-gradient(135deg, #FA4144 0%, #F8951F 100%);
+                background: #F2712D; /* Flat color instead of gradient */
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
                 font-size: 1.2rem;
                 color: white;
                 z-index: 5;
-                box-shadow: 0 8px 20px rgba(250, 65, 68, 0.3);
+                box-shadow: none; /* Remove shadow */
             }
 
             .service-detail-card.collapsed::after {
@@ -752,16 +750,17 @@
         @media screen and (max-width: 768px) {
             /* Mobile Performance Optimizations */
             * {
-                animation-duration: 0s !important;
-                transition-duration: 0.15s !important;
+                animation: none !important;
+                transition-duration: 0.1s !important;
             }
             
             .section-title h2 {
                 animation: none !important;
-                background: linear-gradient(90deg, #F8951F, #FA4144);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
+                background: #F8951F !important;
+                -webkit-background-clip: unset;
+                -webkit-text-fill-color: unset;
+                background-clip: unset;
+                color: #F8951F;
             }
 
             .container {
@@ -891,7 +890,18 @@
             }
 
             .service-detail-card:hover {
-                transform: none;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            .service-detail-card.collapsed:hover {
+                transform: none !important;
+                background: rgba(42, 31, 54, 0.5) !important;
+            }
+
+            .service-detail-card.expanded:hover {
+                transform: none !important;
+                background: rgba(42, 31, 54, 0.85) !important;
             }
 
             .service-detail-header {
@@ -949,6 +959,23 @@
                 min-height: 46px;
                 padding: 12px 28px;
                 font-size: 0.85rem;
+                background: linear-gradient(135deg, #F2712D 0%, #FA4144 100%) !important;
+                box-shadow: 0 4px 15px rgba(250, 65, 68, 0.2) !important;
+                transition: all 0.15s ease !important;
+                border: none !important;
+                border-radius: 25px;
+                font-weight: 700;
+                color: #1B1422;
+            }
+            
+            .btn::before {
+                display: none !important;
+            }
+            
+            .btn:hover {
+                background: linear-gradient(135deg, #FA4144 0%, #F2712D 100%) !important;
+                box-shadow: 0 6px 20px rgba(250, 65, 68, 0.3) !important;
+                transform: none !important;
             }
 
             .btn-solicitar {
@@ -1466,6 +1493,12 @@
                     } else {
                         card.classList.remove('expanded');
                         card.classList.add('collapsed');
+                        
+                        // Scroll to top when closing card
+                        setTimeout(() => {
+                            const cardTop = card.offsetTop - 120;
+                            lenis.scrollTo(Math.max(0, cardTop), { duration: 0.8 });
+                        }, 100);
                     }
                 });
             });

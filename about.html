@@ -1389,26 +1389,49 @@
 
         /* MOBILE PERFORMANCE OPTIMIZATION */
         @media screen and (max-width: 768px) {
-            /* 1. Stop Heavy Noise Animation */
-            .about-section::before {
-                animation: none !important;
-                opacity: 0.3; /* Fix opacity since it's not animating */
-                background-attachment: scroll; /* Fix android scrolling lag */
+            /* 1. Remove Noise Completely */
+            .about-section::before,
+            .about-section::after {
+                display: none !important;
+                opacity: 0 !important;
             }
 
-            /* 2. Remove Expensive Glow Effects on Shooting Stars */
-            .shooting-star::after {
+            /* 2. Moon Optimization: No interaction, stationary movement only */
+            .moon-3d {
+                pointer-events: none !important; /* Disable interaction */
+                cursor: default !important;
+                touch-action: none !important;
+                /* No shadow */
                 box-shadow: none !important;
-                filter: none !important;
-                width: 3px;
-                height: 3px;
+                animation: none !important;
+            }
+
+            /* Remove hyperblow overlay */
+            .moon-hyper-overlay {
+                display: none !important;
+                opacity: 0 !important;
+            }
+            
+            .motion-blur-overlay {
+                display: none !important;
+                opacity: 0 !important;
+            }
+
+            /* Keep lighting effects on moon for 3D depth */
+            .moon-3d::after {
+                display: block !important;
+                opacity: 0.985 !important;
+            }
+
+            /* 3. Remove Expensive Glow Effects on Shooting Stars */
+            .shooting-star::after {
+                display: none !important;
             }
             
             /* Simplify trail */
             .shooting-star {
                 height: 1px;
-                box-shadow: none !important;
-                background: rgba(255, 252, 191, 0.8) !important; /* Simple solid color */
+                background: rgba(255, 252, 191, 0.5) !important;
             }
         }
     </style>
