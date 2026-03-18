@@ -1,9 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moonbow Media | Where moonlight paints in colors</title>
+    <meta name="description" content="Moonbow Universe - A sua agência de comunicação e design que transforma momentos em arte interativa.">
+    <meta property="og:title" content="Moonbow Universe | Where moonlight paints in colors">
+    <meta property="og:description" content="Produtora audiovisual, design e transmissão. Colocamos as suas ideias em destaque.">
+    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="og:type" content="website">
+    <title>Moonbow Universe | Where moonlight paints in colors</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,34 +36,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            -webkit-user-select: none;
         }
         
         html {
-            /* Lenis scroll requirement */
-            scroll-behavior: auto;
-        }
-
-        html.lenis, html.lenis body {
-            height: auto;
-        }
-
-        .lenis.lenis-smooth {
-            scroll-behavior: auto !important;
-        }
-
-        .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
-        }
-
-        .lenis.lenis-stopped {
-            overflow: hidden;
-        }
-
-        .lenis.lenis-scrolling iframe {
-            pointer-events: none;
+            scroll-behavior: smooth;
         }
         
         body {
@@ -142,10 +123,6 @@
             box-shadow: 0 10px 30px rgba(250, 65, 68, 0.3);
             position: relative;
             overflow: hidden;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            -webkit-user-drag: none;
         }
         
         .btn::before {
@@ -264,6 +241,30 @@
         
         .nav-links a:hover::after {
             width: 100%;
+        }
+        
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFFCBF;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        .lang-switch a {
+            color: #FFFCBF;
+            text-decoration: none;
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+        
+        .lang-switch a.active, .lang-switch a:hover {
+            opacity: 1;
+            color: #F8951F;
         }
         
         .mobile-menu-btn {
@@ -699,102 +700,67 @@
         
         /* Testimonials */
         .testimonials {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 100px auto 0;
-            padding: 60px 0 20px;
+            padding-top: 60px;
             border-top: 1px solid rgba(250, 65, 68, 0.2);
         }
         
-        .testimonials .section-title {
-            margin-bottom: 50px;
-        }
-        
-        .testimonial-carousel {
+        .testimonial-slider {
             position: relative;
-            width: 100%;
+            overflow: hidden;
         }
         
-        .testimonial-container {
+        .testimonial-track {
             display: flex;
-            justify-content: center;
-            align-items: stretch;
-            gap: 30px;
-            min-height: 280px;
-        }
-        
-        .testimonial-item {
-            flex: 1;
-            opacity: 0.4;
-            transform: scale(0.85);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            pointer-events: none;
-        }
-        
-        .testimonial-item.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-        
-        .testimonial-item.prev,
-        .testimonial-item.next {
-            opacity: 0.6;
-            transform: scale(0.92);
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.320, 1);
         }
         
         .testimonial-slide {
-            padding: 40px;
+            min-width: 100%;
+            padding: 60px 50px;
             background: linear-gradient(135deg, rgba(42, 31, 54, 0.7), rgba(42, 31, 54, 0.3));
             border-radius: 20px;
             border: 1px solid rgba(250, 65, 68, 0.2);
             backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
         }
         
         .testimonial-content {
             text-align: center;
             position: relative;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
         
         .testimonial-content::before {
             content: '"';
-            font-size: 3rem;
+            font-size: 5rem;
             color: #FA4144;
-            opacity: 0.2;
+            opacity: 0.15;
             position: absolute;
-            top: 10px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Syne', sans-serif;
         }
         
         .testimonial-text {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #FFFCBF;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-style: italic;
-            line-height: 1.8;
-            opacity: 0.9;
+            line-height: 2;
+            opacity: 0.95;
         }
         
         .testimonial-author {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 18px;
         }
         
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: linear-gradient(135deg, #FA4144, #F8951F);
             display: flex;
@@ -802,67 +768,53 @@
             justify-content: center;
             color: #1B1422;
             font-weight: 700;
-            font-size: 1rem;
-            box-shadow: 0 8px 20px rgba(250, 65, 68, 0.3);
-            flex-shrink: 0;
-        }
-        
-        .author-info {
-            text-align: left;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 25px rgba(250, 65, 68, 0.3);
         }
         
         .author-info h5 {
             color: #FFFCBF;
-            margin-bottom: 3px;
-            font-size: 0.95rem;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .author-info p {
             color: #FFFCBF;
-            font-size: 0.8rem;
-            opacity: 0.7;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
         
         .testimonial-nav {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 20px;
+            gap: 15px;
             margin-top: 40px;
         }
         
         .testimonial-nav button {
-            display: none;
-        }
-        
-        .testimonial-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-        
-        .dot {
-            width: 10px;
-            height: 10px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: rgba(250, 65, 68, 0.3);
+            background: linear-gradient(135deg, rgba(42, 31, 54, 0.8), rgba(42, 31, 54, 0.4));
+            border: 1px solid rgba(250, 65, 68, 0.3);
+            color: #FFFCBF;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid rgba(250, 65, 68, 0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
         }
         
-        .dot.active {
-            background: linear-gradient(135deg, #FA4144, #F8951F);
-            width: 30px;
-            border-radius: 5px;
-            border-color: #FFFCBF;
-        }
-        
-        .dot:hover {
-            background: rgba(250, 65, 68, 0.6);
+        .testimonial-nav button:hover {
+            background: linear-gradient(135deg, #FA4144, #F2712D);
+            border-color: transparent;
+            color: #1B1422;
+            transform: scale(1.15);
+            box-shadow: 0 10px 30px rgba(250, 65, 68, 0.4);
         }
         
         /* ===== ABOUT SECTION ===== */
@@ -1063,8 +1015,6 @@
             border-top: 1px solid rgba(248, 149, 31, 0.1);
             padding: 60px 0 20px;
             margin-top: 80px;
-            user-select: auto;
-            -webkit-user-select: auto;
         }
         
         .footer-content {
@@ -1228,10 +1178,9 @@
         /* ===== FEATURES BAR ===== */
         .features-bar {
             background: var(--bg-light);
-            padding: 40px 0;
+            padding: 60px 0;
             border-top: 1px solid rgba(250, 65, 68, 0.1);
             border-bottom: 1px solid rgba(250, 65, 68, 0.1);
-            margin-top: 20px;
         }
 
         .features-bar-content {
@@ -1538,81 +1487,13 @@
                 font-size: 16px;
             }
             
-            .testimonial-container {
-                gap: 10px;
-                min-height: 220px;
-                position: relative;
-            }
-            
-            .testimonial-item {
-                position: absolute;
-                width: 100%;
-                left: 0;
-                top: 0;
-                opacity: 0;
-                transform: scale(0.8);
-                pointer-events: none;
-                transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            }
-            
-            .testimonial-item.active {
-                position: relative;
-                opacity: 1 !important;
-                transform: scale(1) !important;
-                pointer-events: auto !important;
-                width: auto;
-            }
-            
-            .testimonial-item.prev,
-            .testimonial-item.next {
-                display: none;
-            }
-            
             .testimonial-slide {
-                padding: 20px 15px;
+                padding: 35px 25px;
             }
             
             .testimonial-text {
-                font-size: 0.85rem;
-                line-height: 1.4;
-                margin-bottom: 10px;
-            }
-            
-            .testimonial-author {
-                gap: 8px;
-            }
-            
-            .author-avatar {
-                width: 40px;
-                height: 40px;
-                font-size: 0.8rem;
-            }
-            
-            .author-info h5 {
-                font-size: 0.85rem;
-                margin-bottom: 1px;
-            }
-            
-            .author-info p {
-                font-size: 0.7rem;
-            }
-            
-            .testimonial-nav {
-                display: none;
-            }
-            
-            .testimonial-dots {
-                margin-top: 15px;
-                gap: 6px;
-            }
-            
-            .dot {
-                width: 8px;
-                height: 8px;
-            }
-            
-            .dot.active {
-                width: 24px;
+                font-size: 1rem;
+                line-height: 1.8;
             }
             
             .about-stats {
@@ -1897,75 +1778,39 @@
                 font-size: 0.9rem;
             }
             
-            .testimonial-container {
-                gap: 8px;
-                min-height: 200px;
-                position: relative;
-            }
-            
-            .testimonial-item {
-                position: absolute;
-                width: 100%;
-                left: 0;
-                top: 0;
-                opacity: 0;
-                transform: scale(0.8);
-                transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            }
-            
-            .testimonial-item.active {
-                position: relative;
-                opacity: 1 !important;
-                transform: scale(1) !important;
-                width: auto;
-            }
-            
-            .testimonial-item.prev,
-            .testimonial-item.next {
-                display: none !important;
-            }
-            
             .testimonial-slide {
-                padding: 18px 12px;
+                padding: 25px 18px;
             }
             
             .testimonial-text {
-                font-size: 0.8rem;
-                line-height: 1.3;
-                margin-bottom: 8px;
-            }
-            
-            .testimonial-nav {
-                display: none !important;
-            }
-            
-            .testimonial-dots {
-                margin-top: 12px;
-                gap: 5px;
-            }
-            
-            .dot {
-                width: 7px;
-                height: 7px;
-            }
-            
-            .dot.active {
-                width: 20px;
+                font-size: 0.95rem;
+                line-height: 1.7;
+                margin-bottom: 20px;
             }
             
             .author-avatar {
-                width: 38px;
-                height: 38px;
-                font-size: 0.75rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
             }
             
             .author-info h5 {
-                font-size: 0.8rem;
-                margin-bottom: 1px;
+                font-size: 0.95rem;
             }
             
             .author-info p {
-                font-size: 0.65rem;
+                font-size: 0.8rem;
+            }
+            
+            .testimonial-nav {
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .testimonial-nav button {
+                width: 42px;
+                height: 42px;
+                font-size: 0.9rem;
             }
             
             .about-stats {
@@ -2382,35 +2227,122 @@
             .stagger-children > *:nth-child(5) { transition-delay: 0.5s; }
             .stagger-children > *:nth-child(6) { transition-delay: 0.6s; }
         }
+
+        /* ===== PULL TO REFRESH (Mobile Only) ===== */
+        .pull-to-refresh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        @media screen and (max-width: 768px) {
+            .pull-to-refresh {
+                display: flex;
+            }
+        }
+
+        .pull-to-refresh.pulling {
+            transform: translateY(0);
+        }
+
+        .pull-to-refresh.refreshing {
+            transform: translateY(0);
+        }
+
+        .pull-indicator {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FA4144, #F8951F);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(250, 65, 68, 0.4);
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .pull-to-refresh.pulling .pull-indicator {
+            transform: scale(var(--pull-progress, 0));
+        }
+
+        .pull-to-refresh.refreshing .pull-indicator {
+            transform: scale(1);
+            animation: pulse-refresh 1s ease-in-out infinite;
+        }
+
+        .pull-indicator i {
+            color: #1B1422;
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .pull-to-refresh.pulling .pull-indicator i {
+            transform: rotate(calc(var(--pull-progress, 0) * 180deg));
+        }
+
+        .pull-to-refresh.refreshing .pull-indicator i {
+            animation: spin-refresh 1s linear infinite;
+        }
+
+        @keyframes pulse-refresh {
+            0%, 100% { box-shadow: 0 5px 20px rgba(250, 65, 68, 0.4); }
+            50% { box-shadow: 0 5px 30px rgba(250, 65, 68, 0.7); }
+        }
+
+        @keyframes spin-refresh {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-
+    <!-- Pull to Refresh Indicator (Mobile Only) -->
+    <div class="pull-to-refresh" id="pullToRefresh">
+        <div class="pull-indicator">
+            <i class="fas fa-sync-alt"></i>
+        </div>
+    </div>
 
     <!-- Header & Navigation -->
     <header id="header">
         <div class="container">
             <nav class="navbar">
-                <a href="index.html" class="logo">
-                    <img src="logoAsset2.png" alt="Moonbow Media Logo">
+                <a href="index (1).html" class="logo">
+                    <img src="logoAsset2.png" alt="Moonbow Universe Logo">
                 </a>
                 
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <div class="hamburger">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="#home">Início</a></li>
                     <li><a href="services.html">Serviços</a></li>
                     <li><a href="process.html">Processo</a></li>
                     <li><a href="#clients">Clientes</a></li>
                     <li><a href="about.html">Sobre</a></li>
                     <li><a href="contact.html">Contacto</a></li>
                 </ul>
+                
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="lang-switch">
+                        <a href="#" class="active">PT</a><span>|</span><a href="#">EN</a>
+                    </div>
+                    
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu">
+                        <div class="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
@@ -2420,12 +2352,12 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Where moonlight paints in colors</h1>
-                <p>Capturamos a beleza rara dos seus momentos com a mesma magia com que a lua pinta o céu noturno. Vídeo, broadcast e design que transcendem o comum.</p>
+                <p>Capturamos a beleza rara dos seus momentos com a mesma magia com que a lua pinta o céu noturno. Vídeo, transmissão e design que transcendem o comum.</p>
                 <div class="hero-buttons">
-                    <a href="contact.html" class="btn" draggable="false">
+                    <a href="contact.html" class="btn">
                         <i class="fas fa-rocket"></i> Ilumine o seu projeto
                     </a>
-                    <a href="services.html" class="btn btn-secondary" draggable="false">Explorar Serviços</a>
+                    <a href="services.html" class="btn btn-secondary">Explorar Serviços</a>
                 </div>
             </div>
         </div>
@@ -2435,7 +2367,7 @@
     <section class="services section-padding" id="services">
         <div class="container">
             <div class="section-title">
-                <h2>Nossos Serviços</h2>
+                <h2>Os Nossos Serviços</h2>
                 <p class="section-subtitle">Soluções inovadoras para transformar a sua visão em realidade visual impressionante</p>
             </div>
             
@@ -2465,7 +2397,7 @@
                     <div class="service-icon">
                         <i class="fas fa-satellite-dish"></i>
                     </div>
-                    <h3>Broadcast & Transmissão</h3>
+                    <h3>Transmissão</h3>
                     <p>Transmissão profissional ao vivo para eventos, conferências e produções especiais.</p>
                     <ul class="service-features">
                         <li><i class="fas fa-check"></i> Transmissão Ao Vivo</li>
@@ -2542,48 +2474,55 @@
                     <h2>Testemunhos</h2>
                 </div>
                 
-                <div class="testimonial-carousel">
-                    <div class="testimonial-container" id="testimonialContainer">
+                <div class="testimonial-slider">
+                    <div class="testimonial-track" id="testimonialTrack">
                         <!-- Testimonial 1 -->
-                        <div class="testimonial-item active">
-                            <div class="testimonial-slide">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"A Moonbow Media transformou completamente o nosso evento. A transmissão ao vivo foi perfeita e o feedback dos participantes foi excelente. Profissionais do início ao fim!"</p>
-                                </div>
+                        <div class="testimonial-slide">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">"A Moonbow Universe transformou completamente o nosso evento. A transmissão ao vivo foi perfeita e o feedback dos participantes foi excelente. Profissionais do início ao fim!"</p>
                                 <div class="testimonial-author">
                                     <div class="author-avatar">MS</div>
                                     <div class="author-info">
                                         <h5>Miguel Silva</h5>
-                                        <p>Diretor de Eventos</p>
+                                        <p>Diretor de Eventos, Technova Solutions</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Testimonial 2 -->
-                        <div class="testimonial-item">
-                            <div class="testimonial-slide">
-                                <div class="testimonial-content">
-                                    <p class="testimonial-text">"O vídeo do nosso casamento foi absolutamente perfeito. Capturaram momentos que nem sabíamos que estavam a ser filmados. A edição é cinematográfica!"</p>
-                                </div>
+                        <div class="testimonial-slide">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">"O vídeo do nosso casamento foi absolutamente perfeito. Capturaram momentos que nem sabíamos que estavam a ser filmados. A edição é cinematográfica e emocionante. Valeu cada cêntimo!"</p>
                                 <div class="testimonial-author">
                                     <div class="author-avatar">AC</div>
                                     <div class="author-info">
                                         <h5>Ana & Carlos</h5>
-                                        <p>Casamento</p>
+                                        <p>Casamento em Vila do Conde</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">"Como startup, precisávamos de uma identidade visual forte. A Moonbow não só criou um design incrível como nos ajudou a contar a nossa história através do vídeo. Parceiros excecionais!"</p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">RD</div>
+                                    <div class="author-info">
+                                        <h5>Rita Duarte</h5>
+                                        <p>CEO, Nova Startup</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="testimonial-nav">
                         <button id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
                         <button id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
                     </div>
-                    
-                    <div class="testimonial-dots" id="testimonialDots"></div>
                 </div>
             </div>
         </div>
@@ -2616,7 +2555,7 @@
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Pronto para transformar sua visão?</h2>
+                <h2>Pronto para transformar a sua visão?</h2>
                 <p>Junte-se aos clientes que confiaram em nós para criar conteúdo visual extraordinário. Vamos iluminar o seu projeto com a magia da Moonbow.</p>
                 <div class="cta-buttons">
                     <a href="contact.html" class="cta-btn cta-btn-primary btn-glow">Começar Projeto</a>
@@ -2630,9 +2569,9 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h4>Moonbow Media</h4>
+                    <h4>Moonbow Universe</h4>
                     <p>Where moonlight paints in colors. Capturamos a magia dos seus momentos com técnica e sensibilidade artística.</p>
-                    <p style="margin-top: 15px; font-size: 0.9rem;"><strong>Telefone:</strong> +351 912 345 678<br><strong>Email:</strong> hello@moonbowmedia.pt</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem;"><strong>Telefone:</strong> +351 912 345 678<br><strong>E-mail:</strong> hello@moonbowmedia.pt</p>
                     <div class="social-links">
                         <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="#" title="Vimeo"><i class="fab fa-vimeo-v"></i></a>
@@ -2641,37 +2580,37 @@
                     </div>
                 </div>
 
-                <div class="footer-col">
+                <div class="footer-col" data-scroll-anim>
                     <h4>Links Rápidos</h4>
-                    <a href="index.html">Home</a>
+                    <a href="index (1).html">Início</a>
                     <a href="services.html">Serviços</a>
                     <a href="process.html">Processo</a>
-                    <a href="index.html#clients">Clientes</a>
+                    <a href="index (1).html#clients">Clientes</a>
                     <a href="about.html">Sobre</a>
                     <a href="contact.html">Contacto</a>
                 </div>
 
-                <div class="footer-col">
-                    <h4>Serviços</h4>
+                <div class="footer-col" data-scroll-anim style="transition-delay: 0.1s;">
+                    <h4>Serviços e Legal</h4>
                     <a href="services.html">Vídeo & Cinema</a>
-                    <a href="services.html">Broadcast & Transmissão</a>
+                    <a href="services.html">Transmissão</a>
                     <a href="services.html">Design & Motion</a>
-                    <a href="contact.html">Pós-produção</a>
-                    <a href="contact.html">Branding Completo</a>
+                    <a href="termos.html" style="margin-top: 15px; text-decoration: underline;">Termos e Condições</a>
+                    <a href="privacidade.html" style="text-decoration: underline;">Política de Privacidade</a>
                 </div>
 
                 <div class="footer-col">
-                    <h4>Newsletter</h4>
-                    <p>Fique atualizado com as últimas tendências em conteúdo visual e criatividade digital.</p>
+                    <h4>Boletim</h4>
+                    <p>Fique a par das últimas tendências em conteúdo visual e criatividade digital.</p>
                     <form style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                        <input type="email" placeholder="Seu email" style="padding: 10px; border: 1px solid rgba(248, 149, 31, 0.3); background: rgba(42, 31, 54, 0.5); color: var(--text-primary); border-radius: 6px;">
+                        <input type="email" placeholder="O seu e-mail" style="padding: 10px; border: 1px solid rgba(248, 149, 31, 0.3); background: rgba(42, 31, 54, 0.5); color: var(--text-primary); border-radius: 6px;">
                         <button type="submit" style="padding: 10px; background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-purple) 100%); border: none; border-radius: 6px; color: var(--primary-light); font-weight: 600; cursor: pointer; transition: var(--transition);">Subscrever</button>
                     </form>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 Moonbow Media. Todos os direitos reservados. | Where moonlight paints in colors</p>
+                <p>&copy; 2024 Moonbow Universe. Todos os direitos reservados. | Where moonlight paints in colors</p>
             </div>
         </div>
     </footer>
@@ -2690,7 +2629,7 @@
             </a>
             <a href="mailto:hello@moonbowmedia.pt" class="fab-option">
                 <i class="fas fa-envelope"></i>
-                <span class="fab-tooltip">Email</span>
+                <span class="fab-tooltip">E-mail</span>
             </a>
             <a href="tel:+351912345678" class="fab-option">
                 <i class="fas fa-phone"></i>
@@ -2706,7 +2645,6 @@
         </button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
         // Mobile Fill Button Effect - "Press to Fill" on mobile devices
         const setupFillButtons = () => {
@@ -2904,6 +2842,107 @@
         setupScrollAnimations();
 
         // Pull to Refresh (Mobile Only)
+        const setupPullToRefresh = () => {
+            if (window.innerWidth > 768) return;
+            
+            const pullToRefresh = document.getElementById('pullToRefresh');
+            if (!pullToRefresh) return;
+            
+            let startY = 0;
+            let currentY = 0;
+            let isPulling = false;
+            const threshold = 80;
+            
+            document.addEventListener('touchstart', (e) => {
+                if (window.scrollY === 0) {
+                    startY = e.touches[0].pageY;
+                    isPulling = true;
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', (e) => {
+                if (!isPulling || window.scrollY > 0) {
+                    isPulling = false;
+                    pullToRefresh.classList.remove('pulling');
+                    return;
+                }
+                
+                currentY = e.touches[0].pageY;
+                const pullDistance = currentY - startY;
+                
+                if (pullDistance > 0 && pullDistance < threshold * 1.5) {
+                    const progress = Math.min(pullDistance / threshold, 1);
+                    pullToRefresh.style.setProperty('--pull-progress', progress);
+                    pullToRefresh.classList.add('pulling');
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchend', () => {
+                if (!isPulling) return;
+                
+                const pullDistance = currentY - startY;
+                
+                if (pullDistance >= threshold) {
+                    pullToRefresh.classList.remove('pulling');
+                    pullToRefresh.classList.add('refreshing');
+                    
+                    // Refresh the page after animation
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    pullToRefresh.classList.remove('pulling');
+                }
+                
+                isPulling = false;
+                startY = 0;
+                currentY = 0;
+            }, { passive: true });
+        };
+        
+        setupPullToRefresh();
+        
+        // INTERSECTION OBSERVER FOR DESKTOP & MOBILE [data-scroll-anim]
+        const setupAdvancedScrollAnimations = () => {
+            // Se existirem elementos que não têm a propriedade definida no HTML, 
+            // podemos atribuí-la automaticamente para o observar.
+            const desktopElements = document.querySelectorAll('.section-title, .service-card, .feature-item, .cta-content, .client-carousel-item, .stat, .process-step, .info-item');
+            
+            desktopElements.forEach((el, index) => {
+                if (!el.hasAttribute('data-scroll-anim')) {
+                    el.setAttribute('data-scroll-anim', '');
+                    if (el.classList.contains('service-card') || el.classList.contains('feature-item') || el.classList.contains('client-carousel-item') || el.classList.contains('stat') || el.classList.contains('process-step') || el.classList.contains('info-item')) {
+                        // Stagger effect
+                        let delay = (index % 3) * 0.15;
+                        el.style.transitionDelay = `${delay}s`;
+                    }
+                }
+            });
+
+            const scrollAnimElements = document.querySelectorAll('[data-scroll-anim]');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.1
+            };
+            
+            const advancedScrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            scrollAnimElements.forEach(el => {
+                advancedScrollObserver.observe(el);
+            });
+        };
+        
+        setupAdvancedScrollAnimations();
+
         // Back to Top Button
         const backToTopBtn = document.getElementById('backToTopBtn');
         
@@ -2957,159 +2996,32 @@
             }
         });
         
-        // Testimonials Carousel - New Implementation
-        const testimonialContainer = document.getElementById('testimonialContainer');
-        const testimonialItems = document.querySelectorAll('.testimonial-item');
+        // Testimonial Slider
+        const testimonialTrack = document.getElementById('testimonialTrack');
         const prevBtn = document.getElementById('prevTestimonial');
         const nextBtn = document.getElementById('nextTestimonial');
-        const dotsContainer = document.getElementById('testimonialDots');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        let currentIndex = 0;
+        const slideCount = slides.length;
         
-        let currentTestimonial = 0;
-        const totalTestimonials = testimonialItems.length;
-        let testimonialAutoInterval;
-        let testimonialStartX = 0;
-        let testimonialIsDragging = false;
-        let testimonialDragDistance = 0;
-        
-        // Create dots
-        testimonialItems.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.className = 'dot' + (index === 0 ? ' active' : '');
-            dot.addEventListener('click', () => {
-                goToTestimonial(index);
-                resetTestimonialAutoPlay();
-            });
-            dotsContainer.appendChild(dot);
-        });
-        
-        function updateTestimonials() {
-            testimonialItems.forEach((item, index) => {
-                item.classList.remove('active', 'prev', 'next');
-                
-                if (index === currentTestimonial) {
-                    item.classList.add('active');
-                } else if (index === (currentTestimonial - 1 + totalTestimonials) % totalTestimonials) {
-                    item.classList.add('prev');
-                } else if (index === (currentTestimonial + 1) % totalTestimonials) {
-                    item.classList.add('next');
-                }
-            });
-            
-            // Update dots
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentTestimonial);
-            });
+        function updateSlider() {
+            testimonialTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
-        
-        function goToTestimonial(index) {
-            currentTestimonial = index;
-            updateTestimonials();
-        }
-        
-        function nextTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-            updateTestimonials();
-        }
-        
-        function prevTestimonial() {
-            currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-            updateTestimonials();
-        }
-        
-        function resetTestimonialAutoPlay() {
-            clearInterval(testimonialAutoInterval);
-            testimonialAutoInterval = setInterval(nextTestimonial, 6000);
-        }
-        
-        prevBtn.addEventListener('click', () => {
-            prevTestimonial();
-            resetTestimonialAutoPlay();
-        });
         
         nextBtn.addEventListener('click', () => {
-            nextTestimonial();
-            resetTestimonialAutoPlay();
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateSlider();
         });
         
-        // Click to advance testimonial (desktop)
-        testimonialContainer.addEventListener('click', (e) => {
-            // Only advance if not dragging and not clicking on dots
-            if (!testimonialIsDragging && testimonialDragDistance < 50 && !e.target.closest('.testimonial-dots')) {
-                nextTestimonial();
-                resetTestimonialAutoPlay();
-            }
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateSlider();
         });
         
-        // Mouse drag support
-        testimonialContainer.addEventListener('mousedown', (e) => {
-            testimonialIsDragging = true;
-            testimonialStartX = e.clientX;
-            testimonialDragDistance = 0;
-            clearInterval(testimonialAutoInterval);
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!testimonialIsDragging) return;
-            
-            const deltaX = e.clientX - testimonialStartX;
-            testimonialDragDistance = Math.abs(deltaX);
-            
-            // Swipe threshold
-            if (Math.abs(deltaX) > 80) {
-                if (deltaX > 0) {
-                    prevTestimonial();
-                } else {
-                    nextTestimonial();
-                }
-                testimonialIsDragging = false;
-                testimonialStartX = e.clientX;
-                testimonialDragDistance = 0;
-            }
-        });
-        
-        document.addEventListener('mouseup', () => {
-            if (testimonialIsDragging) {
-                testimonialIsDragging = false;
-                resetTestimonialAutoPlay();
-            }
-        });
-        
-        // Touch support
-        testimonialContainer.addEventListener('touchstart', (e) => {
-            testimonialStartX = e.touches[0].clientX;
-            testimonialDragDistance = 0;
-            clearInterval(testimonialAutoInterval);
-        });
-        
-        testimonialContainer.addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            const deltaX = endX - testimonialStartX;
-            
-            if (Math.abs(deltaX) > 50) {
-                if (deltaX > 0) {
-                    prevTestimonial();
-                } else {
-                    nextTestimonial();
-                }
-            } else if (Math.abs(deltaX) < 10) {
-                // If minimal movement, treat as click
-                nextTestimonial();
-            }
-            resetTestimonialAutoPlay();
-        });
-        
-        // Start auto-play
-        resetTestimonialAutoPlay();
-        
-        // Pause on hover
-        testimonialContainer.addEventListener('mouseenter', () => {
-            clearInterval(testimonialAutoInterval);
-        });
-        
-        testimonialContainer.addEventListener('mouseleave', () => {
-            resetTestimonialAutoPlay();
-        });
-        
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateSlider();
+        }, 5000);
         
         // Clients Carousel
         const carousel = document.getElementById('clientsCarousel');
@@ -3274,39 +3186,21 @@
         }
         
         
-        // Initialize Lenis Smooth Scroll
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            orientation: 'vertical',
-            gestureOrientation: 'vertical',
-            smoothWheel: true,
-            wheelMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-
-        requestAnimationFrame(raf);
-
-        // Smooth scrolling for anchor links with Lenis
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#' || targetId === '') return;
                 
-                // Use Lenis scrollTo
-                try {
-                lenis.scrollTo(targetId, {
-                    offset: -80,
-                    duration: 1.5
-                });
-                } catch (err) {}
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
         
@@ -3323,99 +3217,7 @@
                 card.style.transform = 'translateY(0)';
             }, 100 + index * 100);
         });
-
-        // ==========================================
-        // NEXT-GEN MICRO-INTERACTIONS
-        // ==========================================
-        
-        if (window.innerWidth > 991) {
-            // 1. MAGNETIC BUTTONS
-            const magneticButtons = document.querySelectorAll('.btn, .nav-links a, .social-links a');
-            
-            magneticButtons.forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    // Strength of the magnetic effect
-                    const strength = 0.3; 
-                    
-                    btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-                    btn.style.transition = 'transform 0.1s ease-out';
-                });
-                
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = 'translate(0, 0)';
-                    btn.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
-                });
-            });
-
-            // 2. 3D TILT EFFECT FOR CARDS
-            const tiltCards = document.querySelectorAll('.service-card, .process-step, .client-card, .project-card');
-            
-            tiltCards.forEach(card => {
-                // Remove CSS hover transform to avoid conflict, handle shift in JS
-                
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    // Calculate rotation based on cursor position
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg rotation
-                    const rotateY = ((x - centerX) / centerX) * 5;
-                    
-                    // Add some lift (translateZ) and scale for premium feel
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02) translateY(-10px)`;
-                    card.style.transition = 'transform 0.1s ease-out';
-                    
-                    // Glare effect logic could go here
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1) translateY(0)';
-                    card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.320, 1)';
-                });
-            });
-        }
-
-        // 3. TEXT REVEAL ON SCROLL (Simple Stagger)
-        const revealTextElements = document.querySelectorAll('h2, .section-subtitle');
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px"
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        revealTextElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.320, 1)';
-            observer.observe(el);
-        });
-        
-        // Add class to handle the reveal
-        const styleSheet = document.createElement("style");
-        styleSheet.textContent = `
-            .visible {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-            }
-        `;
-        document.head.appendChild(styleSheet);
-
     </script>
 </body>
 </html>
+
