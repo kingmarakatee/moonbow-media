@@ -2918,12 +2918,12 @@
         const setupAdvancedScrollAnimations = () => {
             // Se existirem elementos que não têm a propriedade definida no HTML, 
             // podemos atribuí-la automaticamente para o observar.
-            const desktopElements = document.querySelectorAll('.section-title, .service-card, .feature-item, .cta-content, .client-carousel-item, .stat, .process-step, .info-item');
+            const desktopElements = document.querySelectorAll('.section-title, .service-card, .feature-item, .cta-content, .stat, .process-step, .info-item');
             
             desktopElements.forEach((el, index) => {
                 if (!el.hasAttribute('data-scroll-anim')) {
                     el.setAttribute('data-scroll-anim', '');
-                    if (el.classList.contains('service-card') || el.classList.contains('feature-item') || el.classList.contains('client-carousel-item') || el.classList.contains('stat') || el.classList.contains('process-step') || el.classList.contains('info-item')) {
+                    if (el.classList.contains('service-card') || el.classList.contains('feature-item') || el.classList.contains('stat') || el.classList.contains('process-step') || el.classList.contains('info-item')) {
                         // Stagger effect
                         let delay = (index % 3) * 0.15;
                         el.style.transitionDelay = `${delay}s`;
@@ -3049,6 +3049,10 @@
         for (let i = 0; i < totalBlocks - 1; i++) {
             originalItems.forEach(item => {
                 const clone = item.cloneNode(true);
+                clone.removeAttribute('data-scroll-anim');
+                clone.classList.remove('visible');
+                clone.style.opacity = '1';
+                clone.style.transform = 'none';
                 carousel.appendChild(clone);
             });
         }
