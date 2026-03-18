@@ -167,6 +167,7 @@
             color: #FFFCBF;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.95rem;
             transition: var(--transition);
             position: relative;
             text-transform: uppercase;
@@ -191,6 +192,30 @@
         
         .nav-links a:hover::after {
             width: 100%;
+        }
+        
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFFCBF;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        .lang-switch a {
+            color: #FFFCBF;
+            text-decoration: none;
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+        
+        .lang-switch a.active, .lang-switch a:hover {
+            opacity: 1;
+            color: #F8951F;
         }
         
         .mobile-menu-btn {
@@ -238,10 +263,12 @@
             width: 85%;
         }
 
+        /* Hamburger hover effect */
         .mobile-menu-btn:hover .hamburger span {
             width: 100%;
         }
 
+        /* Hamburger active/open state */
         .mobile-menu-btn.active .hamburger span:nth-child(1) {
             transform: translateY(8px) rotate(45deg);
             width: 100%;
@@ -256,7 +283,7 @@
             transform: translateY(-8px) rotate(-45deg);
             width: 100%;
         }
-
+        
         /* ===== CONTACT HERO ===== */
         .contact-hero {
             height: 50vh;
@@ -841,10 +868,10 @@
                 </a>
                 
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">Início</a></li>
+                    <li><a href="index.html">Início</a></li>
                     <li><a href="services.html">Serviços</a></li>
                     <li><a href="process.html">Processo</a></li>
-                    <li><a href="#clients">Clientes</a></li>
+                    <li><a href="index.html#clients">Clientes</a></li>
                     <li><a href="about.html">Sobre</a></li>
                     <li><a href="contact.html">Contacto</a></li>
                 </ul>
@@ -1203,6 +1230,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
