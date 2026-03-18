@@ -258,7 +258,7 @@
         .lang-switch a {
             color: #FFFCBF;
             text-decoration: none;
-            opacity: 0.8;
+            opacity: 0.5;
             transition: var(--transition);
         }
         
@@ -676,39 +676,27 @@
         }
         
         .client-carousel-item {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              flex-shrink: 0;
-              width: 180px;
-              height: 120px;
-              position: relative;
-          }
-
-          .client-logo-mask {
-              display: block;
-              position: absolute;
-              inset: 0;
-              width: 100%;
-              height: 100%;
-              background: linear-gradient(90deg, #FFFCBF, #F8951F, #FA4144, #F8951F, #FFFCBF);
-              background-size: 200% auto;
-              animation: gradientFlow 4s ease-in-out infinite;
-              -webkit-mask-size: contain;
-              -webkit-mask-repeat: no-repeat;
-              -webkit-mask-position: center;
-              mask-size: contain;
-              mask-repeat: no-repeat;
-              mask-position: center;
-              opacity: 0.8;
-              transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-          }
-
-          .client-carousel-item:hover .client-logo-mask {
-              opacity: 1;
-              transform: scale(1.15);
-              filter: drop-shadow(0 10px 20px rgba(250, 65, 68, 0.4));
-          }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 180px;
+            height: 120px;
+            transition: filter 0.3s ease;
+        }
+        
+        .client-carousel-item:hover .client-logo-img {
+            transform: scale(1.15);
+            filter: brightness(1.2);
+        }
+        
+        .client-logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: var(--transition);
+            filter: drop-shadow(0 10px 30px rgba(250, 65, 68, 0.2));
+        }
         
         /* Testimonials */
         .testimonials {
@@ -2460,23 +2448,23 @@
                 <div class="clients-carousel" id="clientsCarousel">
                     <!-- Client Logo 1 -->
                     <div class="client-carousel-item">
-                          <div class="client-logo-mask" style="-webkit-mask-image: url('images/clients/r35.png'); mask-image: url('images/clients/r35.png');" aria-label="R35 Gabinete de Projectos"></div>
-                      </div>
+                        <img src="images/clients/r35.png" alt="R35 Gabinete de Projectos" class="client-logo-img">
+                    </div>
                     
                     <!-- Client Logo 2 -->
                     <div class="client-carousel-item">
-                          <div class="client-logo-mask" style="-webkit-mask-image: url('images/clients/samgual.png'); mask-image: url('images/clients/samgual.png');" aria-label="Samgual"></div>
-                      </div>
+                        <img src="images/clients/samgual.png" alt="Samgual" class="client-logo-img">
+                    </div>
                     
                     <!-- Client Logo 3 -->
                     <div class="client-carousel-item">
-                          <div class="client-logo-mask" style="-webkit-mask-image: url('images/clients/tropilha.png'); mask-image: url('images/clients/tropilha.png');" aria-label="A Tropilha"></div>
-                      </div>
+                        <img src="images/clients/tropilha.png" alt="A Tropilha" class="client-logo-img">
+                    </div>
                     
                     <!-- Client Logo 4 -->
                     <div class="client-carousel-item">
-                          <div class="client-logo-mask" style="-webkit-mask-image: url('images/clients/motards.png'); mask-image: url('images/clients/motards.png');" aria-label="Motards de S.Simão"></div>
-                      </div>
+                        <img src="images/clients/motards.png" alt="Motards de S.Simão" class="client-logo-img">
+                    </div>
                 </div>
             </div>
             
@@ -2918,12 +2906,12 @@
         const setupAdvancedScrollAnimations = () => {
             // Se existirem elementos que não têm a propriedade definida no HTML, 
             // podemos atribuí-la automaticamente para o observar.
-            const desktopElements = document.querySelectorAll('.section-title, .service-card, .feature-item, .cta-content, .stat, .process-step, .info-item');
+            const desktopElements = document.querySelectorAll('.section-title, .service-card, .feature-item, .cta-content, .client-carousel-item, .stat, .process-step, .info-item');
             
             desktopElements.forEach((el, index) => {
                 if (!el.hasAttribute('data-scroll-anim')) {
                     el.setAttribute('data-scroll-anim', '');
-                    if (el.classList.contains('service-card') || el.classList.contains('feature-item') || el.classList.contains('stat') || el.classList.contains('process-step') || el.classList.contains('info-item')) {
+                    if (el.classList.contains('service-card') || el.classList.contains('feature-item') || el.classList.contains('client-carousel-item') || el.classList.contains('stat') || el.classList.contains('process-step') || el.classList.contains('info-item')) {
                         // Stagger effect
                         let delay = (index % 3) * 0.15;
                         el.style.transitionDelay = `${delay}s`;
@@ -3041,23 +3029,26 @@
         const originalItems = document.querySelectorAll('.client-carousel-item');
         const singleItemWidth = 180;
         const gap = 60;
-        const itemWidth = singleItemWidth + gap;
+        const itemWidth = singleItemWidth + gap; 
         const originalCount = originalItems.length;
         const blockWidth = itemWidth * originalCount;
 
-        const totalBlocks = 15; // many blocks to ensure no edges are seen
+        // Duplicar N blocos falsos para criar scroll pseudo-infinito sem travar no fim
+        const totalBlocks = 15; 
         for (let i = 0; i < totalBlocks - 1; i++) {
-            originalItems.forEach(item => {
+            originalItems.forEach((item, index) => {
                 const clone = item.cloneNode(true);
+                // Remover classes/atributos de scroll para n ficarem invisiveis
                 clone.removeAttribute('data-scroll-anim');
                 clone.classList.remove('visible');
+                clone.style.transitionDelay = '0s'; // limpar stagger
                 clone.style.opacity = '1';
                 clone.style.transform = 'none';
                 carousel.appendChild(clone);
             });
         }
 
-        let currentScroll = blockWidth * 5;
+        let currentScroll = blockWidth * 5; // Come�a no meio do "corredor" infinito
         let isDown = false;
         let startX;
         let scrollLeft;
@@ -3067,13 +3058,14 @@
         let velocity = 0;
         let friction = 0.95;
         let hasMoved = false;
-        const minDragDistance = 5;
+        const minDragDistance = 5; 
 
         function updateCarouselPosition() {
             carousel.style.transform = `translateX(-${currentScroll}px)`;
         }
 
         function checkBoundaries() {
+            // Reposiciona silenciosamente se o utilizador arrastar muito longe
             if (currentScroll <= blockWidth) {
                 currentScroll += blockWidth * 5;
             } else if (currentScroll >= blockWidth * 10) {
@@ -3090,8 +3082,10 @@
             requestAnimationFrame(autoScroll);
         }
 
+        // Iniciar auto scroll
         autoScroll();
 
+        // Mouse down
         container.addEventListener('mousedown', (e) => {
             isDown = true;
             startX = e.pageX - container.offsetLeft;
@@ -3100,14 +3094,18 @@
             hasMoved = false;
         });
 
+        // Mouse move
         container.addEventListener('mousemove', (e) => {
             if (!isDown) return;
+            
             const x = e.pageX - container.offsetLeft;
             const walk = (x - startX);
+            
             if (Math.abs(walk) > minDragDistance) {
                 isDragging = true;
                 hasMoved = true;
             }
+            
             if (isDragging) {
                 const newScroll = scrollLeft - walk;
                 velocity = newScroll - currentScroll;
@@ -3117,8 +3115,10 @@
             }
         });
 
+        // Mouse up com in�rcia
         document.addEventListener('mouseup', () => {
             isDown = false;
+
             if (isDragging && hasMoved) {
                 const applyInertia = () => {
                     if (Math.abs(velocity) > 0.1) {
@@ -3131,14 +3131,21 @@
                         isDragging = false;
                     }
                 };
+                
                 applyInertia();
             } else {
                 isDragging = false;
             }
         });
 
-        container.addEventListener('mouseenter', () => { isHovering = true; });
-        container.addEventListener('mouseleave', () => { isHovering = false; });
+        // Hover para pausar
+        container.addEventListener('mouseenter', () => {
+            isHovering = true;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isHovering = false;
+        });
         
         // Services Carousel for Mobile - Simple touch support
         const servicesGrid = document.querySelector('.services-grid');
