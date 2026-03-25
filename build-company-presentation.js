@@ -299,7 +299,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.challengeText, { x: 125, y: H - 450, size: 55, color: C.white, lineHeight: 80 });
     
-    drawFooter(page, t.challengeFooter, true);
+    drawFooter(page, t.challengeFooter, true, logoImageColor, logoImageBlack);
   }
 
   // 3: About
@@ -315,7 +315,7 @@ async function buildPDF(lang) {
     page.drawText(t.aboutText, { x: 125, y: H - 450, size: 50, color: C.darkGray, lineHeight: 70 });
     page.drawLine({ start: {x: 125, y: H - 800}, end: {x: 400, y: H - 800}, thickness: 8, color: C.accent });
 
-    drawFooter(page, t.aboutFooter, false);
+    drawFooter(page, t.aboutFooter, false, logoImageColor, logoImageBlack);
   }
 
   // 4: Approach
@@ -330,7 +330,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.approachText, { x: 125, y: H - 450, size: 50, color: C.darkGray, lineHeight: 70 });
     
-    drawFooter(page, t.approachFooter, false);
+    drawFooter(page, t.approachFooter, false, logoImageColor, logoImageBlack);
   }
 
   // 5: Values
@@ -357,7 +357,7 @@ async function buildPDF(lang) {
         cX += cW + 40;
     }
 
-    drawFooter(page, t.valuesFooter, false);
+    drawFooter(page, t.valuesFooter, false, logoImageColor, logoImageBlack);
   }
 
   // 6: Manifesto
@@ -372,7 +372,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.manifestoText, { x: 125, y: H - 400, size: 65, color: C.white, lineHeight: 85 });
     
-    drawFooter(page, t.manifestoFooter, true);
+    drawFooter(page, t.manifestoFooter, true, logoImageColor, logoImageBlack);
   }
 
   // 7: Services
@@ -391,7 +391,7 @@ async function buildPDF(lang) {
     drawEditorialCard(page, 700, cardY, 520, cardH, t.cards[1].num, t.cards[1].title, t.cards[1].list);
     drawEditorialCard(page, 1280, cardY, 520, cardH, t.cards[2].num, t.cards[2].title, t.cards[2].list);
 
-    drawFooter(page, t.servicesFooter, false);
+    drawFooter(page, t.servicesFooter, false, logoImageColor, logoImageBlack);
   }
 
   // 8: Portfolio / Selected Work
@@ -437,7 +437,7 @@ async function buildPDF(lang) {
         bX += bW + 60;
     }
     
-    drawFooter(page, t.workFooter, true);
+    drawFooter(page, t.workFooter, true, logoImageColor, logoImageBlack);
   }
 
   // 9: Process
@@ -467,7 +467,7 @@ async function buildPDF(lang) {
       currentY -= stepGap;
     }
 
-    drawFooter(page, t.processFooter, false);
+    drawFooter(page, t.processFooter, false, logoImageColor, logoImageBlack);
   }
 
   // 10: Numbers
@@ -489,7 +489,7 @@ async function buildPDF(lang) {
     drawHugeStat(850, 500, '360°', t.metricsLabels[1]);
     drawHugeStat(1450, 500, '24/7', t.metricsLabels[2]);
 
-    drawFooter(page, t.metricsFooter, true);
+    drawFooter(page, t.metricsFooter, true, logoImageColor, logoImageBlack);
   }
 
   // 11: Testimonials
@@ -512,7 +512,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.testimonial2Author, { x: 250, y: H - 800, size: 24, color: C.accent });
     
-    drawFooter(page, t.testimonialsFooter, false);
+    drawFooter(page, t.testimonialsFooter, false, logoImageColor, logoImageBlack);
   }
 
   // 12: CTA
