@@ -294,21 +294,27 @@ async function buildPDF(lang) {
     page.drawRectangle({ x: 0, y: 0, width: W, height: H, color: C.offWhite });
     drawGrid(page);
 
-    page.drawCircle({ x: W + 100, y: H / 2, size: 700, color: C.accent });
-    page.drawCircle({ x: 0, y: -200, size: 500, color: C.white });
+    // Decorative shapes
+    page.drawCircle({ x: W, y: H / 2 + 100, size: 800, color: C.accent });
+    page.drawCircle({ x: 100, y: -100, size: 500, color: C.white });
 
+    // Logo
     if(logoImageBlack) {
-        const scaled = logoImageBlack.scale(0.5);
-        page.drawImage(logoImageBlack, { x: 120, y: H - 100 - scaled.height, width: scaled.width, height: scaled.height });
+        const scaled = logoImageBlack.scale(0.4);
+        page.drawImage(logoImageBlack, { x: 120, y: H - 160 - scaled.height, width: scaled.width, height: scaled.height });
       } else if (logoImageColor) {
-        const scaled = logoImageColor.scale(0.5);
+        const scaled = logoImageColor.scale(0.4);
+        page.drawImage(logoImageColor, { x: 120, y: H - 160 - scaled.height, width: scaled.width, height: scaled.height });
     }
 
+    // Title
     page.setFont(fontBold);
-    page.drawText(t.coverTitle, { x: 120, y: H - 450, size: 140, color: C.black, lineHeight: 130 });
+    page.drawText(t.coverTitle, { x: 120, y: H - 480, size: 160, color: C.black, lineHeight: 145 });
+    
+    // Subtitle & Footer line
     page.setFont(fontRegular);
-    page.drawText(t.coverSub, { x: 125, y: 220, size: 26, color: C.grayText });
-    page.drawLine({ start: {x: 120, y: 180}, end: {x: 800, y: 180}, thickness: 2, color: C.black });
+    page.drawText(t.coverSub, { x: 120, y: 160, size: 30, color: C.grayText });
+    page.drawLine({ start: {x: 120, y: 120}, end: {x: W - 120, y: 120}, thickness: 2, color: C.black });
   }
 
   // 2: Challenge
