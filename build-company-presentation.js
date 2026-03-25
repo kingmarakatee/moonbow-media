@@ -298,10 +298,10 @@ async function buildPDF(lang) {
     page.drawCircle({ x: 0, y: -200, size: 500, color: C.white });
 
     if(logoImageBlack) {
-        const scaled = logoImageBlack.scale(0.3);
-        page.drawImage(logoImageBlack, { x: 120, y: H - 250, width: scaled.width, height: scaled.height });
+        const scaled = logoImageBlack.scale(0.5);
+        page.drawImage(logoImageBlack, { x: 120, y: H - 100 - scaled.height, width: scaled.width, height: scaled.height });
       } else if (logoImageColor) {
-        const scaled = logoImageColor.scale(0.3);
+        const scaled = logoImageColor.scale(0.5);
     }
 
     page.setFont(fontBold);
