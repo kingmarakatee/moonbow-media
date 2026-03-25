@@ -191,18 +191,35 @@ function drawHeader(page, title, subtitle, isDark = false) {
   }
 }
 
-function drawFooter(page, text, isDark = false) {
-  page.drawLine({
-    start: { x: 120, y: 80 },
-    end: { x: W - 120, y: 80 },
-    thickness: 2,
-    color: isDark ? C.darkGray : C.lightGray
-  });
-  page.drawText(text.toUpperCase(), { x: 120, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
-  page.drawText('2026', { x: W - 160, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
+function drawFooter(page, text, isDark = false, sWhite = null, sBlack = null) {
+    page.drawLine({
+      start: { x: 120, y: 80 },
+      end: { x: W - 120, y: 80 },
+      thickness: 2,
+      color: isDark ? C.darkGray : C.lightGray
+    });
+    page.drawText(text.toUpperCase(), { x: 120, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
+
+    const logoToUse = isDark ? sWhite : sBlack;
+    if (logoToUse) {
+      const targetWidth = 100;
+      const scaleToUse = targetWidth / logoToUse.width;
+      const scaled = logoToUse.scale(scaleToUse);
+      // Place it at the far right aligned with the line's right edge
+      page.drawImage(logoToUse, { 
+        x: W - 120 - scaled.width, 
+        y: 40,
+        width: scaled.width, 
+        height: scaled.height 
+      });
+      // Place 2026 to the left of the logo
+      page.drawText('2026', { x: W - 120 - scaled.width - 50, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
+    } else {
+      page.drawText('2026', { x: W - 160, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
+    }
 }
 
-function drawEditorialCard(page, x, y, width, height, number, title, textLines) {
+  function drawEditorialCard(page, x, y, width, height, number, title, textLines) {
   page.drawRectangle({ x, y, width, height, color: C.white });
   page.drawLine({ start: {x, y: y+height}, end: {x: x+width, y: y+height}, thickness: 6, color: C.accent });
   page.drawText(number, { x: x + 40, y: y + height - 80, size: 60, color: C.lightGray });
@@ -235,6 +252,14 @@ async function buildPDF(lang) {
   if(fs.existsSync(BLACK_LOGO_PATH)) {
       logoImageBlack = await pdf.embedPng(fs.readFileSync(BLACK_LOGO_PATH));
   }
+    let smallLogoWhite = null;
+    let smallLogoBlack = null;
+    const SMALL_WHITE_PATH = path.join(__dirname, 'images', 'pdf', 'smalllogo-white.png');
+    const SMALL_BLACK_PATH = path.join(__dirname, 'images', 'pdf', 'smalllogo-black.png');
+    
+    if(fs.existsSync(SMALL_WHITE_PATH)) smallLogoWhite = await pdf.embedPng(fs.readFileSync(SMALL_WHITE_PATH));
+    if(fs.existsSync(SMALL_BLACK_PATH)) smallLogoBlack = await pdf.embedPng(fs.readFileSync(SMALL_BLACK_PATH));
+
 
   let corporateImg = null;
   const CORP_JPG = path.join(__dirname, 'images', 'pdf', 'corporate.jpg');
@@ -299,7 +324,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.challengeText, { x: 125, y: H - 450, size: 55, color: C.white, lineHeight: 80 });
     
-    drawFooter(page, t.challengeFooter, true, logoImageColor, logoImageBlack);
+    drawFooter(page, t.challengeFooter, true, smallLogoWhite, smallLogoBlack);
   }
 
   // 3: About
@@ -315,7 +340,7 @@ async function buildPDF(lang) {
     page.drawText(t.aboutText, { x: 125, y: H - 450, size: 50, color: C.darkGray, lineHeight: 70 });
     page.drawLine({ start: {x: 125, y: H - 800}, end: {x: 400, y: H - 800}, thickness: 8, color: C.accent });
 
-    drawFooter(page, t.aboutFooter, false, logoImageColor, logoImageBlack);
+    drawFooter(page, t.aboutFooter, false, smallLogoWhite, smallLogoBlack);
   }
 
   // 4: Approach
@@ -330,7 +355,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.approachText, { x: 125, y: H - 450, size: 50, color: C.darkGray, lineHeight: 70 });
     
-    drawFooter(page, t.approachFooter, false, logoImageColor, logoImageBlack);
+    drawFooter(page, t.approachFooter, false, smallLogoWhite, smallLogoBlack);
   }
 
   // 5: Values
@@ -357,7 +382,7 @@ async function buildPDF(lang) {
         cX += cW + 40;
     }
 
-    drawFooter(page, t.valuesFooter, false, logoImageColor, logoImageBlack);
+    drawFooter(page, t.valuesFooter, false, smallLogoWhite, smallLogoBlack);
   }
 
   // 6: Manifesto
@@ -372,7 +397,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.manifestoText, { x: 125, y: H - 400, size: 65, color: C.white, lineHeight: 85 });
     
-    drawFooter(page, t.manifestoFooter, true, logoImageColor, logoImageBlack);
+    drawFooter(page, t.manifestoFooter, true, smallLogoWhite, smallLogoBlack);
   }
 
   // 7: Services
@@ -391,7 +416,7 @@ async function buildPDF(lang) {
     drawEditorialCard(page, 700, cardY, 520, cardH, t.cards[1].num, t.cards[1].title, t.cards[1].list);
     drawEditorialCard(page, 1280, cardY, 520, cardH, t.cards[2].num, t.cards[2].title, t.cards[2].list);
 
-    drawFooter(page, t.servicesFooter, false, logoImageColor, logoImageBlack);
+    drawFooter(page, t.servicesFooter, false, smallLogoWhite, smallLogoBlack);
   }
 
   // 8: Portfolio / Selected Work
@@ -437,7 +462,7 @@ async function buildPDF(lang) {
         bX += bW + 60;
     }
     
-    drawFooter(page, t.workFooter, true, logoImageColor, logoImageBlack);
+    drawFooter(page, t.workFooter, true, smallLogoWhite, smallLogoBlack);
   }
 
   // 9: Process
@@ -467,7 +492,7 @@ async function buildPDF(lang) {
       currentY -= stepGap;
     }
 
-    drawFooter(page, t.processFooter, false, logoImageColor, logoImageBlack);
+    drawFooter(page, t.processFooter, false, smallLogoWhite, smallLogoBlack);
   }
 
   // 10: Numbers
@@ -489,7 +514,7 @@ async function buildPDF(lang) {
     drawHugeStat(850, 500, '360°', t.metricsLabels[1]);
     drawHugeStat(1450, 500, '24/7', t.metricsLabels[2]);
 
-    drawFooter(page, t.metricsFooter, true, logoImageColor, logoImageBlack);
+    drawFooter(page, t.metricsFooter, true, smallLogoWhite, smallLogoBlack);
   }
 
   // 11: Testimonials
@@ -512,7 +537,7 @@ async function buildPDF(lang) {
     page.setFont(fontRegular);
     page.drawText(t.testimonial2Author, { x: 250, y: H - 800, size: 24, color: C.accent });
     
-    drawFooter(page, t.testimonialsFooter, false, logoImageColor, logoImageBlack);
+    drawFooter(page, t.testimonialsFooter, false, smallLogoWhite, smallLogoBlack);
   }
 
   // 12: CTA
@@ -537,7 +562,19 @@ async function buildPDF(lang) {
       color: C.black
     });
     page.drawText(t.dateText, { x: 120, y: 50, size: 18, color: C.black });
-  }
+
+      if (smallLogoWhite) {
+        const targetWidth = 100;
+        const scaleToUse = targetWidth / smallLogoWhite.width;
+        const scaled = smallLogoWhite.scale(scaleToUse);
+        page.drawImage(smallLogoWhite, { 
+          x: W - 120 - scaled.width, 
+          y: 40,
+          width: scaled.width, 
+          height: scaled.height 
+        });
+      }
+    }
 
   fs.writeFileSync(OUT, await pdf.save());
   console.log(`Presentation created: ${OUT}`);
