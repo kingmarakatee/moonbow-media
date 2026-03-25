@@ -295,8 +295,8 @@ async function buildPDF(lang) {
     drawGrid(page);
 
     // Decorative shapes
-    page.drawCircle({ x: W, y: H / 2 + 100, size: 800, color: C.accent });
-    page.drawCircle({ x: 100, y: -100, size: 500, color: C.white });
+    page.drawCircle({ x: W, y: H / 2 - 100, size: 800, color: C.accent });
+    page.drawCircle({ x: 100, y: -200, size: 500, color: C.white });
 
     // Logo
     const targetWidth = W - 240; // Full margin-to-margin width
