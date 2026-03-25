@@ -1,0 +1,26 @@
+{
+  "name": "moonbow_site",
+  "version": "1.0.0",
+  "description": "> **Where moonlight paints in colors** - Capturamos a beleza rara dos seus momentos com a mesma magia com que a lua pinta o céu noturno.",
+  "main": "apply-mask.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingmarakatee/moonbow-media.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kingmarakatee/moonbow-media/issues"
+  },
+  "homepage": "https://github.com/kingmarakatee/moonbow-media#readme",
+  "dependencies": {
+    "jimp": "^1.6.0",
+    "pdf-lib": "^1.17.1",
+    "playwright": "^1.58.2"
+  }
+}
