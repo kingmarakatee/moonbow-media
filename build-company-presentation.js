@@ -101,7 +101,7 @@ const STRINGS = {
     
     challengeTitle: 'O DESAFIO.',
     challengeSub: 'A paisagem digital está saturada.',
-    challengeText: 'A atenção é a nova moeda de troca. Num mundo\nonde todos comunicam, ser notado já não é suficiente.\nÉ preciso ser memorável. É preciso criar impacto.',
+    challengeText: 'A atenção é a nova moeda de troca. Num mundo\nonde todos comunicam, ser bom já não é suficiente.\nÉ preciso ser memorável. É preciso criar impacto.',
     challengeFooter: 'Contexto',
 
     aboutTitle: 'QUEM SOMOS.',
