@@ -26,7 +26,7 @@ const STRINGS = {
     
     challengeTitle: 'THE CHALLENGE.',
     challengeSub: 'The digital landscape is saturated.',
-    challengeText: 'Attention is the new currency. In a world\nwhere everyone communicates, being noticed is not enough.\nYou need to be memorable. You need to create impact.',
+    challengeText: 'Attention is the new currency. In a world\nwhere everyone communicates, being good is not enough.\nYou need to be memorable. You need to create impact.',
     challengeFooter: 'Context',
 
     aboutTitle: 'WHO WE ARE.',
