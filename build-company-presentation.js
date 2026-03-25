@@ -521,12 +521,12 @@ async function buildPDF(lang) {
     page.drawRectangle({ x: 0, y: 0, width: W, height: H, color: C.accent });
 
     page.setFont(fontBold);
-    page.drawText(t.ctaTitle, { x: 120, y: H - 300, size: 160, color: C.black, lineHeight: 150 });
+    page.drawText(t.ctaTitle, { x: 120, y: H - 350, size: 160, color: C.black, lineHeight: 140 });
     
     page.setFont(fontRegular);
-    page.drawText('hello@moonbowmedia.pt', { x: 130, y: H - 450, size: 60, color: C.white });
-    page.drawText('+351 912 345 678', { x: 130, y: H - 550, size: 60, color: C.white });
-    page.drawText('moonbowmedia.pt', { x: 130, y: H - 650, size: 60, color: C.white });
+    page.drawText('hello@moonbowmedia.pt', { x: 130, y: H - 650, size: 60, color: C.white });
+    page.drawText('+351 912 345 678', { x: 130, y: H - 750, size: 60, color: C.white });
+    page.drawText('moonbowmedia.pt', { x: 130, y: H - 850, size: 60, color: C.white });
     
     page.drawCircle({ x: W - 300, y: 300, size: 450, color: C.white, opacity: 0.1 });
     
