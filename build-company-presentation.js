@@ -299,17 +299,20 @@ async function buildPDF(lang) {
     page.drawCircle({ x: 100, y: -100, size: 500, color: C.white });
 
     // Logo
+    const targetWidth = W - 240; // Full margin-to-margin width
     if(logoImageBlack) {
-        const scaled = logoImageBlack.scale(0.4);
-        page.drawImage(logoImageBlack, { x: 120, y: H - 160 - scaled.height, width: scaled.width, height: scaled.height });
+        const scaleToUse = targetWidth / logoImageBlack.width;
+        const scaledH = logoImageBlack.height * scaleToUse;
+        page.drawImage(logoImageBlack, { x: 120, y: H - 120 - scaledH, width: targetWidth, height: scaledH });
       } else if (logoImageColor) {
-        const scaled = logoImageColor.scale(0.4);
-        page.drawImage(logoImageColor, { x: 120, y: H - 160 - scaled.height, width: scaled.width, height: scaled.height });
+        const scaleToUse = targetWidth / logoImageColor.width;
+        const scaledH = logoImageColor.height * scaleToUse;
+        page.drawImage(logoImageColor, { x: 120, y: H - 120 - scaledH, width: targetWidth, height: scaledH });
     }
 
     // Title
     page.setFont(fontBold);
-    page.drawText(t.coverTitle, { x: 120, y: H - 480, size: 160, color: C.black, lineHeight: 145 });
+    page.drawText(t.coverTitle, { x: 120, y: H - 530, size: 140, color: C.black, lineHeight: 125 });
     
     // Subtitle & Footer line
     page.setFont(fontRegular);
