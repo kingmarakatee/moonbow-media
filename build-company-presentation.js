@@ -262,7 +262,7 @@ async function buildPDF(lang) {
 
 
   let corporateImg = null;
-  const CORP_JPG = path.join(__dirname, 'images', 'pdf', 'corporate.jpg');
+  const CORP_JPG = path.join(__dirname, 'images', 'pdf', 'corporate-min.jpg');
   const CORP_PNG = path.join(__dirname, 'images', 'pdf', 'corporate.png');
   if(fs.existsSync(CORP_JPG)) {
       corporateImg = await pdf.embedJpg(fs.readFileSync(CORP_JPG));
@@ -271,7 +271,7 @@ async function buildPDF(lang) {
   }
 
   let eventImg = null;
-  const EVENT_JPG = path.join(__dirname, 'images', 'pdf', 'event.jpg');
+  const EVENT_JPG = path.join(__dirname, 'images', 'pdf', 'event-min.jpg');
   const EVENT_PNG = path.join(__dirname, 'images', 'pdf', 'event.png');
   if(fs.existsSync(EVENT_JPG)) {
       eventImg = await pdf.embedJpg(fs.readFileSync(EVENT_JPG));
@@ -280,7 +280,7 @@ async function buildPDF(lang) {
   }
 
   let cultureImg = null;
-  const CULTURE_JPG = path.join(__dirname, 'images', 'pdf', 'culture.jpg');
+  const CULTURE_JPG = path.join(__dirname, 'images', 'pdf', 'culture-min.jpg');
   const CULTURE_PNG = path.join(__dirname, 'images', 'pdf', 'culture.png');
   if(fs.existsSync(CULTURE_JPG)) {
       cultureImg = await pdf.embedJpg(fs.readFileSync(CULTURE_JPG));
