@@ -202,18 +202,18 @@ function drawFooter(page, text, isDark = false, sWhite = null, sBlack = null) {
 
     const logoToUse = isDark ? sWhite : sBlack;
     if (logoToUse) {
-      const targetWidth = 100;
+      const targetWidth = 150;
       const scaleToUse = targetWidth / logoToUse.width;
       const scaled = logoToUse.scale(scaleToUse);
-      // Place it at the far right aligned with the line's right edge
-      page.drawImage(logoToUse, { 
-        x: W - 120 - scaled.width, 
-        y: 40,
-        width: scaled.width, 
-        height: scaled.height 
+      // Place it at the top right
+      page.drawImage(logoToUse, {
+        x: W - 120 - scaled.width,
+        y: H - 80 - scaled.height,
+        width: scaled.width,
+        height: scaled.height
       });
-      // Place 2026 to the left of the logo
-      page.drawText('2026', { x: W - 120 - scaled.width - 50, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
+      // Place 2026 at the bottom right
+      page.drawText('2026', { x: W - 160, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
     } else {
       page.drawText('2026', { x: W - 160, y: 50, size: 14, color: isDark ? C.grayText : C.grayText });
     }
@@ -298,11 +298,10 @@ async function buildPDF(lang) {
     page.drawCircle({ x: 0, y: -200, size: 500, color: C.white });
 
     if(logoImageBlack) {
-      const scaled = logoImageBlack.scale(0.8);
-      page.drawImage(logoImageBlack, { x: 120, y: H - 250, width: scaled.width, height: scaled.height });
-    } else if (logoImageColor) {
-      const scaled = logoImageColor.scale(0.8);
-      page.drawImage(logoImageColor, { x: 120, y: H - 250, width: scaled.width, height: scaled.height });
+        const scaled = logoImageBlack.scale(0.3);
+        page.drawImage(logoImageBlack, { x: 120, y: H - 250, width: scaled.width, height: scaled.height });
+      } else if (logoImageColor) {
+        const scaled = logoImageColor.scale(0.3);
     }
 
     page.setFont(fontBold);
@@ -564,14 +563,14 @@ async function buildPDF(lang) {
     page.drawText(t.dateText, { x: 120, y: 50, size: 18, color: C.black });
 
       if (smallLogoWhite) {
-        const targetWidth = 100;
+        const targetWidth = 150;
         const scaleToUse = targetWidth / smallLogoWhite.width;
         const scaled = smallLogoWhite.scale(scaleToUse);
-        page.drawImage(smallLogoWhite, { 
-          x: W - 120 - scaled.width, 
-          y: 40,
-          width: scaled.width, 
-          height: scaled.height 
+        page.drawImage(smallLogoWhite, {
+          x: W - 120 - scaled.width,
+          y: H - 80 - scaled.height,
+          width: scaled.width,
+          height: scaled.height
         });
       }
     }
