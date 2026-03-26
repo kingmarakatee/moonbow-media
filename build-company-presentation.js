@@ -21,25 +21,25 @@ const STRINGS = {
   en: {
     filename: 'moonbow-presentation-en.pdf',
     docTitle: 'Moonbow - Visual Communication',
-    coverTitle: 'SHAPING\nVISUAL\nCULTURE.',
+    coverTitle: 'SHAPING\nVISUAL\nCULTURE',
     coverSub: 'Moonbow Corporate Profile // Creative Production & Broadcast Studio',
     
-    challengeTitle: 'THE CHALLENGE.',
+    challengeTitle: 'THE CHALLENGE',
     challengeSub: 'The digital landscape is saturated.',
     challengeText: 'Attention is the new currency. In a world\nwhere everyone communicates, being good is not enough.\nYou need to be memorable. You need to create impact.',
     challengeFooter: 'Context',
 
-    aboutTitle: 'WHO WE ARE.',
+    aboutTitle: 'WHO WE ARE',
     aboutSub: 'Inspired by the rare beauty of the night.',
     aboutText: 'Our name is inspired by the moonbow — the lunar rainbow,\nextremely rare, only visible under specific conditions.\nA small team from Northern Portugal: video, broadcast\nand design, delivered without compromise.',
     aboutFooter: 'About Us',
 
-    approachTitle: 'OUR APPROACH.',
+    approachTitle: 'OUR APPROACH',
     approachSub: 'Art meets technique.',
     approachText: 'We don\'t just make videos. We build\nbrands through movement, color, and sound.\nA perfect union between technical rigor\nand artistic vision.',
     approachFooter: 'Strategy',
 
-    valuesTitle: 'OUR VALUES.',
+    valuesTitle: 'OUR VALUES',
     valuesSub: 'The pillars of our execution.',
     values: [
       { t: 'EXCELLENCE', d: 'Quality is non-negotiable.' },
@@ -49,11 +49,11 @@ const STRINGS = {
     ],
     valuesFooter: 'Core Principles',
 
-    manifestoTitle: 'WE BELIEVE.',
+    manifestoTitle: 'WE BELIEVE',
     manifestoText: 'In a noisy world, precision and cinematic\ncraft cut through the static. We build\naudiovisual experiences that command\nattention and drive results.',
     manifestoFooter: 'Mission & Vision',
 
-    servicesTitle: 'WHAT WE DO.',
+    servicesTitle: 'WHAT WE DO',
     servicesSub: 'Core disciplines engineered for modern brands.',
     cards: [
       { num: '01', title: 'Cinema & Video', list: ['Commercials & Brand Films', 'Documentary Production', 'High-end Event Coverage', 'Color Grading & Finishing'] },
@@ -62,27 +62,27 @@ const STRINGS = {
     ],
     servicesFooter: 'Our Expertise',
 
-    workTitle: 'INDUSTRIES.',
+    workTitle: 'INDUSTRIES',
     workSub: 'Where we create impact.',
     workBoxes: ['CORPORATE & BRANDS', 'EVENTS', 'CULTURE & SPORTS'],
     workFooter: 'Sectors',
 
-    processBgTitle: 'THE\nPROCESS.',
+    processBgTitle: 'THE\nPROCESS',
     processBgSub: 'METHODOLOGY',
     steps: [
       { num: 'I.', title: 'DISCOVERY', desc: 'Deep dive into objectives and target audience.' },
-      { num: 'II.', title: 'CONCEPT', desc: 'Creative treatment and production planning.' },
-      { num: 'III.', title: 'EXECUTION', desc: 'Shooting or live deployment with technical rigor.' },
-      { num: 'IV.', title: 'DELIVERY', desc: 'Post-production polish and format mastery.' }
+      { num: 'II', title: 'CONCEPT', desc: 'Creative treatment and production planning.' },
+      { num: 'III', title: 'EXECUTION', desc: 'Shooting or live deployment with technical rigor.' },
+      { num: 'IV', title: 'DELIVERY', desc: 'Post-production polish and format mastery.' }
     ],
     processFooter: 'Execution Framework',
 
-    metricsTitle: 'SCALE & REACH.',
+    metricsTitle: 'SCALE & REACH',
     metricsSub: 'Powered by data and global standards.',
     metricsLabels: ['Delivery Standard', 'End-to-end Pipeline', 'Support Operations'],
     metricsFooter: 'Metrics',
 
-    testimonialsTitle: 'TESTIMONIALS.',
+    testimonialsTitle: 'TESTIMONIALS',
     testimonialsSub: 'The trust of those who work with us.',
     testimonial1: '"It\'s rare to find a team that truly understands\nwhat you need. The result exceeded expectations."',
     testimonial1Author: '- R35 Gabinete de Projectos',
@@ -90,31 +90,31 @@ const STRINGS = {
     testimonial2Author: '- Samgual, Civil Construction',
     testimonialsFooter: 'Clients',
 
-    ctaTitle: 'LET\'S TALK.',
+    ctaTitle: 'LET\'S TALK',
     dateText: 'MOONBOW MEDIA 2026'
   },
   pt: {
     filename: 'apresentacao-moonbow-pt.pdf',
     docTitle: 'Moonbow - Comunicação Visual',
-    coverTitle: 'MOLDAR A\nCULTURA\nVISUAL.',
+    coverTitle: 'MOLDAR A\nCULTURA\nVISUAL',
     coverSub: 'Perfil Corporativo Moonbow // Produção Criativa & Estúdio Broadcast',
     
-    challengeTitle: 'O DESAFIO.',
+    challengeTitle: 'O DESAFIO',
     challengeSub: 'A paisagem digital está saturada.',
     challengeText: 'A atenção é a nova moeda de troca. Num mundo\nonde todos comunicam, ser bom já não é suficiente.\nÉ preciso ser memorável. É preciso criar impacto.',
     challengeFooter: 'Contexto',
 
-    aboutTitle: 'QUEM SOMOS.',
+    aboutTitle: 'QUEM SOMOS',
     aboutSub: 'Inspirados pela beleza rara da noite.',
     aboutText: 'Nascidos em Vila do Conde, o nosso nome inspira-se no raro\nfenómeno do arco-íris lunar. Combinamos técnica avançada\ncom sensibilidade artística para transformar visões em\nrealidade com qualidade cinematográfica.',
     aboutFooter: 'Sobre Nós',
 
-    approachTitle: 'A NOSSA ABORDAGEM.',
+    approachTitle: 'A NOSSA ABORDAGEM',
     approachSub: 'Arte encontra técnica.',
     approachText: 'Não fazemos apenas vídeos. Construímos\nmarcas através do movimento, cor e som.\nUma união perfeita entre o rigor técnico\ne a visão artística.',
     approachFooter: 'Estratégia',
 
-    valuesTitle: 'OS NOSSOS VALORES.',
+    valuesTitle: 'OS NOSSOS VALORES',
     valuesSub: 'Os pilares da nossa execução.',
     values: [
       { t: 'EXCELÊNCIA', d: 'Qualidade é não-negociável.' },
@@ -124,11 +124,11 @@ const STRINGS = {
     ],
     valuesFooter: 'Princípios',
 
-    manifestoTitle: 'ACREDITAMOS.',
+    manifestoTitle: 'ACREDITAMOS',
     manifestoText: 'Num mundo ruidoso, a precisão e a\narte cinematográfica destacam-se. Criamos\nexperiências audiovisuais que captam a\natenção e geram resultados.',
     manifestoFooter: 'Missão & Visão',
 
-    servicesTitle: 'O QUE FAZEMOS.',
+    servicesTitle: 'O QUE FAZEMOS',
     servicesSub: 'Disciplinas centrais desenvolvidas para marcas modernas.',
     cards: [
       { num: '01', title: 'Cinema & Vídeo', list: ['Comerciais & Filmes de Marca', 'Produção de Documentários', 'Cobertura de Eventos Premium', 'Correção de Cor & Finalização'] },
@@ -137,27 +137,27 @@ const STRINGS = {
     ],
     servicesFooter: 'A Nossa Especialidade',
 
-    workTitle: 'SETORES.',
+    workTitle: 'SETORES',
     workSub: 'Onde criamos impacto.',
     workBoxes: ['CORPORATE & MARCAS', 'EVENTOS', 'CULTURA & DESPORTO'],
     workFooter: 'Áreas de Atuação',
 
-    processBgTitle: 'O\nPROCESSO.',
+    processBgTitle: 'O\nPROCESSO',
     processBgSub: 'METODOLOGIA',
     steps: [
       { num: 'I.', title: 'DESCOBERTA', desc: 'Análise profunda dos objetivos e público-alvo.' },
-      { num: 'II.', title: 'CONCEITO', desc: 'Tratamento criativo e planeamento de produção.' },
-      { num: 'III.', title: 'EXECUÇÃO', desc: 'Filmagem ou transmissão com rigor técnico.' },
-      { num: 'IV.', title: 'ENTREGA', desc: 'Pós-produção e masterização de formatos.' }
+      { num: 'II', title: 'CONCEITO', desc: 'Tratamento criativo e planeamento de produção.' },
+      { num: 'III', title: 'EXECUÇÃO', desc: 'Filmagem ou transmissão com rigor técnico.' },
+      { num: 'IV', title: 'ENTREGA', desc: 'Pós-produção e masterização de formatos.' }
     ],
     processFooter: 'Estrutura de Execução',
 
-    metricsTitle: 'ESCALA & ALCANCE.',
+    metricsTitle: 'ESCALA & ALCANCE',
     metricsSub: 'Suportado por dados e padrões globais.',
     metricsLabels: ['Padrão de Entrega', 'Pipeline End-to-end', 'Operações de Suporte'],
     metricsFooter: 'Métricas',
 
-    testimonialsTitle: 'TESTEMUNHOS.',
+    testimonialsTitle: 'TESTEMUNHOS',
     testimonialsSub: 'A confiança de quem trabalha connosco.',
     testimonial1: '\"A Moonbow transformou completamente o nosso evento.\nProfissionais do início ao fim!\"',
     testimonial1Author: '- Diretor de Eventos, Technova Solutions',
@@ -165,7 +165,7 @@ const STRINGS = {
     testimonial2Author: '- Casamento em Vila do Conde',
     testimonialsFooter: 'Clientes',
 
-    ctaTitle: 'VAMOS\nFALAR.',
+    ctaTitle: 'VAMOS\nFALAR',
     dateText: 'MOONBOW MEDIA 2026'
   }
 };
