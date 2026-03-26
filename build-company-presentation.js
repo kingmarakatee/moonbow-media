@@ -31,7 +31,7 @@ const STRINGS = {
 
     aboutTitle: 'WHO WE ARE.',
     aboutSub: 'Inspired by the rare beauty of the night.',
-    aboutText: 'Born in Vila do Conde, our name is inspired by the rare\nmoonbow phenomenon. We combine advanced technique\nwith artistic sensitivity to turn visions into reality with\nuncompromised cinematic quality.',
+    aboutText: 'Our name is inspired by the moonbow — the lunar rainbow,\nextremely rare, only visible under specific conditions.\nA small team from Northern Portugal: video, broadcast\nand design, delivered without compromise.',
     aboutFooter: 'About Us',
 
     approachTitle: 'OUR APPROACH.',
@@ -84,10 +84,10 @@ const STRINGS = {
 
     testimonialsTitle: 'TESTIMONIALS.',
     testimonialsSub: 'The trust of those who work with us.',
-    testimonial1: '\"Moonbow completely transformed our event.\nProfessionals from start to finish!\"',
-    testimonial1Author: '- Events Director, Technova Solutions',
-    testimonial2: '\"They captured moments we didn\'t even know\nwere being filmed. Cinematic and moving.\"',
-    testimonial2Author: '- Wedding Client, Vila do Conde',
+    testimonial1: '"It\'s rare to find a team that truly understands\nwhat you need. The result exceeded expectations."',
+    testimonial1Author: '- R35 Gabinete de Projectos',
+    testimonial2: '"The broadcast ran without a single issue.\nWe\'ll work with them again."',
+    testimonial2Author: '- Samgual, Civil Construction',
     testimonialsFooter: 'Clients',
 
     ctaTitle: 'LET\'S TALK.',
